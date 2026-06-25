@@ -41,6 +41,44 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
+    - family: Beatrice
+      fonts:
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-Extrabold.ttf
+          weight: 900
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-ExtraboldItalic.ttf
+          weight: 900
+          style: italic
+
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-BoldItalic.ttf
+          weight: 700
+          style: italic
+
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-Semibold.ttf
+          weight: 600
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-SemiboldItalic.ttf
+          weight: 600
+          style: italic
+
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-RegularItalic.ttf
+          weight: 400
+          style: italic
+
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-Light.ttf
+          weight: 300
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-LightItalic.ttf
+          weight: 300
+          style: italic
+
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-Thin.ttf
+          weight: 200
+        - asset: assets/fonts/beatrice/BeatriceTRIAL-ThinItalic.ttf
+          weight: 200
+          style: italic
+
     - family: Source Sans Pro
       fonts:
         - asset: assets/fonts/source_sans_pro/SourceSansPro-Black.ttf
