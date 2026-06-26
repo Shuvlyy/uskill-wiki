@@ -9,25 +9,25 @@ class Button extends StatelessWidget {
   final _ButtonVariant _variant;
 
   const Button.primary({super.key, required this.text, required this.onPressed})
-    : _variant = _ButtonVariant.primary;
+    : _variant = .primary;
 
   const Button.secondary({
     super.key,
     required this.text,
     required this.onPressed,
-  }) : _variant = _ButtonVariant.secondary;
+  }) : _variant = .secondary;
 
   const Button.inverted({
     super.key,
     required this.text,
     required this.onPressed,
-  }) : _variant = _ButtonVariant.inverted;
+  }) : _variant = .inverted;
 
   const Button.outlined({
     super.key,
     required this.text,
     required this.onPressed,
-  }) : _variant = _ButtonVariant.outlined;
+  }) : _variant = .outlined;
 
   @override
   Widget build(BuildContext context) {

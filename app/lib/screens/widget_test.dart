@@ -1,6 +1,7 @@
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dot_stepper.dart';
 import 'package:app/widgets/icon_button.dart';
+import 'package:app/widgets/logo.dart';
 import 'package:app/widgets/option_slider.dart';
 import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
@@ -32,6 +33,18 @@ class _WidgetTestState extends State<WidgetTest> {
             crossAxisAlignment: .start,
             spacing: 20,
             children: [
+              Wrap(
+                runSpacing: 20,
+                spacing: 20,
+                children: [
+                  Logo.app(height: 92),
+                  Logo.univBlack(height: 92),
+                  Container(
+                    color: Colors.black,
+                    child: Logo.univWhite(height: 92),
+                  ),
+                ],
+              ),
               Title(title: 'title test'),
               Button.primary(text: 'Primary', onPressed: () {}),
               Button.secondary(text: 'Secondary', onPressed: () {}),
