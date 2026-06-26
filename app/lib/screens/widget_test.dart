@@ -1,8 +1,10 @@
 import 'package:app/widgets/button.dart';
+import 'package:app/widgets/dot_stepper.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/option_slider.dart';
 import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
+import 'package:gap/gap.dart';
 
 class WidgetTest extends StatefulWidget {
   const WidgetTest({super.key});
@@ -14,9 +16,11 @@ class WidgetTest extends StatefulWidget {
 class _WidgetTestState extends State<WidgetTest> {
   final _controller = TextEditingController();
 
-  int _currentIndex = 3;
+  int _currentLevelIndex = 3;
+  final List<String> _levels = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-  final List<String> _levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+  int _currentDotStepperIndex = 1;
+  final _dotStepperAmount = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +60,44 @@ class _WidgetTestState extends State<WidgetTest> {
               ),
               OptionSlider(
                 steps: _levels,
-                selectedIndex: _currentIndex,
+                selectedIndex: _currentLevelIndex,
                 onChanged: (int newIndex) {
                   setState(() {
-                    _currentIndex = newIndex;
+                    _currentLevelIndex = newIndex;
                   });
                 },
+              ),
+              Row(
+                mainAxisSize: .min,
+                children: [
+                  DotStepper(
+                    amount: _dotStepperAmount,
+                    index: _currentDotStepperIndex,
+                  ),
+                  const Gap(10),
+                  IconButton(
+                    icon: Icon(Icons.remove),
+                    onPressed: () {
+                      setState(() {
+                        if (_currentDotStepperIndex == 0) {
+                          return;
+                        }
+                        _currentDotStepperIndex--;
+                      });
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        if (_currentDotStepperIndex == _dotStepperAmount) {
+                          return;
+                        }
+                        _currentDotStepperIndex++;
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           ),
