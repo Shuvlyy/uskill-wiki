@@ -50,7 +50,6 @@ class _SliderNode extends StatefulWidget {
   final VoidCallback onTap;
 
   const _SliderNode({
-    super.key,
     required this.label,
     required this.isSelected,
     required this.onTap,

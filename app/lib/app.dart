@@ -19,7 +19,7 @@ class App extends ConsumerWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      // darkTheme: AppTheme.dark(),
     );
   }
 }
