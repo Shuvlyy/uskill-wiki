@@ -1,9 +1,9 @@
 import 'package:app/layouts/main_page_layout.dart';
+import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dot_stepper.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/logo.dart';
-import 'package:app/widgets/navbar.dart';
 import 'package:app/widgets/option_slider.dart';
 import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
@@ -113,6 +113,46 @@ class _WidgetTestState extends State<WidgetTest> {
               ),
             ],
           ),
+          ResourceDepositFormStepLayout(
+            title: 'Resource deposit form step',
+            body: Column(
+              spacing: 20,
+              children: [
+                TextFormField(
+                  controller: _controller,
+                  decoration: InputDecoration(hintText: 'Text form field'),
+                ),
+                DropdownMenu(
+                  hintText: 'Dropdown form field',
+
+                  expandedInsets: EdgeInsets.zero,
+                  requestFocusOnTap: false,
+
+                  dropdownMenuEntries: [
+                    DropdownMenuEntry<String>(value: 'item1', label: 'Item 1'),
+                    DropdownMenuEntry<String>(value: 'item2', label: 'Item 2'),
+                    DropdownMenuEntry<String>(value: 'item3', label: 'Item 3'),
+                    DropdownMenuEntry<String>(value: 'item4', label: 'Item 4'),
+                    DropdownMenuEntry<String>(value: 'item5', label: 'Item 5'),
+                  ],
+                  onSelected: (value) {},
+                ),
+                OptionSlider(
+                  steps: _levels,
+                  selectedIndex: _currentLevelIndex,
+                  onChanged: (int newIndex) {
+                    setState(() {
+                      _currentLevelIndex = newIndex;
+                    });
+                  },
+                ),
+                Text('A'),
+                Text('B'),
+                Text('C'),
+              ],
+            ),
+            pageIndex: _currentDotStepperIndex
+          )
         ],
       )
     );
