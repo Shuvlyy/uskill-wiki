@@ -1,4 +1,5 @@
 import 'package:app/core/theme.dart';
+import 'package:app/widgets/logo.dart';
 import 'package:app/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -66,9 +67,11 @@ class MainPageLayout extends StatelessWidget {
                     color: AppTheme.blackColor,
                     padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                     child: const Center(
-                      child: Column(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
+                        spacing: 40,
                         children: [
+                          Logo.univWhite(width: 150),
                           Text(
                             '© 2026 U-Skill Wiki',
                             style: TextStyle(color: Colors.white, fontSize: 16),
