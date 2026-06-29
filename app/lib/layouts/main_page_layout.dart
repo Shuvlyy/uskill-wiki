@@ -35,6 +35,21 @@ class MainPageLayout extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
+              child: ClipRect(
+                child: Transform.scale(
+                  scale: 6,
+                  alignment: Alignment.topLeft,
+                  child: Image.asset(
+                    'assets/images/Header-banner.jpg',
+                    height: 30,
+                    repeat: ImageRepeat.repeatX,
+                    alignment: Alignment.topLeft,
+                  ),
+                ),
+              ),
+            ),
+
+            SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: body,

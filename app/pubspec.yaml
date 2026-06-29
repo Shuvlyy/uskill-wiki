@@ -11,9 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+#  cupertino_icons: ^1.0.8
 
   gap: ^3.0.1
   go_router: ^17.3.0
@@ -40,6 +38,8 @@ flutter:
     - assets/logos/Logotype_U-Skill-Wiki_noir-72dpi.png
     - assets/logos/Logotype_Nantes-U_blanc-72dpi.png
     - assets/logos/Logotype_Nantes-U_noir-72dpi.png
+
+    - assets/images/Header-banner.jpg
 
   fonts:
     - family: Beatrice
