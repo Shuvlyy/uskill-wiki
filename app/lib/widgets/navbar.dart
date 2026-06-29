@@ -2,16 +2,15 @@ import 'package:app/core/theme.dart';
 import 'package:app/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class NavbarItem {
   final String label;
-  final VoidCallback onTap;
-  final bool isSelected;
+  final String route;
 
   NavbarItem({
     required this.label,
-    required this.onTap,
-    this.isSelected = false,
+    required this.route,
   });
 }
 
@@ -162,6 +161,11 @@ class NavbarDrawer extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   final item = items[index];
+
+                  final currentRoute = GoRouterState.of(context).uri.path;
+                  final isSelected = currentRoute == item.route ||
+                      (item.route != '/' && currentRoute.startsWith(item.route));
+
                   return ListTile(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -172,16 +176,16 @@ class NavbarDrawer extends StatelessWidget {
                         fontFamily: AppTheme.titleFont,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
-                        color: item.isSelected
+                        color: isSelected
                             ? AppTheme.primaryColor
                             : AppTheme.blackColor,
                       ),
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      item.onTap();
+                      context.go(item.route);
                     },
-                    selected: item.isSelected,
+                    selected: isSelected,
                     selectedTileColor: AppTheme.primaryColor.withValues(
                       alpha: 0.05,
                     ),
@@ -232,7 +236,10 @@ class _NavbarItemWidgetState extends State<_NavbarItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isSelected = widget.item.isSelected;
+    final currentRoute = GoRouterState.of(context).uri.path;
+
+    final isSelected = currentRoute == widget.item.route ||
+        (widget.item.route != '/' && currentRoute.startsWith(widget.item.route));
 
     final Color textColor;
     final Color underlineColor;
@@ -253,7 +260,7 @@ class _NavbarItemWidgetState extends State<_NavbarItemWidget> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: widget.item.onTap,
+        onTap: () => context.go(widget.item.route),
         behavior: HitTestBehavior.opaque,
         child: Container(
           height: double.infinity,
