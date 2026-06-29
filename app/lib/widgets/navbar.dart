@@ -16,7 +16,6 @@ class NavbarItem {
 
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
   final List<NavbarItem> items;
-  final Widget? logo;
   final double breakpoint;
   final double desktopHeight;
   final double mobileHeight;
@@ -24,7 +23,6 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   const Navbar({
     super.key,
     required this.items,
-    this.logo,
     this.breakpoint = 800,
     this.desktopHeight = 100,
     this.mobileHeight = 70,
@@ -42,7 +40,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0,
         centerTitle: true,
         toolbarHeight: mobileHeight,
-        title: logo ?? const Logo.app(height: 40),
+        title: const Logo.app(height: 40, goHome: true),
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -75,7 +73,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
       padding: const EdgeInsets.symmetric(horizontal: 40),
       child: Row(
         children: [
-          logo ?? const Logo.app(height: 60),
+          const Logo.app(height: 60, goHome: true),
           const Gap(40),
           Expanded(
             child: Row(
@@ -96,7 +94,6 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
 
 class NavbarWrapper extends StatelessWidget implements PreferredSizeWidget {
   final List<NavbarItem> items;
-  final Widget? logo;
   final double breakpoint;
   final double desktopHeight;
   final double mobileHeight;
@@ -104,7 +101,6 @@ class NavbarWrapper extends StatelessWidget implements PreferredSizeWidget {
   const NavbarWrapper({
     super.key,
     required this.items,
-    this.logo,
     this.breakpoint = 800,
     this.desktopHeight = 100,
     this.mobileHeight = 70,
@@ -114,7 +110,6 @@ class NavbarWrapper extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Navbar(
       items: items,
-      logo: logo,
       breakpoint: breakpoint,
       desktopHeight: desktopHeight,
       mobileHeight: mobileHeight,
