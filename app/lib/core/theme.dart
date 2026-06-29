@@ -13,6 +13,25 @@ class AppTheme {
   static ThemeData light() {
     final base = ThemeData.light();
 
+    final inputDecorationTheme = const InputDecorationTheme(
+      filled: true,
+      fillColor: whiteColor,
+      hintStyle: TextStyle(color: inactiveTextColor, fontFamily: bodyFont),
+      labelStyle: TextStyle(color: blackColor, fontFamily: titleFont),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: fieldOutlineColor, width: 1),
+        borderRadius: BorderRadius.zero,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primaryColor, width: 2),
+        borderRadius: BorderRadius.zero,
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: fieldOutlineColor, width: 1),
+        borderRadius: BorderRadius.zero,
+      ),
+    );
+
     return base.copyWith(
       primaryColor: primaryColor,
       scaffoldBackgroundColor: whiteColor,
@@ -58,24 +77,11 @@ class AppTheme {
         ),
       ),
 
-      inputDecorationTheme: const InputDecorationTheme(
-        filled: true,
-        fillColor: whiteColor,
-        hintStyle: TextStyle(color: inactiveTextColor, fontFamily: bodyFont),
-        labelStyle: TextStyle(color: blackColor, fontFamily: titleFont),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: fieldOutlineColor, width: 1),
-          borderRadius: BorderRadius.zero,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor, width: 2),
-          borderRadius: BorderRadius.zero,
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: fieldOutlineColor, width: 1),
-          borderRadius: BorderRadius.zero,
-        ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: inputDecorationTheme
       ),
+
+      inputDecorationTheme: inputDecorationTheme,
     );
   }
 
