@@ -31,40 +31,42 @@ class MainPageLayout extends StatelessWidget {
     return Scaffold(
       appBar: Navbar(items: navbarItems),
       drawer: NavbarDrawer(items: navbarItems),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: body,
+      body: SelectionArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: body,
+              ),
             ),
-          ),
-
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: double.infinity,
-                  color: AppTheme.blackColor,
-                  padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                  child: const Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '© 2026 U-Skill Wiki',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ],
+        
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    color: AppTheme.blackColor,
+                    padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                    child: const Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '© 2026 U-Skill Wiki',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              )
             )
-          )
-        ]
+          ]
+        ),
       ),
     );
   }
