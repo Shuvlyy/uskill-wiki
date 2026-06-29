@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 enum _LogoVariant { app, univWhite, univBlack }
 
@@ -7,14 +8,15 @@ class Logo extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit? fit;
+  final bool? goHome;
 
-  const Logo.app({super.key, this.width, this.height, this.fit})
+  const Logo.app({super.key, this.width, this.height, this.fit, this.goHome})
     : _variant = .app;
 
-  const Logo.univWhite({super.key, this.width, this.height, this.fit})
+  const Logo.univWhite({super.key, this.width, this.height, this.fit, this.goHome})
     : _variant = .univWhite;
 
-  const Logo.univBlack({super.key, this.width, this.height, this.fit})
+  const Logo.univBlack({super.key, this.width, this.height, this.fit, this.goHome})
     : _variant = .univBlack;
 
   String get _assetPath {
@@ -30,11 +32,24 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
+    final logoWidget = Image.asset(
       _assetPath,
       width: width,
       height: height,
       fit: fit ?? BoxFit.contain,
+    );
+
+    if (goHome == null || goHome! == false) {
+      return logoWidget;
+    }
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => context.go('/'),
+        behavior: HitTestBehavior.opaque,
+        child: logoWidget,
+      ),
     );
   }
 }
