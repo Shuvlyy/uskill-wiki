@@ -151,7 +151,8 @@ class _WidgetTestState extends State<WidgetTest> {
                 Text('C'),
               ],
             ),
-            pageIndex: _currentDotStepperIndex
+            pageIndex: _currentDotStepperIndex,
+            onNext: () {},
           )
         ],
       )
