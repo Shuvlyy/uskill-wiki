@@ -106,6 +106,7 @@ class AppTheme {
       headlineMedium: base.headlineMedium?.copyWith(
         fontFamily: titleFont,
         color: blackColor,
+        fontWeight: FontWeight.w500
       ),
       headlineSmall: base.headlineSmall?.copyWith(
         fontFamily: titleFont,
