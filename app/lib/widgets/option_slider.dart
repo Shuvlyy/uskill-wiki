@@ -112,21 +112,23 @@ class _SliderNodeState extends State<_SliderNode> {
               ),
             ),
             const SizedBox(height: 16),
-            AnimatedDefaultTextStyle(
-              duration: const Duration(milliseconds: 200),
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: AppTheme.bodyFont,
-                fontWeight: widget.isSelected
-                    ? FontWeight.bold
-                    : FontWeight.w500,
-                color: widget.isSelected
-                    ? AppTheme.blackColor
-                    : (_isHovered
-                          ? AppTheme.blackColor.withValues(alpha: .6)
-                          : AppTheme.inactiveTextColor),
+            SelectionContainer.disabled(
+              child: AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: AppTheme.bodyFont,
+                  fontWeight: widget.isSelected
+                      ? FontWeight.bold
+                      : FontWeight.w500,
+                  color: widget.isSelected
+                      ? AppTheme.blackColor
+                      : (_isHovered
+                            ? AppTheme.blackColor.withValues(alpha: .6)
+                            : AppTheme.inactiveTextColor),
+                ),
+                child: Text(widget.label),
               ),
-              child: Text(widget.label),
             ),
           ],
         ),

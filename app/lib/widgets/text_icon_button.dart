@@ -50,7 +50,6 @@ class _TextIconButtonState extends State<TextIconButton> {
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           child: Row(
             mainAxisSize: .min,
-            mainAxisAlignment: .center,
             spacing: 4,
             children: [
               Icon(
