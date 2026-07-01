@@ -41,6 +41,8 @@ flutter:
 
     - assets/images/Header-banner.jpg
 
+    - assets/pictos/star-of-life.svg
+
   fonts:
     - family: Beatrice
       fonts:
