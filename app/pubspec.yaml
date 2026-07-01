@@ -62,6 +62,9 @@ flutter:
           weight: 600
           style: italic
 
+        - asset: assets/fonts/beatrice/Beatrice-Medium.ttf
+          weight: 500
+
         - asset: assets/fonts/beatrice/BeatriceTRIAL-Regular.ttf
           weight: 400
         - asset: assets/fonts/beatrice/BeatriceTRIAL-RegularItalic.ttf
