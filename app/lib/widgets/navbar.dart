@@ -1,7 +1,6 @@
 import 'package:app/core/theme.dart';
 import 'package:app/widgets/logo.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class NavbarItem {
@@ -72,9 +71,9 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 40),
       child: Row(
+        spacing: 40,
         children: [
           const Logo.app(height: 60, goHome: true),
-          const Gap(40),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -247,8 +246,11 @@ class _NavbarItemWidgetState extends State<_NavbarItemWidget> {
       underlineColor = AppTheme.primaryColor.withValues(alpha: .7);
     } else {
       textColor = AppTheme.blackColor;
-      underlineColor = Colors.transparent;
+      underlineColor = AppTheme.primaryColor.withValues(alpha: 0);
     }
+
+    const animationDuration = Duration(milliseconds: 100);
+    const animationCurve = Curves.easeInOut;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
@@ -264,18 +266,28 @@ class _NavbarItemWidgetState extends State<_NavbarItemWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 4,
             children: [
-              Text(
-                widget.item.label,
+              AnimatedDefaultTextStyle(
+                duration: animationDuration,
+                curve: animationCurve,
                 style: TextStyle(
                   fontFamily: AppTheme.titleFont,
                   fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: textColor,
                 ),
+                child: Text(
+                  widget.item.label,
+                ),
               ),
-              const Gap(4),
-              Container(width: 26, height: 3, color: underlineColor),
+              AnimatedContainer(
+                duration: animationDuration,
+                curve: animationCurve,
+                width: 26,
+                height: 3,
+                color: underlineColor
+              ),
             ],
           ),
         ),
