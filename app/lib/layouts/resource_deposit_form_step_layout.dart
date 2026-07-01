@@ -10,11 +10,15 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
   final String title;
   final Widget body;
   final int pageIndex;
+  final VoidCallback onNext;
+  final VoidCallback? onBack;
 
   const ResourceDepositFormStepLayout({
     required this.title,
     required this.body,
     required this.pageIndex,
+    required this.onNext,
+    this.onBack,
     super.key
   });
 
@@ -45,22 +49,25 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 spacing: 20,
                 children: [
-                  DotStepper(amount: 6, index: pageIndex),
-                  PrimaryIconButton(icon: Icons.arrow_forward_ios, onPressed: () {})
+                  DotStepper(amount: 6, index: pageIndex + 1), // fixme: 6 is magic number 😤😤
+                  PrimaryIconButton(
+                    icon: Icons.arrow_forward_ios,
+                    onPressed: onNext
+                  )
                 ],
               )
             ],
           ),
         ),
-        const Gap(10),
-        TextIconButton(
-          icon: Icons.arrow_back_ios,
-          text: 'Back',
-          color: Colors.grey.shade500,
-          onTap: () {
-
-          }
-        ),
+        if (onBack != null) ... [
+          const Gap(10),
+          TextIconButton(
+            icon: Icons.arrow_back_ios,
+            text: 'Back',
+            color: Colors.grey.shade500,
+            onTap: onBack
+          ),
+        ]
       ],
     );
   }
