@@ -4,6 +4,7 @@ import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/text_icon_button.dart';
 import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class ResourceDepositFormStepLayout extends StatelessWidget {
@@ -12,6 +13,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
   final int pageIndex;
   final VoidCallback onNext;
   final VoidCallback? onBack;
+  final bool showMandatoryFieldsWarning;
 
   const ResourceDepositFormStepLayout({
     required this.title,
@@ -19,6 +21,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
     required this.pageIndex,
     required this.onNext,
     this.onBack,
+    this.showMandatoryFieldsWarning = false,
     super.key
   });
 
@@ -49,7 +52,38 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 spacing: 20,
                 children: [
-                  DotStepper(amount: 6, index: pageIndex + 1), // fixme: 6 is magic number 😤😤
+                  Expanded(
+                    child: Wrap(
+                      spacing: 20,
+                      runSpacing: 10,
+                      crossAxisAlignment: .center,
+                      children: [
+                        DotStepper(amount: 6, index: pageIndex + 1), // fixme: 6 is magic number 😤😤
+                        if (showMandatoryFieldsWarning) ... {
+                          Row(
+                            mainAxisSize: .min,
+                            spacing: 5,
+                            children: [
+                              SvgPicture.asset(
+                                'pictos/star-of-life.svg',
+                                height: 12,
+                                color: AppTheme.secondaryRedColor,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  'Ces champs sont obligatoires.',
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .labelLarge,
+                                ),
+                              )
+                            ],
+                          )
+                        }
+                      ],
+                    ),
+                  ),
                   PrimaryIconButton(
                     icon: Icons.arrow_forward_ios,
                     onPressed: onNext
