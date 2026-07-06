@@ -14,6 +14,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
   final VoidCallback onNext;
   final VoidCallback? onBack;
   final bool showMandatoryFieldsWarning;
+  final String? errorMessage;
 
   const ResourceDepositFormStepLayout({
     required this.title,
@@ -22,6 +23,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
     required this.onNext,
     this.onBack,
     this.showMandatoryFieldsWarning = false,
+    this.errorMessage,
     super.key
   });
 
@@ -44,10 +46,21 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 40,
+            // spacing: 40,
             children: [
               Title(title: title),
+              const Gap(40),
               body,
+              if (errorMessage != null) ... [
+                const Gap(20),
+                Text(
+                  errorMessage!,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppTheme.errorRedColor,
+                  ),
+                ),
+              ],
+              Gap(errorMessage != null ? 20 : 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 spacing: 20,
