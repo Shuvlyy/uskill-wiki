@@ -2,6 +2,11 @@ import 'package:app/layouts/main_page_layout.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/modals/resource_deposit_form_modal.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_1.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_2.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_3.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_4.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_finished.dart';
 import 'package:flutter/material.dart';
 
 class ResourceDepositPage extends StatefulWidget {
@@ -40,38 +45,41 @@ class _ResourceDepositPageState extends State<ResourceDepositPage> {
         formModal: _formModal,
         onNext: _nextPage
       ),
-      ResourceDepositFormStepLayout(
-        key: const ValueKey(1),
-        title: 'hi 1',
-        body: const Center(child: Text('1')),
-        pageIndex: 1,
-        onNext: _nextPage,
-        onBack: _previousPage,
-      ),
-      ResourceDepositFormStepLayout(
+      ResourceDepositStep2(
         key: const ValueKey(2),
-        title: 'hi 2',
-        body: const Center(child: Text('2')),
-        pageIndex: 2,
+        formModal: _formModal,
         onNext: _nextPage,
         onBack: _previousPage,
       ),
-      ResourceDepositFormStepLayout(
+      ResourceDepositStep3(
         key: const ValueKey(3),
-        title: 'hi 3',
-        body: const Center(child: Text('3')),
-        pageIndex: 3,
+        formModal: _formModal,
+        onNext: _nextPage,
+        onBack: _previousPage,
+      ),
+      ResourceDepositStep4(
+        key: const ValueKey(4),
+        formModal: _formModal,
+        onNext: _nextPage,
+        onBack: _previousPage,
+      ),
+      ResourceDepositStep5(
+        key: const ValueKey(5),
+        formModal: _formModal,
         onNext: _nextPage,
         onBack: _previousPage,
       ),
       ResourceDepositFormStepLayout(
-        key: const ValueKey(4),
-        title: 'hi 4',
-        body: const Center(child: Text('4')),
-        pageIndex: 4,
+        key: const ValueKey(6),
+        title: 'Prévisualisation de la ressource',
+        body: const Center(child: Text('6')),
+        pageIndex: 6,
         onNext: _submitForm,
         onBack: _previousPage,
-      )
+      ),
+      const ResourceDepositStepFinished(
+        key: ValueKey('finished'),
+      ),
     ];
 
     return MainPageLayout(
