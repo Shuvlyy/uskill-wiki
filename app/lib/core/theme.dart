@@ -6,6 +6,8 @@ class AppTheme {
   static const Color blackColor = Color(0xFF13100D);
   static const Color inactiveTextColor = Color(0xFF848484);
   static const Color fieldOutlineColor = Color(0xFFCCCCCC);
+  static const Color secondaryRedColor = Color(0XFFF20066);
+  static const Color errorRedColor = Color(0XFFB00020);
 
   static const String titleFont = 'Beatrice';
   static const String bodyFont = 'Source Sans Pro';
