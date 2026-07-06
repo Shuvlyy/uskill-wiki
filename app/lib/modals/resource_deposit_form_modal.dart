@@ -2,9 +2,10 @@ class ResourceDepositFormModal {
   String name = '';
   String description = '';
   String link = '';
-  String target = '';
+  List<String> targets = [];
+  String resourceType = '';
   String language = '';
-  double languageLevel = 3;  // B1
+  int languageLevel = -1;  // Unselected
   String authorName = '';
   String authorEmail = '';
 }
