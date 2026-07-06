@@ -20,6 +20,14 @@ class ResourceDepositStep1 extends StatefulWidget {
 class _ResourceDepositStep1State extends State<ResourceDepositStep1> {
   final _formKey = GlobalKey<FormState>();
 
+  void _next() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
+    widget.onNext();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResourceDepositFormStepLayout(
@@ -42,6 +50,7 @@ class _ResourceDepositStep1State extends State<ResourceDepositStep1> {
               hintText: 'Lorem ipsum dolor sit amet',
               initialValue: widget.formModal.description,
               maxLines: 6,
+              isRequired: false,
               onSaved: (value) => widget.formModal.description = value!,
             ),
             LabeledTextFormField(
@@ -53,7 +62,7 @@ class _ResourceDepositStep1State extends State<ResourceDepositStep1> {
           ],
         ),
       ),
-      onNext: widget.onNext
+      onNext: _next
     );
   }
 }
