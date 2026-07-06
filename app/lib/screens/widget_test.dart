@@ -73,6 +73,7 @@ class _WidgetTestState extends State<WidgetTest> {
             onSelected: (value) {},
           ),
           OptionSlider(
+            label: 'Option slider',
             steps: _levels,
             selectedIndex: _currentLevelIndex,
             onChanged: (int newIndex) {
@@ -138,6 +139,8 @@ class _WidgetTestState extends State<WidgetTest> {
                   onSelected: (value) {},
                 ),
                 OptionSlider(
+                  label: 'Option slider',
+                  isRequired: false,
                   steps: _levels,
                   selectedIndex: _currentLevelIndex,
                   onChanged: (int newIndex) {
