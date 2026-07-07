@@ -104,7 +104,7 @@ final resourceSearchFormProvider =
   return ResourceSearchFormNotifier();
 });
 
-final filteredResourcesProvider = Provider<List<Resource>>((ref) {
+final filteredResourcesProvider = Provider.autoDispose<List<Resource>>((ref) {
   final searchState = ref.watch(resourceSearchFormProvider);
   final allResources = ref.watch(mockResourcesProvider);
 
