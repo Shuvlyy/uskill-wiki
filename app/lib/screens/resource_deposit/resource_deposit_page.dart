@@ -8,7 +8,8 @@ import 'package:app/screens/resource_deposit/steps/resource_deposit_step_4.dart'
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_loading.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_finished.dart';
-import 'package:flutter/material.dart';
+import 'package:app/widgets/title.dart';
+import 'package:flutter/material.dart' hide Title;
 
 class ResourceDepositPage extends StatefulWidget {
   const ResourceDepositPage({super.key});
@@ -79,7 +80,16 @@ class _ResourceDepositPageState extends State<ResourceDepositPage> {
 
     return MainPageLayout(
       body: Center(
-        child: steps[_currentIndex]
+        child: Column(
+          spacing: 40,
+          children: [
+            Title(
+              title: 'Dépôt de ressource',
+              decorationAlignment: .center,
+            ),
+            steps[_currentIndex]
+          ],
+        )
       ),
     );
   }
