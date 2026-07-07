@@ -1,6 +1,6 @@
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
-import 'package:app/modals/resource_deposit_form_modal.dart';
+import 'package:app/form/resource_deposit_form.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_1.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_2.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_3.dart';
@@ -18,7 +18,7 @@ class ResourceDepositPage extends StatefulWidget {
 
 class _ResourceDepositPageState extends State<ResourceDepositPage> {
   int _currentIndex = 0;
-  final _formModal = ResourceDepositFormModal();
+  final _formModal = ResourceDepositForm();
 
   void _nextPage() {
     setState(() {

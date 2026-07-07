@@ -1,11 +1,11 @@
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
-import 'package:app/modals/resource_deposit_form_modal.dart';
+import 'package:app/form/resource_deposit_form.dart';
 import 'package:app/widgets/labeled_dropdown_menu.dart';
 import 'package:app/widgets/option_slider.dart';
 import 'package:flutter/material.dart';
 
 class ResourceDepositStep4 extends StatefulWidget {
-  final ResourceDepositFormModal formModal;
+  final ResourceDepositForm formModal;
   final VoidCallback onNext;
   final VoidCallback onBack;
 

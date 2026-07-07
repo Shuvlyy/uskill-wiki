@@ -1,4 +1,4 @@
-class ResourceDepositFormModal {
+class ResourceDepositForm {
   String name = '';
   String description = '';
   String link = '';

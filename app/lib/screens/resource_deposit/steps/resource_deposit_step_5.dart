@@ -1,11 +1,11 @@
 import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
-import 'package:app/modals/resource_deposit_form_modal.dart';
+import 'package:app/form/resource_deposit_form.dart';
 import 'package:app/widgets/labeled_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class ResourceDepositStep5 extends StatefulWidget {
-  final ResourceDepositFormModal formModal;
+  final ResourceDepositForm formModal;
   final VoidCallback onNext;
   final VoidCallback onBack;
 
