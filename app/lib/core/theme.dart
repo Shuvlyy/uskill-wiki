@@ -9,6 +9,11 @@ class AppTheme {
   static const Color secondaryRedColor = Color(0XFFF20066);
   static const Color errorRedColor = Color(0XFFB00020);
 
+  static const Color cardBorderColor = Color(0xFFE0E0E0);
+  static const Color cardBgColor = Color(0xFFFFFFFF);
+  static const Color avatarBgColor = Color(0xFFF0F0F0);
+  static const Color iconColor = Color(0xFF848484);
+
   static const String titleFont = 'Beatrice';
   static const String bodyFont = 'Source Sans Pro';
 
