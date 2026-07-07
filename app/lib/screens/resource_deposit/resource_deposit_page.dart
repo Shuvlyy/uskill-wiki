@@ -6,6 +6,8 @@ import 'package:app/screens/resource_deposit/steps/resource_deposit_step_2.dart'
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_3.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_4.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_6.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_7.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_loading.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_finished.dart';
 import 'package:app/widgets/title.dart';
@@ -26,10 +28,12 @@ class ResourceDepositPage extends ConsumerWidget {
       const ResourceDepositStep3(),
       const ResourceDepositStep4(),
       const ResourceDepositStep5(),
+      const ResourceDepositStep6(),
+      const ResourceDepositStep7(),
       ResourceDepositFormStepLayout(
         title: 'Prévisualisation de la ressource',
-        body: const Center(child: Text('6')),
-        pageIndex: 5,
+        body: const Center(child: Text('8')),
+        pageIndex: 7,
         onNext: notifier.submit,
         onBack: notifier.previousStep,
       ),

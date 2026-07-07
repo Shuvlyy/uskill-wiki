@@ -1,3 +1,4 @@
+import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/labeled_text_form_field.dart';
@@ -54,6 +55,12 @@ class _ResourceDepositStep1State extends ConsumerState<ResourceDepositStep1> {
               label: 'Lien',
               hintText: 'https://...',
               initialValue: state.link,
+              validator: (String? val) {
+                if (!Regexes.url.hasMatch(val!)) {
+                  return "Veuillez entrer une URL valide.";
+                }
+                return null;
+              },
               onSaved: (value) => notifier.updateStep1(link: value!),
             ),
           ],
