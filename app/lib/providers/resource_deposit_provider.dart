@@ -1,3 +1,4 @@
+import 'package:app/models/resource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ResourceDepositState {
@@ -19,6 +20,12 @@ class ResourceDepositState {
   final int languageLevel;
 
   // step 5
+  final LearningFocus? focus;
+
+  // step 6
+  final List<String> tags;
+
+  // step 7
   final String authorName;
   final String authorEmail;
 
@@ -33,6 +40,8 @@ class ResourceDepositState {
     this.resourceType = '',
     this.language = '',
     this.languageLevel = -1,
+    this.focus,
+    this.tags = const [],
     this.authorName = '',
     this.authorEmail = '',
     this.showErrors = false,
@@ -47,6 +56,8 @@ class ResourceDepositState {
     String? resourceType,
     String? language,
     int? languageLevel,
+    LearningFocus? focus,
+    List<String>? tags,
     String? authorName,
     String? authorEmail,
     bool? showErrors,
@@ -60,6 +71,8 @@ class ResourceDepositState {
       resourceType: resourceType ?? this.resourceType,
       language: language ?? this.language,
       languageLevel: languageLevel ?? this.languageLevel,
+      focus: focus ?? this.focus,
+      tags: tags ?? this.tags,
       authorName: authorName ?? this.authorName,
       authorEmail: authorEmail ?? this.authorEmail,
       showErrors: showErrors ?? this.showErrors,
@@ -102,7 +115,21 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
     );
   }
 
-  void updateStep5({String? authorName, String? authorEmail}) {
+  void setFocus(LearningFocus focus) {
+    state = state.copyWith(focus: focus, tags: [], showErrors: false);
+  }
+
+  void toggleTag(String tag) {
+    final tags = List<String>.from(state.tags);
+    if (tags.contains(tag)) {
+      tags.remove(tag);
+    } else {
+      tags.add(tag);
+    }
+    state = state.copyWith(tags: tags, showErrors: false);
+  }
+
+  void updateStepAuthor({String? authorName, String? authorEmail}) {
     state = state.copyWith(
       authorName: authorName,
       authorEmail: authorEmail,
