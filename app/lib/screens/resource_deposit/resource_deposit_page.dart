@@ -6,6 +6,7 @@ import 'package:app/screens/resource_deposit/steps/resource_deposit_step_2.dart'
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_3.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_4.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_loading.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_finished.dart';
 import 'package:flutter/material.dart';
 
@@ -32,8 +33,9 @@ class _ResourceDepositPageState extends State<ResourceDepositPage> {
     });
   }
 
-  void _submitForm() {
-    print("Formulaire soumis par: ${_formModal.authorName}");
+  void _submitForm() async {
+    _nextPage();
+    await Future.delayed(const Duration(seconds: 2)); // net sim
     _nextPage();
   }
 
@@ -41,45 +43,38 @@ class _ResourceDepositPageState extends State<ResourceDepositPage> {
   Widget build(BuildContext context) {
     final List<Widget> steps = [
       ResourceDepositStep1(
-        key: const ValueKey(1),
         formModal: _formModal,
         onNext: _nextPage
       ),
       ResourceDepositStep2(
-        key: const ValueKey(2),
         formModal: _formModal,
         onNext: _nextPage,
         onBack: _previousPage,
       ),
       ResourceDepositStep3(
-        key: const ValueKey(3),
         formModal: _formModal,
         onNext: _nextPage,
         onBack: _previousPage,
       ),
       ResourceDepositStep4(
-        key: const ValueKey(4),
         formModal: _formModal,
         onNext: _nextPage,
         onBack: _previousPage,
       ),
       ResourceDepositStep5(
-        key: const ValueKey(5),
         formModal: _formModal,
         onNext: _nextPage,
         onBack: _previousPage,
       ),
       ResourceDepositFormStepLayout(
-        key: const ValueKey(6),
         title: 'Prévisualisation de la ressource',
         body: const Center(child: Text('6')),
-        pageIndex: 6,
+        pageIndex: 5, // index was 6 but it should be 5 (0-based, step 6/6)
         onNext: _submitForm,
         onBack: _previousPage,
       ),
-      const ResourceDepositStepFinished(
-        key: ValueKey('finished'),
-      ),
+      const ResourceDepositStepLoading(),
+      const ResourceDepositStepFinished(),
     ];
 
     return MainPageLayout(
