@@ -1,3 +1,4 @@
+import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/form/resource_deposit_form.dart';
 import 'package:app/widgets/selectable_card.dart';
@@ -45,34 +46,7 @@ class _ResourceDepositStep2State extends State<ResourceDepositStep2> {
 
   @override
   Widget build(BuildContext context) {
-    return ResourceDepositFormStepLayout(
-      title: 'Cible',
-      pageIndex: 1,
-      onNext: _validateAndNext,
-      onBack: widget.onBack,
-      errorMessage: _error,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final bool isMobile = constraints.maxWidth < 450;
-
-          if (isMobile) {
-            return Column(
-              spacing: 20,
-              children: _buildCards(),
-            );
-          }
-
-          return Row(
-            spacing: 20,
-            children: _buildCards().map((card) => Expanded(child: card)).toList(),
-          );
-        },
-      ),
-    );
-  }
-
-  List<Widget> _buildCards() {
-    return [
+    final cards = [
       SelectableCard.vertical(
         label: 'Étudiants',
         icon: Icons.school_outlined,
@@ -87,10 +61,35 @@ class _ResourceDepositStep2State extends State<ResourceDepositStep2> {
       ),
       SelectableCard.vertical(
         label: 'Staff',
-        icon: Icons.work_outline,
+        icon: Icons.badge,
         isSelected: widget.formModal.targets.contains('Staff'),
         onTap: () => _toggleTarget('Staff'),
       ),
     ];
+
+    return ResourceDepositFormStepLayout(
+      title: 'Cible',
+      pageIndex: 1,
+      onNext: _validateAndNext,
+      onBack: widget.onBack,
+      errorMessage: _error,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool isMobile = constraints.maxWidth < Constants.mobileWidthThreshold;
+
+          if (isMobile) {
+            return Column(
+              spacing: 20,
+              children: cards,
+            );
+          }
+
+          return Row(
+            spacing: 20,
+            children: cards.map((card) => Expanded(child: card)).toList(),
+          );
+        },
+      ),
+    );
   }
 }
