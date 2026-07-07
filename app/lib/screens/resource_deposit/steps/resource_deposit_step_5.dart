@@ -1,26 +1,18 @@
 import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
-import 'package:app/form/resource_deposit_form.dart';
+import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/labeled_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResourceDepositStep5 extends StatefulWidget {
-  final ResourceDepositForm formModal;
-  final VoidCallback onNext;
-  final VoidCallback onBack;
-
-  const ResourceDepositStep5({
-    required this.formModal,
-    required this.onNext,
-    required this.onBack,
-    super.key,
-  });
+class ResourceDepositStep5 extends ConsumerStatefulWidget {
+  const ResourceDepositStep5({super.key});
 
   @override
-  State<ResourceDepositStep5> createState() => _ResourceDepositStep5State();
+  ConsumerState<ResourceDepositStep5> createState() => _ResourceDepositStep5State();
 }
 
-class _ResourceDepositStep5State extends State<ResourceDepositStep5> {
+class _ResourceDepositStep5State extends ConsumerState<ResourceDepositStep5> {
   final _formKey = GlobalKey<FormState>();
 
   void _next() {
@@ -28,11 +20,14 @@ class _ResourceDepositStep5State extends State<ResourceDepositStep5> {
       return;
     }
     _formKey.currentState!.save();
-    widget.onNext();
+    ref.read(resourceDepositProvider.notifier).nextStep();
   }
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(resourceDepositProvider);
+    final notifier = ref.read(resourceDepositProvider.notifier);
+
     return ResourceDepositFormStepLayout(
       title: 'Auteur',
       showMandatoryFieldsWarning: true,
@@ -45,26 +40,26 @@ class _ResourceDepositStep5State extends State<ResourceDepositStep5> {
             LabeledTextFormField(
               label: 'Nom prénom',
               hintText: 'John Doe',
-              initialValue: widget.formModal.authorName,
-              onSaved: (value) => widget.formModal.authorName = value!,
+              initialValue: state.authorName,
+              onSaved: (value) => notifier.updateStep5(authorName: value!),
             ),
             LabeledTextFormField(
               label: 'E-mail',
               hintText: 'john.doe@univ-nantes.fr',
-              initialValue: widget.formModal.authorEmail,
+              initialValue: state.authorEmail,
               validator: (String? val) {
                 if (!Regexes.email.hasMatch(val!)) {
                   return "Veuillez entrer une adresse e-mail valide.";
                 }
                 return null;
               },
-              onSaved: (value) => widget.formModal.authorEmail = value!,
+              onSaved: (value) => notifier.updateStep5(authorEmail: value!),
             ),
           ],
         ),
       ),
       onNext: _next,
-      onBack: widget.onBack,
+      onBack: notifier.previousStep,
     );
   }
 }

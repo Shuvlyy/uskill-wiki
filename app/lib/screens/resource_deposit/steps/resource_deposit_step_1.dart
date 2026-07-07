@@ -1,23 +1,17 @@
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
-import 'package:app/form/resource_deposit_form.dart';
+import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/labeled_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResourceDepositStep1 extends StatefulWidget {
-  final ResourceDepositForm formModal;
-  final VoidCallback onNext;
-
-  const ResourceDepositStep1({
-    required this.formModal,
-    required this.onNext,
-    super.key,
-  });
+class ResourceDepositStep1 extends ConsumerStatefulWidget {
+  const ResourceDepositStep1({super.key});
 
   @override
-  State<ResourceDepositStep1> createState() => _ResourceDepositStep1State();
+  ConsumerState<ResourceDepositStep1> createState() => _ResourceDepositStep1State();
 }
 
-class _ResourceDepositStep1State extends State<ResourceDepositStep1> {
+class _ResourceDepositStep1State extends ConsumerState<ResourceDepositStep1> {
   final _formKey = GlobalKey<FormState>();
 
   void _next() {
@@ -25,11 +19,14 @@ class _ResourceDepositStep1State extends State<ResourceDepositStep1> {
       return;
     }
     _formKey.currentState!.save();
-    widget.onNext();
+    ref.read(resourceDepositProvider.notifier).nextStep();
   }
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(resourceDepositProvider);
+    final notifier = ref.read(resourceDepositProvider.notifier);
+
     return ResourceDepositFormStepLayout(
       title: 'Ressource',
       showMandatoryFieldsWarning: true,
@@ -42,22 +39,22 @@ class _ResourceDepositStep1State extends State<ResourceDepositStep1> {
             LabeledTextFormField(
               label: 'Nom de la ressource',
               hintText: 'Exercice sur les panthères roses',
-              initialValue: widget.formModal.name,
-              onSaved: (value) => widget.formModal.name = value!,
+              initialValue: state.name,
+              onSaved: (value) => notifier.updateStep1(name: value!),
             ),
             LabeledTextFormField(
               label: 'Description',
               hintText: 'Lorem ipsum dolor sit amet',
-              initialValue: widget.formModal.description,
+              initialValue: state.description,
               maxLines: 6,
               isRequired: false,
-              onSaved: (value) => widget.formModal.description = value!,
+              onSaved: (value) => notifier.updateStep1(description: value!),
             ),
             LabeledTextFormField(
               label: 'Lien',
               hintText: 'https://...',
-              initialValue: widget.formModal.link,
-              onSaved: (value) => widget.formModal.link = value!,
+              initialValue: state.link,
+              onSaved: (value) => notifier.updateStep1(link: value!),
             ),
           ],
         ),

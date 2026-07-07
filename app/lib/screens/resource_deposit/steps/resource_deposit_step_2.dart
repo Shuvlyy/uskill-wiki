@@ -1,78 +1,47 @@
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
-import 'package:app/form/resource_deposit_form.dart';
+import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/selectable_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResourceDepositStep2 extends StatefulWidget {
-  final ResourceDepositForm formModal;
-  final VoidCallback onNext;
-  final VoidCallback onBack;
-
-  const ResourceDepositStep2({
-    required this.formModal,
-    required this.onNext,
-    required this.onBack,
-    super.key,
-  });
+class ResourceDepositStep2 extends ConsumerWidget {
+  const ResourceDepositStep2({super.key});
 
   @override
-  State<ResourceDepositStep2> createState() => _ResourceDepositStep2State();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(resourceDepositProvider);
+    final notifier = ref.read(resourceDepositProvider.notifier);
 
-class _ResourceDepositStep2State extends State<ResourceDepositStep2> {
-  String? _error;
+    final isValid = state.targets.isNotEmpty;
 
-  void _toggleTarget(String target) {
-    setState(() {
-      if (widget.formModal.targets.contains(target)) {
-        widget.formModal.targets.remove(target);
-      } else {
-        widget.formModal.targets.add(target);
-        _error = null;
-      }
-    });
-  }
-
-  void _validateAndNext() {
-    if (widget.formModal.targets.isEmpty) {
-      setState(() {
-        _error = 'Veuillez sélectionner au moins une cible.';
-      });
-    } else {
-      widget.onNext();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     final cards = [
       SelectableCard.vertical(
         label: 'Étudiants',
         icon: Icons.school_outlined,
-        isSelected: widget.formModal.targets.contains('Étudiants'),
-        onTap: () => _toggleTarget('Étudiants'),
+        isSelected: state.targets.contains('Étudiants'),
+        onTap: () => notifier.toggleTarget('Étudiants'),
       ),
       SelectableCard.vertical(
         label: 'Enseignants',
         icon: Icons.person_outline,
-        isSelected: widget.formModal.targets.contains('Enseignants'),
-        onTap: () => _toggleTarget('Enseignants'),
+        isSelected: state.targets.contains('Enseignants'),
+        onTap: () => notifier.toggleTarget('Enseignants'),
       ),
       SelectableCard.vertical(
         label: 'Staff',
         icon: Icons.badge,
-        isSelected: widget.formModal.targets.contains('Staff'),
-        onTap: () => _toggleTarget('Staff'),
+        isSelected: state.targets.contains('Staff'),
+        onTap: () => notifier.toggleTarget('Staff'),
       ),
     ];
 
     return ResourceDepositFormStepLayout(
       title: 'Cible',
       pageIndex: 1,
-      onNext: _validateAndNext,
-      onBack: widget.onBack,
-      errorMessage: _error,
+      onNext: () => notifier.validateAndNext(isValid),
+      onBack: notifier.previousStep,
+      errorMessage: (state.showErrors && !isValid) ? 'Veuillez sélectionner au moins une cible.' : null,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final bool isMobile = constraints.maxWidth < Constants.mobileWidthThreshold;

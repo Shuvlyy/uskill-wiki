@@ -4,10 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ResourceSearchState {
   final int currentStepIndex;
+
+  // step 1
   final UserRole? selectedRole;
+
+  // step 2
   final String? selectedLanguage;
+
+  // step 3
   final LearningFocus? selectedFocus;
+
+  // step 4
   final List<String> selectedTags;
+
+  // step 5
   final bool showErrors;
 
   const ResourceSearchState({
