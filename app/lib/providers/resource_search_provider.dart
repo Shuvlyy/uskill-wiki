@@ -1,4 +1,4 @@
-import 'package:app/data/mock_resources.dart';
+import 'package:app/api/api_repository.dart';
 import 'package:app/models/resource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -104,26 +104,14 @@ final resourceSearchFormProvider =
   return ResourceSearchFormNotifier();
 });
 
-final filteredResourcesProvider = Provider.autoDispose<List<Resource>>((ref) {
+final filteredResourcesProvider = FutureProvider.autoDispose<List<Resource>>((ref) async {
   final searchState = ref.watch(resourceSearchFormProvider);
-  final allResources = ref.watch(mockResourcesProvider);
+  final repository = ref.watch(apiRepositoryProvider);
 
-  return allResources.where((resource) {
-    if (searchState.selectedRole != null &&
-        !resource.targetAudiences.contains(searchState.selectedRole)) {
-      return false;
-    }
-    if (searchState.selectedLanguage != null &&
-        resource.language != searchState.selectedLanguage) {
-      return false;
-    }
-    if (searchState.selectedFocus != null &&
-        resource.focus != searchState.selectedFocus) {
-      return false;
-    }
-    if (searchState.selectedTags.isNotEmpty) {
-      return searchState.selectedTags.any((tag) => resource.tags.contains(tag));
-    }
-    return true;
-  }).toList();
+  return repository.getResources(
+    role: searchState.selectedRole,
+    language: searchState.selectedLanguage,
+    focus: searchState.selectedFocus,
+    tags: searchState.selectedTags,
+  );
 });
