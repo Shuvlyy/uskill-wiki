@@ -1,5 +1,9 @@
+import 'package:app/api/api_repository.dart';
 import 'package:app/models/resource.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+enum SubmitStatus { idle, loading, success, error }
 
 class ResourceDepositState {
   final int currentStepIndex;
@@ -31,6 +35,9 @@ class ResourceDepositState {
 
   final bool showErrors;
 
+  final SubmitStatus submitStatus;
+  final String? errorMessage;
+
   const ResourceDepositState({
     this.currentStepIndex = 0,
     this.name = '',
@@ -45,6 +52,8 @@ class ResourceDepositState {
     this.authorName = '',
     this.authorEmail = '',
     this.showErrors = false,
+    this.submitStatus = SubmitStatus.idle,
+    this.errorMessage,
   });
 
   ResourceDepositState copyWith({
@@ -61,6 +70,8 @@ class ResourceDepositState {
     String? authorName,
     String? authorEmail,
     bool? showErrors,
+    SubmitStatus? submitStatus,
+    String? errorMessage,
   }) {
     return ResourceDepositState(
       currentStepIndex: currentStepIndex ?? this.currentStepIndex,
@@ -76,6 +87,8 @@ class ResourceDepositState {
       authorName: authorName ?? this.authorName,
       authorEmail: authorEmail ?? this.authorEmail,
       showErrors: showErrors ?? this.showErrors,
+      submitStatus: submitStatus ?? this.submitStatus,
+      errorMessage: errorMessage,
     );
   }
 }
@@ -162,9 +175,41 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
   }
 
   Future<void> submit() async {
+    state = state.copyWith(submitStatus: SubmitStatus.loading, errorMessage: null);
     nextStep(); // to loading step
-    await Future.delayed(const Duration(seconds: 2));
-    nextStep(); // to finished step
+
+    try {
+      final repository = ref.read(apiRepositoryProvider);
+
+      final newResource = Resource(
+        title: state.name,
+        description: state.description,
+        contentUrl: state.link,
+        type: ResourceType.values.firstWhere((e) => e.name == state.resourceType),
+        language: state.language,
+        level: LanguageLevel.values[state.languageLevel],
+        focus: state.focus!,
+        targetAudiences: state.targets.map((t) => UserRole.values.firstWhere((e) => e.name == t)).toSet(),
+        tags: state.tags,
+        author: Author(name: state.authorName, email: state.authorEmail),
+      );
+
+      await repository.submitResource(newResource);
+
+      state = state.copyWith(submitStatus: SubmitStatus.success);
+      nextStep(); // to finished step
+    } catch (e) {
+      String errMsg = 'An unexpected error occurred.';
+      if (e is DioException) {
+        errMsg = 'Server error: ${e.response?.statusCode} - ${e.message}';
+      }
+
+      state = state.copyWith(
+        submitStatus: SubmitStatus.error,
+        errorMessage: errMsg,
+      );
+      nextStep(); // to finished step (which will be error lol)
+    }
   }
 
   void reset() {
