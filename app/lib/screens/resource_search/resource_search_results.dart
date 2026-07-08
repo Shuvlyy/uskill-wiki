@@ -15,60 +15,68 @@ class ResourceSearchResults extends ConsumerWidget {
     final filteredResources = ref.watch(filteredResourcesProvider);
     final notifier = ref.read(resourceSearchFormProvider.notifier);
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: 650
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextIconButton(
-            icon: Icons.arrow_back_ios,
-            text: 'Retour aux filtres',
-            color: Colors.grey.shade500,
-            onTap: notifier.previousStep,
+    return filteredResources.when(
+      data: (res) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 650
           ),
-          const Gap(20),
-          Text(
-            'Ressources trouvées',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const Gap(5),
-          Text(
-            '${filteredResources.length} résultat(s) correspondant à votre recherche',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppTheme.inactiveTextColor,
-            ),
-          ),
-          const Gap(40),
-          if (filteredResources.isEmpty)
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Text(
-                  'Aucune ressource ne correspond à vos critères.',
-                  style: Theme.of(context).textTheme.bodyLarge,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextIconButton(
+                icon: Icons.arrow_back_ios,
+                text: 'Retour aux filtres',
+                color: Colors.grey.shade500,
+                onTap: notifier.previousStep,
+              ),
+              const Gap(20),
+              Text(
+                'Ressources trouvées',
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            )
-          else
-            Column(
-              spacing: 20,
-              children: filteredResources
-                .map((res) => ResourceCard(resource: res))
-                .toList(),
-            ),
-          const Gap(40),
-          Center(
-            child: Button.primary(
-              text: 'Recommencer la recherche',
-              onPressed: () => notifier.reset()
-            )
+              const Gap(5),
+              Text(
+                '${res.length} résultat(s) correspondant à votre recherche',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppTheme.inactiveTextColor,
+                ),
+              ),
+              const Gap(40),
+              if (res.isEmpty)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Text(
+                      'Aucune ressource ne correspond à vos critères.',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+                )
+              else
+                Column(
+                  spacing: 20,
+                  children: res.map((r) => ResourceCard(resource: r)).toList(),
+                ),
+              const Gap(40),
+              Center(
+                  child: Button.primary(
+                      text: 'Recommencer la recherche',
+                      onPressed: () => notifier.reset()
+                  )
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
+      error: (err, stack) {
+        return Center(child: Text('Error: $err'));
+      },
+      loading: () {
+        return CircularProgressIndicator();
+      }
     );
   }
 }
