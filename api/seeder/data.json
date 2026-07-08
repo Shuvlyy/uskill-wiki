@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Beginner French Vocabulary Game",
+    "description": "An interactive game to learn basic French greetings and colors.",
+    "content_url": "https://example.com/french-game",
+    "type": "game",
+    "language": "fr",
+    "focus": "language",
+    "level": "a1",
+    "target_audiences": ["student", "teacher"],
+    "tags": ["vocabulary", "beginners", "interactive"],
+    "author_name": "Marie Curie",
+    "author_email": "marie@example.com",
+    "status": "approved"
+  },
+  {
+    "title": "Advanced Dart Architecture",
+    "description": "An article breaking down Riverpod and clean architecture in Flutter.",
+    "content_url": "https://example.com/dart-article",
+    "type": "article",
+    "language": "en",
+    "focus": "skill",
+    "level": "c1",
+    "target_audiences": ["student", "staff"],
+    "tags": ["flutter", "riverpod", "architecture"],
+    "author_name": "Bob Builder",
+    "author_email": "bob@example.com",
+    "status": "approved"
+  },
+  {
+    "title": "Pending Spanish Video",
+    "description": "This video hasn't been approved by admins yet.",
+    "content_url": "https://example.com/spanish-video",
+    "type": "video",
+    "language": "es",
+    "focus": "language",
+    "level": "a2",
+    "target_audiences": ["student"],
+    "tags": ["listening", "video"],
+    "author_name": "Carlos Santana",
+    "author_email": "carlos@example.com",
+    "status": "pending"
+  }
+]
