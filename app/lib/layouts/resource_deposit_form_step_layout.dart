@@ -71,7 +71,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                       runSpacing: 10,
                       crossAxisAlignment: .center,
                       children: [
-                        DotStepper(amount: 6, index: pageIndex + 1), // fixme: 6 is magic number 😤😤
+                        DotStepper(amount: 7, index: pageIndex + 1), // fixme: 7 is magic number 😤😤
                         if (showMandatoryFieldsWarning) ... {
                           Row(
                             mainAxisSize: .min,
@@ -85,10 +85,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                               Flexible(
                                 child: Text(
                                   'Ces champs sont obligatoires.',
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .labelLarge,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                               )
                             ],
