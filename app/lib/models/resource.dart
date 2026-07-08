@@ -1,48 +1,47 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'resource.freezed.dart';
+part 'resource.g.dart';
+
+@JsonEnum()
 enum UserRole { student, teacher, staff }
+
+@JsonEnum()
 enum ResourceType { exercise, game, video, article, link }
+
+@JsonEnum()
 enum LanguageLevel { a1, a2, b1, b2, c1, c2 }
+
+@JsonEnum()
 enum LearningFocus { language, skill }
 
-class Author {
-  final String name;
-  final String email;
+@freezed
+abstract class Author with _$Author {
+  const factory Author({
+    required String name,
+    required String email,
+  }) = _Author;
 
-  const Author({
-    required this.name,
-    required this.email,
-  });
+  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
 }
 
-class Resource {
-  final String id;
-  final String title;
-  final String description;
-  final String contentUrl;
+@freezed
+abstract class Resource with _$Resource {
+  const factory Resource({
+    String? id,
+    required String title,
+    required String description,
+    @JsonKey(name: 'content_url') required String contentUrl,
+    required ResourceType type,
+    required String language,
+    required LearningFocus focus,
+    @JsonKey(name: 'target_audiences') required Set<UserRole> targetAudiences,
+    required LanguageLevel level,
+    required List<String> tags,
+    required Author author,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    String? status,
+  }) = _Resource;
 
-  final ResourceType type;
-  final String language;
-  final LearningFocus focus;
-
-  final Set<UserRole> targetAudiences;
-  final LanguageLevel level;
-
-  final List<String> tags;
-
-  final Author author;
-  final DateTime createdAt;
-
-  const Resource({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.contentUrl,
-    required this.type,
-    required this.language,
-    required this.focus,
-    required this.targetAudiences,
-    required this.level,
-    required this.tags,
-    required this.author,
-    required this.createdAt,
-  });
+  factory Resource.fromJson(Map<String, dynamic> json) => _$ResourceFromJson(json);
 }
