@@ -98,12 +98,14 @@ class ResourceCard extends StatelessWidget {
                 _buildLevelBadge(resource.level),
               ],
             ),
-            const Gap(15),
-            Text(
-              resource.description,
-              style: Theme.of(context).textTheme.bodyMedium!,
-              maxLines: 4,
-            ),
+            if (resource.description.isNotEmpty) ... {
+              const Gap(15),
+              Text(
+                resource.description,
+                style: Theme.of(context).textTheme.bodyMedium!,
+                maxLines: 4,
+              ),
+            },
             const Gap(20),
             const Divider(color: AppTheme.cardBorderColor, height: 1),
             const Gap(20),
