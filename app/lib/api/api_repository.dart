@@ -7,6 +7,7 @@ final dioProvider = Provider<Dio>((ref) {
   return Dio(BaseOptions(
     baseUrl: Constants.apiUrl,
     connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
   ));
 });
 
@@ -31,25 +32,63 @@ class ApiRepository {
     if (focus != null) queryParams['focus'] = focus.name;
     if (tags != null && tags.isNotEmpty) queryParams['tags'] = tags;
 
-    print('before getting the thing lol');
+    try {
+      final response = await _dio.get(
+        '/resources/',
+        queryParameters: queryParams,
+        options: Options(listFormat: ListFormat.multi),
+      );
 
-    final response = await _dio.get(
-      '/resources/',
-      queryParameters: queryParams,
-      options: Options(listFormat: ListFormat.multi),
-    );
-
-    print(response);
-    print(response.data as List);
-
-    return (response.data as List).map((e) => Resource.fromJson(e)).toList();
+      return (response.data as List).map((e) => Resource.fromJson(e)).toList();
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
   }
 
   Future<Resource> submitResource(Resource resource) async {
-    final response = await _dio.post(
-      '/resources/',
-      data: resource.toJson(),
-    );
-    return Resource.fromJson(response.data);
+    try {
+      final response = await _dio.post(
+        '/resources/',
+        data: resource.toJson(),
+      );
+      return Resource.fromJson(response.data);
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
+  Exception _handleDioError(DioException e) {
+    // todo: better error management
+    if (e.response != null) {
+      final statusCode = e.response?.statusCode;
+      final data = e.response?.data;
+
+      if (statusCode == 422 && data is Map && data.containsKey('detail')) {
+        final details = data['detail'] as List;
+        if (details.isNotEmpty) {
+          final field = details[0]['loc'].last;
+          final msg = details[0]['msg'];
+          return Exception('Validation failed for "$field": $msg');
+        }
+        return Exception('Invalid data submitted.');
+      }
+
+      return Exception('Server Error ($statusCode). Please try again later.');
+    } else {
+      switch (e.type) {
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.sendTimeout:
+        case DioExceptionType.receiveTimeout:
+          return Exception('Connection timed out. Please check your internet.');
+        case DioExceptionType.connectionError:
+          return Exception('Could not connect to the API. Is the server running?');
+        default:
+          return Exception('Network error: ${e.message}');
+      }
+    }
   }
 }
