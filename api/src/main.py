@@ -17,8 +17,8 @@ app.add_middleware(
     allow_origins=[
         "*"
     ],  # todo: !!! not for production. should be something like "allow_origins=["https://u-skill.univ-nantes.fr"]"
-    allow_credentials=True,
-    allow_methods=["GET", "POST"],
+    allow_credentials=False,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 

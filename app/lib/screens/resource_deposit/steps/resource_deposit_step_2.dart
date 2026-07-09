@@ -19,20 +19,20 @@ class ResourceDepositStep2 extends ConsumerWidget {
       SelectableCard.vertical(
         label: 'Étudiants',
         icon: Icons.school_outlined,
-        isSelected: state.targets.contains('Étudiants'),
-        onTap: () => notifier.toggleTarget('Étudiants'),
+        isSelected: state.targets.contains('student'),
+        onTap: () => notifier.toggleTarget('student'),
       ),
       SelectableCard.vertical(
         label: 'Enseignants',
         icon: Icons.person_outline,
-        isSelected: state.targets.contains('Enseignants'),
-        onTap: () => notifier.toggleTarget('Enseignants'),
+        isSelected: state.targets.contains('teacher'),
+        onTap: () => notifier.toggleTarget('teacher'),
       ),
       SelectableCard.vertical(
         label: 'Staff',
         icon: Icons.badge,
-        isSelected: state.targets.contains('Staff'),
-        onTap: () => notifier.toggleTarget('Staff'),
+        isSelected: state.targets.contains('staff'),
+        onTap: () => notifier.toggleTarget('staff'),
       ),
     ];
 
