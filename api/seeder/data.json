@@ -1,44 +1,122 @@
 [
   {
-    "title": "Beginner French Vocabulary Game",
-    "description": "An interactive game to learn basic French greetings and colors.",
-    "content_url": "https://example.com/french-game",
+    "title": "Les transports en commun : bien se déplacer en ville",
+    "description": "Ressource pour apprendre à bien se déplacer en ville et utiliser les transports en commun nantais.",
+    "content_url": "https://view.genially.com/69de56604d6a79cb9a9a8091",
+    "type": "article",
+    "language": "fr",
+    "focus": "skill",
+    "level": "b1",
+    "target_audiences": [
+      "student"
+    ],
+    "tags": [
+      "transports",
+      "ville",
+      "nantes"
+    ],
+    "author_name": "Dolly RAMELLA",
+    "author_email": "dolly.ramella@univ-nantes.fr",
+    "status": "pending"
+  },
+  {
+    "title": "Les BU de Nantes Université",
+    "description": "Informations pratiques concernant le prêt et les services des Bibliothèques Universitaires.",
+    "content_url": "https://view.genially.com/69cd0a610764eca51b7ecabc",
+    "type": "article",
+    "language": "fr",
+    "focus": "skill",
+    "level": "b1",
+    "target_audiences": [
+      "student"
+    ],
+    "tags": [
+      "bu",
+      "bibliothèque",
+      "université"
+    ],
+    "author_name": "Dolly RAMELLA",
+    "author_email": "dolly.ramella@univ-nantes.fr",
+    "status": "approved"
+  },
+  {
+    "title": "La santé : découverte du service de santé des étudiants",
+    "description": "Ressource dédiée à la présentation et à l'accès au service de santé pour les étudiants.",
+    "content_url": "about:blank",
+    "type": "article",
+    "language": "fr",
+    "focus": "skill",
+    "level": "b1",
+    "target_audiences": [
+      "student"
+    ],
+    "tags": [
+      "santé",
+      "bien-être",
+      "étudiants"
+    ],
+    "author_name": "Barbara CHICOTOT",
+    "author_email": "barbara.chicotot@univ-nantes.fr",
+    "status": "pending"
+  },
+  {
+    "title": "Le centre de mobilité internationale",
+    "description": "Découverte des services de la DEI via un escape game autour du guichet unique.",
+    "content_url": "https://view.genially.com/6a01f5076cb9662bdc325760",
     "type": "game",
     "language": "fr",
-    "focus": "language",
-    "level": "a1",
-    "target_audiences": ["student", "teacher"],
-    "tags": ["vocabulary", "beginners", "interactive"],
-    "author_name": "Marie Curie",
-    "author_email": "marie@example.com",
-    "status": "approved"
-  },
-  {
-    "title": "Advanced Dart Architecture",
-    "description": "An article breaking down Riverpod and clean architecture in Flutter.",
-    "content_url": "https://example.com/dart-article",
-    "type": "article",
-    "language": "en",
     "focus": "skill",
-    "level": "c1",
-    "target_audiences": ["student", "staff"],
-    "tags": ["flutter", "riverpod", "architecture"],
-    "author_name": "Bob Builder",
-    "author_email": "bob@example.com",
+    "level": "b1",
+    "target_audiences": [
+      "student"
+    ],
+    "tags": [
+      "mobilité",
+      "international",
+      "escape game"
+    ],
+    "author_name": "Dolly RAMELLA",
+    "author_email": "dolly.ramella@univ-nantes.fr",
     "status": "approved"
   },
   {
-    "title": "Pending Spanish Video",
-    "description": "This video hasn't been approved by admins yet.",
-    "content_url": "https://example.com/spanish-video",
-    "type": "video",
-    "language": "es",
-    "focus": "language",
-    "level": "a2",
-    "target_audiences": ["student"],
-    "tags": ["listening", "video"],
-    "author_name": "Carlos Santana",
-    "author_email": "carlos@example.com",
+    "title": "La découverte du centre-ville de Nantes",
+    "description": "Exploration du centre-ville de Nantes avec une forte dimension culturelle.",
+    "content_url": "https://view.genially.com/69df805bbba959763c92fee1",
+    "type": "article",
+    "language": "fr",
+    "focus": "skill",
+    "level": "b1",
+    "target_audiences": [
+      "student"
+    ],
+    "tags": [
+      "culture",
+      "nantes",
+      "centre-ville"
+    ],
+    "author_name": "Barbara CHICOTOT",
+    "author_email": "barbara.chicotot@univ-nantes.fr",
     "status": "pending"
+  },
+  {
+    "title": "CROUS et logement",
+    "description": "Informations et démarches concernant le CROUS et les solutions de logement étudiant.",
+    "content_url": "https://view.genially.com/69de5652caca91694f6cea38",
+    "type": "article",
+    "language": "fr",
+    "focus": "skill",
+    "level": "b1",
+    "target_audiences": [
+      "student"
+    ],
+    "tags": [
+      "crous",
+      "logement",
+      "démarches"
+    ],
+    "author_name": "Dolly RAMELLA",
+    "author_email": "dolly.ramella@univ-nantes.fr",
+    "status": "approved"
   }
 ]
