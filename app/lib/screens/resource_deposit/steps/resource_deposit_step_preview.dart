@@ -51,12 +51,10 @@ class ResourceDepositStepPreview extends ConsumerWidget {
   }
 
   ResourceType _getResourceType(String type) {
-    switch (type) {
-      case 'Vidéo': return ResourceType.video;
-      case 'Jeu': return ResourceType.game;
-      case 'Article': return ResourceType.article;
-      case 'Exercice':
-      default: return ResourceType.exercise;
+    try {
+      return ResourceType.values.firstWhere((e) => e.name == type);
+    } catch (_) {
+      return ResourceType.exercise;
     }
   }
 

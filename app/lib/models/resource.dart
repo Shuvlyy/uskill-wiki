@@ -7,7 +7,17 @@ part 'resource.g.dart';
 enum UserRole { student, teacher, staff }
 
 @JsonEnum()
-enum ResourceType { exercise, game, video, article, link }
+enum ResourceType {
+  exercise,
+  activity,
+  game,
+  video,
+  audio,
+  article,
+  pdf,
+  text,
+  image
+}
 
 @JsonEnum()
 enum LanguageLevel { a1, a2, b1, b2, c1, c2 }

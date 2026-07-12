@@ -27,14 +27,22 @@ class ResourceCard extends StatelessWidget {
     switch (type) {
       case ResourceType.exercise:
         return 'Exercice';
-      case ResourceType.video:
-        return 'Vidéo';
+      case ResourceType.activity:
+        return 'Activité';
       case ResourceType.game:
         return 'Jeu';
+      case ResourceType.video:
+        return 'Vidéo';
+      case ResourceType.audio:
+        return 'Audio';
       case ResourceType.article:
         return 'Article';
-      case ResourceType.link:
-        return 'Lien';
+      case ResourceType.pdf:
+        return 'PDF';
+      case ResourceType.text:
+        return 'Texte';
+      case ResourceType.image:
+        return 'Image';
     }
   }
 
@@ -42,14 +50,22 @@ class ResourceCard extends StatelessWidget {
     switch (type) {
       case ResourceType.exercise:
         return Icons.edit_note;
-      case ResourceType.video:
-        return Icons.play_circle_outline;
+      case ResourceType.activity:
+        return Icons.local_activity_outlined;
       case ResourceType.game:
         return Icons.videogame_asset_outlined;
+      case ResourceType.video:
+        return Icons.play_circle_outline;
+      case ResourceType.audio:
+        return Icons.audiotrack_outlined;
       case ResourceType.article:
         return Icons.description_outlined;
-      case ResourceType.link:
-        return Icons.link;
+      case ResourceType.pdf:
+        return Icons.picture_as_pdf_outlined;
+      case ResourceType.text:
+        return Icons.text_snippet_outlined;
+      case ResourceType.image:
+        return Icons.image_outlined;
     }
   }
 

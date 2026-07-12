@@ -11,10 +11,14 @@ from src.models.learning_focus import LearningFocus
 
 class ResourceType(str, enum.Enum):
     exercise = "exercise"
+    activity = "activity"
     game = "game"
     video = "video"
+    audio = "audio"
     article = "article"
-    link = "link"
+    pdf = "pdf"
+    text = "text"
+    image = "image"
 
 
 class ResourceStatus(str, enum.Enum):
