@@ -4,8 +4,9 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
 import src.crud as crud
-from src.dependencies import get_db
+from src.dependencies import get_db, verify_admin
 from src.models.learning_focus import LearningFocus
+from src.models.resource import ResourceStatus
 from src.models.user_role import UserRole
 from src.schemas.resource import ResourceCreate, ResourceResponse
 
@@ -42,3 +43,31 @@ def get_resources(
         results.append(r_dict)
 
     return results
+
+
+@router.get("/pending", response_model=List[ResourceResponse])
+def get_pending_resources(db: Session = Depends(get_db), _=Depends(verify_admin)):
+    """Get all PENDING resources."""
+    db_resources = crud.get_pending_resources(db)
+
+    results = []
+    for r in db_resources:
+        r_dict = r.__dict__.copy()
+        r_dict["author"] = {"name": r.author_name, "email": r.author_email}
+        results.append(r_dict)
+
+    return results
+
+
+@router.patch("/{resource_id}/status", response_model=ResourceResponse)
+def update_status(resource_id: str, status: ResourceStatus = Query(...), db: Session = Depends(get_db), _=Depends(verify_admin)):
+    """Update resource status (approve/reject)."""
+    db_res = crud.update_resource_status(db, resource_id, status)
+
+    if not db_res:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail="Resource not found")
+
+    res_dict = db_res.__dict__.copy()
+    res_dict["author"] = {"name": db_res.author_name, "email": db_res.author_email}
+    return res_dict

@@ -63,6 +63,13 @@ def get_approved_resources(
     return query.all()
 
 
+def get_pending_resources(db: Session):
+    """
+    Fetches only pending resources.
+    """
+    return db.query(Resource).filter(Resource.status == ResourceStatus.pending).all()
+
+
 def update_resource_status(db: Session, resource_id: str, status: ResourceStatus):
     """
     Used by admins to approve or reject a pending resource.
