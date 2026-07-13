@@ -5,21 +5,25 @@ import 'package:flutter_svg/flutter_svg.dart';
 class LabeledTextFormField extends StatelessWidget {
   final String label;
   final String hintText;
-  final String initialValue;
-  final void Function(String?) onSaved;
+  final String? initialValue;
+  final void Function(String?)? onSaved;
   final bool isRequired;
   final String? Function(String?)? validator;
   final int? maxLines;
+  final TextEditingController? controller;
+  final bool obscureText;
 
   const LabeledTextFormField({
     super.key,
     required this.label,
     required this.hintText,
-    required this.initialValue,
-    required this.onSaved,
+    this.initialValue,
+    this.onSaved,
     this.isRequired = true,
     this.validator,
-    this.maxLines = 1
+    this.maxLines = 1,
+    this.controller,
+    this.obscureText = false
   });
 
   @override
@@ -50,6 +54,8 @@ class LabeledTextFormField extends StatelessWidget {
         TextFormField(
           initialValue: initialValue,
           maxLines: maxLines,
+          controller: controller,
+          obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
           ),
