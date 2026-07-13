@@ -61,6 +61,35 @@ class ApiRepository {
     }
   }
 
+  Future<List<Resource>> getPendingResources(String adminToken) async {
+    try {
+      final response = await _dio.get(
+        '/resources/pending',
+        options: Options(headers: {'x-admin-token': adminToken}),
+      );
+      return (response.data as List).map((e) => Resource.fromJson(e)).toList();
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
+  Future<Resource> updateResourceStatus(String adminToken, String resourceId, String status) async {
+    try {
+      final response = await _dio.patch(
+        '/resources/$resourceId/status',
+        queryParameters: {'status': status},
+        options: Options(headers: {'x-admin-token': adminToken}),
+      );
+      return Resource.fromJson(response.data);
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
   Exception _handleDioError(DioException e) {
     // todo: better error management
     if (e.response != null) {
