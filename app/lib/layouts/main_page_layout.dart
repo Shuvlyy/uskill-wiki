@@ -21,10 +21,10 @@ class MainPageLayout extends StatelessWidget {
       label: 'À propos',
       route: '/about'
     ),
-    NavbarItem(
-      label: '((WIDGET TEST))',
-      route: '/widget-test'
-    ),
+    // NavbarItem(
+    //   label: '((WIDGET TEST))',
+    //   route: '/widget-test'
+    // ),
   ];
 
   @override
