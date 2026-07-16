@@ -90,6 +90,7 @@ class ResourceCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
