@@ -1,4 +1,5 @@
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
+import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/labeled_dropdown_menu.dart';
 import 'package:app/widgets/option_slider.dart';
@@ -13,7 +14,6 @@ class ResourceDepositStep4 extends ConsumerWidget {
     final state = ref.watch(resourceDepositProvider);
     final notifier = ref.read(resourceDepositProvider.notifier);
 
-    final List<String> levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
     final isValid = state.language.isNotEmpty && state.languageLevel != -1;
 
     return ResourceDepositFormStepLayout(
@@ -30,11 +30,11 @@ class ResourceDepositStep4 extends ConsumerWidget {
             label: 'Langue',
             hintText: 'Langue',
             initialSelection: state.language,
-            dropdownMenuEntries: const [
-              DropdownMenuEntry(value: 'fr', label: 'Français'),
-              DropdownMenuEntry(value: 'en', label: 'English'),
-              DropdownMenuEntry(value: 'es', label: 'Español'),
-            ],
+            dropdownMenuEntries: ['fr', 'en', 'es']
+              .map((s) => DropdownMenuEntry(
+                value: s,
+                label: s.languageLabel)
+              ).toList(),
             onSelected: (value) {
               if (value == null) return;
               notifier.updateStep4(language: value);
@@ -42,7 +42,7 @@ class ResourceDepositStep4 extends ConsumerWidget {
           ),
           OptionSlider(
             label: 'Niveau de langue',
-            steps: levels,
+            steps: LanguageLevel.values.map((e) => e.label).toList(),
             selectedIndex: state.languageLevel,
             onChanged: (int newIndex) {
               notifier.updateStep4(languageLevel: newIndex);

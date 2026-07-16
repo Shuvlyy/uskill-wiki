@@ -14,26 +14,14 @@ class ResourceSearchStep1 extends ConsumerWidget {
     final searchState = ref.watch(resourceSearchFormProvider);
     final notifier = ref.read(resourceSearchFormProvider.notifier);
 
-    final cards = [
-      SelectableCard.vertical(
-        label: 'Étudiant',
-        icon: Icons.school_outlined,
-        isSelected: searchState.selectedRole == UserRole.student,
-        onTap: () => notifier.setRole(UserRole.student),
-      ),
-      SelectableCard.vertical(
-        label: 'Enseignant',
-        icon: Icons.person_outline,
-        isSelected: searchState.selectedRole == UserRole.teacher,
-        onTap: () => notifier.setRole(UserRole.teacher),
-      ),
-      SelectableCard.vertical(
-        label: 'Staff',
-        icon: Icons.badge,
-        isSelected: searchState.selectedRole == UserRole.staff,
-        onTap: () => notifier.setRole(UserRole.staff),
-      ),
-    ];
+    final cards = UserRole.values.map((e) {
+      return SelectableCard.vertical(
+        label: e.label,
+        isSelected: searchState.selectedRole == e,
+        onTap: () => notifier.setRole(e),
+        icon: e.icon
+      );
+    }).toList();
 
     final isValid = searchState.selectedRole != null;
 

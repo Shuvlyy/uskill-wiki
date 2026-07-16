@@ -1,5 +1,6 @@
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
+import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/selectable_card.dart';
 import 'package:flutter/material.dart';
@@ -15,26 +16,14 @@ class ResourceDepositStep2 extends ConsumerWidget {
 
     final isValid = state.targets.isNotEmpty;
 
-    final cards = [
-      SelectableCard.vertical(
-        label: 'Étudiants',
-        icon: Icons.school_outlined,
-        isSelected: state.targets.contains('student'),
-        onTap: () => notifier.toggleTarget('student'),
-      ),
-      SelectableCard.vertical(
-        label: 'Enseignants',
-        icon: Icons.person_outline,
-        isSelected: state.targets.contains('teacher'),
-        onTap: () => notifier.toggleTarget('teacher'),
-      ),
-      SelectableCard.vertical(
-        label: 'Staff',
-        icon: Icons.badge,
-        isSelected: state.targets.contains('staff'),
-        onTap: () => notifier.toggleTarget('staff'),
-      ),
-    ];
+    final cards = UserRole.values.map((e) {
+      return SelectableCard.vertical(
+        label: e.label,
+        isSelected: state.targets.contains(e.name),
+        onTap: () => notifier.toggleTarget(e.name),
+        icon: e.icon
+      );
+    }).toList();
 
     return ResourceDepositFormStepLayout(
       title: 'Cible',

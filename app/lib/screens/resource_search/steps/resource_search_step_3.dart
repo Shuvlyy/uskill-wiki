@@ -14,20 +14,14 @@ class ResourceSearchStep3 extends ConsumerWidget {
     final searchState = ref.watch(resourceSearchFormProvider);
     final notifier = ref.read(resourceSearchFormProvider.notifier);
 
-    final cards = [
-      SelectableCard.vertical(
-        label: 'Langue',
-        icon: Icons.translate,
-        isSelected: searchState.selectedFocus == LearningFocus.language,
-        onTap: () => notifier.setFocus(LearningFocus.language),
-      ),
-      SelectableCard.vertical(
-        label: 'Vie universitaire',
-        icon: Icons.psychology,
-        isSelected: searchState.selectedFocus == LearningFocus.univLife,
-        onTap: () => notifier.setFocus(LearningFocus.univLife),
-      ),
-    ];
+    final cards = LearningFocus.values.map((e) {
+      return SelectableCard.vertical(
+        label: e.label,
+        isSelected: searchState.selectedFocus == e,
+        onTap: () => notifier.setFocus(e),
+        icon: e.icon
+      );
+    }).toList();
 
     final isValid = searchState.selectedFocus != null;
 

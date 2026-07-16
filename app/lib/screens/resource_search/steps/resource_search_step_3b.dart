@@ -13,26 +13,10 @@ class ResourceSearchStep3b extends ConsumerWidget {
     final state = ref.watch(resourceSearchFormProvider);
     final notifier = ref.read(resourceSearchFormProvider.notifier);
 
-    final Map<LanguageSkill, String> labels = {
-      LanguageSkill.writtenComprehension: 'Compréhension Écrite',
-      LanguageSkill.oralComprehension: 'Compréhension Orale',
-      LanguageSkill.writtenExpression: 'Expression Écrite',
-      LanguageSkill.oralExpression: 'Expression Orale',
-      LanguageSkill.phonetics: 'Phonétique',
-    };
-
-    final Map<LanguageSkill, IconData> icons = {
-      LanguageSkill.writtenComprehension: Icons.menu_book,
-      LanguageSkill.oralComprehension: Icons.headphones,
-      LanguageSkill.writtenExpression: Icons.edit,
-      LanguageSkill.oralExpression: Icons.mic,
-      LanguageSkill.phonetics: Icons.record_voice_over,
-    };
-
     final cards = LanguageSkill.values.map((skill) {
       return SelectableCard.horizontal(
-        label: labels[skill]!,
-        icon: icons[skill]!,
+        label: skill.label,
+        icon: skill.icon,
         isSelected: state.selectedLanguageSkill == skill,
         onTap: () => notifier.setLanguageSkill(skill),
       );
@@ -42,7 +26,7 @@ class ResourceSearchStep3b extends ConsumerWidget {
       title: 'Quelle compétence langagière souhaitez-vous travailler ?',
       pageIndex: 3,
       stepperAmount: 5,
-      onNext: () => notifier.validateAndNext(true), // Optional, so just continue
+      onNext: () => notifier.validateAndNext(true), // optional, so just continue
       onBack: notifier.previousStep,
       body: LayoutBuilder(
         builder: (context, constraints) {

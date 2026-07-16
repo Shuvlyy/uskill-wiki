@@ -14,26 +14,10 @@ class ResourceDepositStep5b extends ConsumerWidget {
     final state = ref.watch(resourceDepositProvider);
     final notifier = ref.read(resourceDepositProvider.notifier);
 
-    final Map<LanguageSkill, String> labels = {
-      LanguageSkill.writtenComprehension: 'Compréhension Écrite',
-      LanguageSkill.oralComprehension: 'Compréhension Orale',
-      LanguageSkill.writtenExpression: 'Expression Écrite',
-      LanguageSkill.oralExpression: 'Expression Orale',
-      LanguageSkill.phonetics: 'Phonétique',
-    };
-
-    final Map<LanguageSkill, IconData> icons = {
-      LanguageSkill.writtenComprehension: Icons.menu_book,
-      LanguageSkill.oralComprehension: Icons.headphones,
-      LanguageSkill.writtenExpression: Icons.edit,
-      LanguageSkill.oralExpression: Icons.mic,
-      LanguageSkill.phonetics: Icons.record_voice_over,
-    };
-
     final cards = LanguageSkill.values.map((skill) {
       return SelectableCard.horizontal(
-        label: labels[skill]!,
-        icon: icons[skill]!,
+        label: skill.label,
+        icon: skill.icon,
         isSelected: state.languageSkill == skill,
         onTap: () => notifier.setLanguageSkill(skill),
       );

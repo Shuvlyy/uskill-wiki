@@ -1,5 +1,6 @@
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
+import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_search_provider.dart';
 import 'package:app/widgets/selectable_card.dart';
 import 'package:flutter/material.dart';
@@ -8,40 +9,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ResourceSearchStep2 extends ConsumerWidget {
   const ResourceSearchStep2({super.key});
 
-  String _getLanguageLabel(String code) {
-    switch (code) {
-      case 'fr': return 'Français';
-      case 'en': return 'Anglais';
-      case 'es': return 'Espagnol';
-      default: return code;
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchState = ref.watch(resourceSearchFormProvider);
     final notifier = ref.read(resourceSearchFormProvider.notifier);
 
-    final cards = [
-      SelectableCard.vertical(
-        label: 'Français',
+    final cards = ['fr', 'en', 'es'].map((s) {
+      return SelectableCard.vertical(
+        label: s.languageLabel,
         icon: Icons.language,
-        isSelected: searchState.selectedLanguage == 'fr',
-        onTap: () => notifier.setLanguage('fr'),
-      ),
-      SelectableCard.vertical(
-        label: 'Anglais',
-        icon: Icons.language,
-        isSelected: searchState.selectedLanguage == 'en',
-        onTap: () => notifier.setLanguage('en'),
-      ),
-      SelectableCard.vertical(
-        label: 'Espagnol',
-        icon: Icons.language,
-        isSelected: searchState.selectedLanguage == 'es',
-        onTap: () => notifier.setLanguage('es'),
-      ),
-    ];
+        isSelected: searchState.selectedLanguage == s,
+        onTap: () => notifier.setLanguage(s),
+      );
+    }).toList();
 
     final isValid = searchState.selectedLanguage != null;
 

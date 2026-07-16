@@ -14,20 +14,14 @@ class ResourceDepositStep5 extends ConsumerWidget {
     final state = ref.watch(resourceDepositProvider);
     final notifier = ref.read(resourceDepositProvider.notifier);
 
-    final cards = [
-      SelectableCard.vertical(
-        label: 'Langue',
-        icon: Icons.translate,
-        isSelected: state.focus == LearningFocus.language,
-        onTap: () => notifier.setFocus(LearningFocus.language),
-      ),
-      SelectableCard.vertical(
-        label: 'Vie universitaire',
-        icon: Icons.psychology,
-        isSelected: state.focus == LearningFocus.univLife,
-        onTap: () => notifier.setFocus(LearningFocus.univLife),
-      ),
-    ];
+    final cards = LearningFocus.values.map((e) {
+      return SelectableCard.vertical(
+        label: e.label,
+        isSelected: state.focus == e,
+        onTap: () => notifier.setFocus(e),
+        icon: e.icon
+      );
+    }).toList();
 
     final isValid = state.focus != null;
 
