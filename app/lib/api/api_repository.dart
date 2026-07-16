@@ -61,26 +61,45 @@ class ApiRepository {
     }
   }
 
-  Future<List<Resource>> getPendingResources(String adminToken) async {
+  Future<List<Resource>> getPendingResources(String adminEmail, String adminPassword) async {
     try {
       final response = await _dio.get(
         '/resources/pending',
-        options: Options(headers: {'x-admin-token': adminToken}),
+        options: Options(
+          headers: {
+            'x-admin-email': adminEmail,
+            'x-admin-password': adminPassword,
+          },
+        ),
       );
+
       return (response.data as List).map((e) => Resource.fromJson(e)).toList();
-    } on DioException catch (e) {
-      throw _handleDioError(e);
     } catch (e) {
-      throw Exception('An unexpected error occurred: $e');
+      print('catched exception $e');
+      if (e is DioException) {
+        print('its dioexception lol');
+        final ex = _handleDioError(e);;
+        print('will throw $ex');
+        throw ex;
+      }
+      rethrow;
     }
   }
 
-  Future<Resource> updateResourceStatus(String adminToken, String resourceId, String status) async {
+  Future<Resource> updateResourceStatus(
+    String adminEmail,
+    String adminPassword,
+    String resourceId,
+    String status
+  ) async {
     try {
       final response = await _dio.patch(
         '/resources/$resourceId/status',
-        queryParameters: {'status': status},
-        options: Options(headers: {'x-admin-token': adminToken}),
+        queryParameters: { 'status': status },
+        options: Options(headers: {
+          'x-admin-email': adminEmail,
+          'x-admin-password': adminPassword,
+        }),
       );
       return Resource.fromJson(response.data);
     } on DioException catch (e) {
@@ -91,10 +110,14 @@ class ApiRepository {
   }
 
   Exception _handleDioError(DioException e) {
-    // todo: better error management
     if (e.response != null) {
       final statusCode = e.response?.statusCode;
       final data = e.response?.data;
+
+      if (statusCode == 403) {
+        print('403!!!');
+        return Exception('Invalid credentials.');
+      }
 
       if (statusCode == 422 && data is Map && data.containsKey('detail')) {
         final details = data['detail'] as List;

@@ -16,17 +16,19 @@ class AdminPanelPage extends ConsumerStatefulWidget {
 }
 
 class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
-  final _tokenController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _tokenController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final token = ref.watch(adminTokenProvider);
+    final credentials = ref.watch(adminCredentialsProvider);
 
     return MainPageLayout(
       body: Center(
@@ -44,8 +46,8 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
                   ),
                 ),
                 const Gap(20),
-                if (token == null || token.isEmpty)
-                  _buildTokenForm()
+                if (credentials == null || credentials.email.isEmpty || credentials.password.isEmpty)
+                  _buildCredentialsForm()
                 else
                   _buildPendingResources(),
               ],
@@ -56,21 +58,31 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
     );
   }
 
-  Widget _buildTokenForm() {
+  Widget _buildCredentialsForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LabeledTextFormField(
-          label: 'Admin Token',
-          controller: _tokenController,
-          hintText: 'Enter your admin token',
+          label: 'Admin Email',
+          controller: _emailController,
+          hintText: 'Enter your admin email',
+          obscureText: false,
+        ),
+        const Gap(20),
+        LabeledTextFormField(
+          label: 'Admin Password',
+          controller: _passwordController,
+          hintText: 'Enter your admin password',
           obscureText: true,
         ),
         const Gap(20),
         Button.primary(
           text: 'Login',
           onPressed: () {
-            ref.read(adminTokenProvider.notifier).setToken(_tokenController.text);
+            ref.read(adminCredentialsProvider.notifier).setCredentials(
+              _emailController.text,
+              _passwordController.text,
+            );
           },
         ),
       ],
@@ -132,7 +144,54 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, _) => Center(child: Text('Error: $err')),
+      error: (err, _) => _buildError(err),
+    );
+  }
+
+  Widget _buildError(Object err) {
+    return Container(
+      padding: const EdgeInsets.all(40),
+      width: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            color: Colors.red,
+            child: const Icon(
+              Icons.close,
+              color: Colors.white,
+              size: 40,
+            ),
+          ),
+          const Gap(40),
+          Text(
+            'Erreur',
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Gap(20),
+          Text(
+            err.toString(),
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: AppTheme.inactiveTextColor,
+            ),
+          ),
+          const Gap(40),
+          Button.secondary(
+            text: 'Retour à la connexion',
+            onPressed: () {
+              ref.read(adminCredentialsProvider.notifier).setCredentials('', '');
+            },
+            icon: Icons.arrow_back,
+            verticalPadding: 20,
+          ),
+        ],
+      ),
     );
   }
 }
