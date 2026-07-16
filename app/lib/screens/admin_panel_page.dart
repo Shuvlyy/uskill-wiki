@@ -94,6 +94,10 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
 
     return pendingResources.when(
       data: (resources) {
+        if (resources.first == null) {
+          return _buildError(Exception('Invalid credentials'));
+        }
+
         if (resources.isEmpty) {
           return const Center(
             child: Padding(
@@ -113,7 +117,7 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
                 ),
                 child: Column(
                   children: [
-                    ResourceCard(resource: resource),
+                    ResourceCard(resource: resource!),
                     Container(
                       padding: const EdgeInsets.all(15),
                       color: AppTheme.cardBgColor,

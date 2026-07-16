@@ -20,22 +20,19 @@ class AdminCredentialsNotifier extends Notifier<AdminCredentials?> {
 
 final adminCredentialsProvider = NotifierProvider<AdminCredentialsNotifier, AdminCredentials?>(AdminCredentialsNotifier.new);
 
-final pendingResourcesProvider = FutureProvider<List<Resource>>((ref) async {
+final pendingResourcesProvider = FutureProvider<List<Resource?>>((ref) async {
   final credentials = ref.watch(adminCredentialsProvider);
   if (credentials == null || credentials.email.isEmpty || credentials.password.isEmpty) {
-    return [];
+    return [null];
   }
 
   final api = ref.watch(apiRepositoryProvider);
-  return await api.getPendingResources(credentials.email, credentials.password);
-  // try {
-  //   print('trying to get pending resources');
-  //   return await api.getPendingResources(credentials.email, credentials.password);
-  // } catch (e) {
-  //   print('CATCHED ERROR $e');
-  //   rethrow;
-  //   return [];
-  // }
+
+  try {
+    return await api.getPendingResources(credentials.email, credentials.password);
+  } catch (e) {
+    return [null]; // i KNOW this is shit code but i spent 2 days figuring out why the exception wouldnt climb back up to the UI and i didnt even find out. so, fuckass patch.
+  }
 });
 
 final adminActionProvider = Provider((ref) {
