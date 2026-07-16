@@ -4,6 +4,7 @@ from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from src.models.learning_focus import LearningFocus
+from src.models.language_skill import LanguageSkill
 from src.models.resource import Resource, ResourceStatus
 from src.models.user_role import UserRole
 from src.schemas.resource import ResourceCreate
@@ -21,6 +22,7 @@ def create_pending_resource(db: Session, resource: ResourceCreate):
         type=resource.type.value,
         language=resource.language,
         focus=resource.focus.value,
+        language_skill=resource.language_skill.value if resource.language_skill else None,
         level=resource.level.value,
         target_audiences=[role.value for role in resource.target_audiences],
         tags=resource.tags,
@@ -40,6 +42,7 @@ def get_approved_resources(
     role: Optional[UserRole] = None,
     language: Optional[str] = None,
     focus: Optional[LearningFocus] = None,
+    language_skill: Optional[LanguageSkill] = None,
     tags: Optional[List[str]] = None,
 ):
     """
@@ -52,6 +55,9 @@ def get_approved_resources(
 
     if focus:
         query = query.filter(Resource.focus == focus.value)
+
+    if language_skill:
+        query = query.filter(Resource.language_skill == language_skill.value)
 
     if role:
         query = query.filter(Resource.target_audiences.like(f'%"{role.value}"%'))

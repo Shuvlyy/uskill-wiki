@@ -1,11 +1,12 @@
 from datetime import datetime
-from typing import List, Set
+from typing import List, Set, Optional
 
 from pydantic import BaseModel
 
 from src.models.language_level import LanguageLevel
 from src.models.resource import LearningFocus, ResourceStatus, ResourceType
 from src.models.user_role import UserRole
+from src.models.language_skill import LanguageSkill
 from src.schemas.author import Author
 
 
@@ -17,6 +18,7 @@ class ResourceBase(BaseModel):
     type: ResourceType
     language: str
     focus: LearningFocus
+    language_skill: Optional[LanguageSkill] = None
     level: LanguageLevel
 
     target_audiences: Set[UserRole]

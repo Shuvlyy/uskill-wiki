@@ -7,6 +7,7 @@ from sqlalchemy import JSON, Column, DateTime, Enum, String
 from src.database import Base
 from src.models.language_level import LanguageLevel
 from src.models.learning_focus import LearningFocus
+from src.models.language_skill import LanguageSkill
 
 
 class ResourceType(str, enum.Enum):
@@ -38,6 +39,7 @@ class Resource(Base):
     type = Column(Enum(ResourceType), nullable=False)
     language = Column(String, nullable=False)
     focus = Column(Enum(LearningFocus), nullable=False)
+    language_skill = Column(Enum(LanguageSkill), nullable=True)
     level = Column(Enum(LanguageLevel), nullable=False)
 
     target_audiences = Column(JSON, nullable=False)
