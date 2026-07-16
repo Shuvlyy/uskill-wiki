@@ -6,6 +6,9 @@ services:
     container_name: uskill-api
     ports:
       - "8000:8000"
+    environment:
+      - USKILL_ADMIN_EMAIL=${USKILL_ADMIN_EMAIL}
+      - USKILL_ADMIN_PASSWORD=${USKILL_ADMIN_PASSWORD}
     restart: unless-stopped
 
   app:
