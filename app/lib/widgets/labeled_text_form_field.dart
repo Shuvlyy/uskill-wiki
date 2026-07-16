@@ -12,6 +12,8 @@ class LabeledTextFormField extends StatelessWidget {
   final int? maxLines;
   final TextEditingController? controller;
   final bool obscureText;
+  final String? errorText;
+  final void Function(String)? onFieldSubmitted;
 
   const LabeledTextFormField({
     super.key,
@@ -23,7 +25,9 @@ class LabeledTextFormField extends StatelessWidget {
     this.validator,
     this.maxLines = 1,
     this.controller,
-    this.obscureText = false
+    this.obscureText = false,
+    this.errorText,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -58,7 +62,9 @@ class LabeledTextFormField extends StatelessWidget {
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
+            errorText: errorText,
           ),
+          onFieldSubmitted: onFieldSubmitted,
           validator: (val) {
             if (isRequired && (val == null || val.isEmpty)) {
               return "Veuillez remplir ce champ.";

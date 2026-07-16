@@ -10,4 +10,6 @@ class Regexes {
     caseSensitive: false
   );
 
+  static final tag = RegExp(r'^[a-zA-ZÀ-ÿ0-9\s-]+$');
+
 }
