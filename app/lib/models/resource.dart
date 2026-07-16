@@ -23,7 +23,7 @@ enum ResourceType {
 enum LanguageLevel { a1, a2, b1, b2, c1, c2 }
 
 @JsonEnum()
-enum LearningFocus { language, skill }
+enum LearningFocus { language, univLife }
 
 @freezed
 abstract class Author with _$Author {

@@ -22,10 +22,10 @@ class ResourceDepositStep5 extends ConsumerWidget {
         onTap: () => notifier.setFocus(LearningFocus.language),
       ),
       SelectableCard.vertical(
-        label: 'Compétence',
+        label: 'Vie universitaire',
         icon: Icons.psychology,
-        isSelected: state.focus == LearningFocus.skill,
-        onTap: () => notifier.setFocus(LearningFocus.skill),
+        isSelected: state.focus == LearningFocus.univLife,
+        onTap: () => notifier.setFocus(LearningFocus.univLife),
       ),
     ];
 

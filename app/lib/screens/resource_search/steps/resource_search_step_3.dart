@@ -22,10 +22,10 @@ class ResourceSearchStep3 extends ConsumerWidget {
         onTap: () => notifier.setFocus(LearningFocus.language),
       ),
       SelectableCard.vertical(
-        label: 'Compétence',
+        label: 'Vie universitaire',
         icon: Icons.psychology,
-        isSelected: searchState.selectedFocus == LearningFocus.skill,
-        onTap: () => notifier.setFocus(LearningFocus.skill),
+        isSelected: searchState.selectedFocus == LearningFocus.univLife,
+        onTap: () => notifier.setFocus(LearningFocus.univLife),
       ),
     ];
 
