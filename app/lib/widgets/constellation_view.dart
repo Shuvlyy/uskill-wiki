@@ -160,31 +160,53 @@ class _ConstellationViewState extends State<ConstellationView> {
   void _calculateRadialLayout(ConstellationNode root) {
     root.position = const Offset(0, 0);
 
-    void layoutChildren(ConstellationNode node, double startAngle, double endAngle, double radius) {
-      if (node.children.isEmpty) return;
+    Map<ConstellationNode, int> nodeWeights = {};
 
-      final double angleStep = (endAngle - startAngle) / node.children.length;
-      
+    int calculateWeight(ConstellationNode node) {
+      if (node.children.isEmpty) {
+        nodeWeights[node] = 1;
+        return 1;
+      }
+      int weight = 0;
+      for (final child in node.children) {
+        weight += calculateWeight(child);
+      }
+      nodeWeights[node] = weight;
+      return weight;
+    }
+
+    calculateWeight(root);
+
+    void layoutChildren(ConstellationNode node, double startAngle, double endAngle, double radius) {
+      if (node.children.isEmpty) {
+        return;
+      }
+
+      final int totalWeight = nodeWeights[node] ?? 1;
+      double currentAngle = startAngle;
+
       for (int i = 0; i < node.children.length; i++) {
         final child = node.children[i];
-        // center the child in its slice
-        final childAngle = startAngle + (i + 0.5) * angleStep;
+        final int childWeight = nodeWeights[child] ?? 1;
+
+        final double sliceAngle = (endAngle - startAngle) * (childWeight / totalWeight);
+
+        final childCenterAngle = currentAngle + sliceAngle / 2;
         
-        final dx = radius * math.cos(childAngle);
-        final dy = radius * math.sin(childAngle);
+        final dx = radius * math.cos(childCenterAngle);
+        final dy = radius * math.sin(childCenterAngle);
         child.position = Offset(dx, dy);
 
         double nextRadius = radius + 250;
         if (child.type == NodeType.skill) {
-          nextRadius = radius + 300; // more space before resources
+          nextRadius = radius + 400;
         }
 
-        double childStartAngle = startAngle + i * angleStep;
-        double childEndAngle = startAngle + (i + 1) * angleStep;
-        
-        double padding = angleStep * 0.05; 
-        
-        layoutChildren(child, childStartAngle + padding, childEndAngle - padding, nextRadius);
+        double padding = sliceAngle * 0.05;
+
+        layoutChildren(child, currentAngle + padding, currentAngle + sliceAngle - padding, nextRadius);
+
+        currentAngle += sliceAngle;
       }
     }
 
