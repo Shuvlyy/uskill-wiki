@@ -12,6 +12,9 @@ To run this application, you can either use Docker or run it locally using Pytho
 **Local Development:**
 - Python 3.11 or higher
 
+**Environment Variables:**
+You MUST set the `USKILL_ADMIN_EMAIL` and `USKILL_ADMIN_PASSWORD` environment variables before launching the API. These are required to access the admin panel.
+
 ## Running the API
 
 ### Using Docker (Recommended)
