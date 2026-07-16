@@ -94,10 +94,6 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
 
     return pendingResources.when(
       data: (resources) {
-        if (resources.first == null) {
-          return _buildError(Exception('Invalid credentials'));
-        }
-
         if (resources.isEmpty) {
           return const Center(
             child: Padding(
@@ -105,6 +101,10 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
               child: Text('No pending resources found.'),
             ),
           );
+        }
+
+        if (resources.first == null) {
+          return _buildError(Exception('Invalid credentials'));
         }
 
         return Column(
