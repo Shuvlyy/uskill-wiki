@@ -1,3 +1,4 @@
+import 'package:app/core/constants.dart';
 import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
@@ -91,9 +92,8 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
       onBack: notifier.previousStep,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final isMobile = constraints.maxWidth < 600;
-          final cardWidth = isMobile ? constraints.maxWidth : (constraints.maxWidth - 12) / 2;
-          
+          final isMobile = constraints.maxWidth < Constants.mobileWidthThreshold;
+
           return Column(
             crossAxisAlignment: .start,
             spacing: 20,
@@ -103,35 +103,29 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
                 runSpacing: 12,
                 children: [
                   ...predefinedTags.map((tag) {
-                    return SizedBox(
-                      width: cardWidth,
-                      child: SelectableCard.horizontal(
-                        label: tag,
-                        icon: Icons.tag,
-                        isSelected: searchState.selectedTags.contains(tag),
-                        onTap: () => notifier.toggleTag(tag),
-                      ),
+                    return SelectableCard.horizontal(
+                      label: tag,
+                      icon: Icons.tag,
+                      isSelected: searchState.selectedTags.contains(tag),
+                      onTap: () => notifier.toggleTag(tag),
                     );
                   }),
                   ...customTags.map((tag) {
-                    return SizedBox(
-                      width: cardWidth,
-                      child: SelectableCard.horizontal(
-                        label: tag,
-                        icon: Icons.tag,
-                        isSelected: true,
-                        onTap: () => notifier.toggleTag(tag),
-                      ),
+                    return SelectableCard.horizontal(
+                      label: tag,
+                      icon: Icons.tag,
+                      isSelected: true,
+                      onTap: () => notifier.toggleTag(tag),
                     );
                   }),
                 ],
               ),
-              Row(
-                spacing: 12,
-                crossAxisAlignment: .center,
-                children: [
-                  Expanded(
-                    child: LabeledTextFormField(
+              if (isMobile) ... {
+                Column(
+                  spacing: 10,
+                  crossAxisAlignment: .stretch,
+                  children: [
+                    LabeledTextFormField(
                       controller: _customTagController,
                       label: 'Chercher un tag',
                       hintText: 'Ex: mathématiques',
@@ -139,16 +133,37 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
                       errorText: _customTagError,
                       onFieldSubmitted: (_) => _addTag(ref),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: Button.secondary(
+                    Button.secondary(
                       text: 'Ajouter',
                       onPressed: () => _addTag(ref),
+                    )
+                  ],
+                )
+              } else ... {
+                Row(
+                  spacing: 12,
+                  crossAxisAlignment: .center,
+                  children: [
+                    Expanded(
+                      child: LabeledTextFormField(
+                        controller: _customTagController,
+                        label: 'Chercher un tag',
+                        hintText: 'Ex: mathématiques',
+                        isRequired: false,
+                        errorText: _customTagError,
+                        onFieldSubmitted: (_) => _addTag(ref),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Button.secondary(
+                        text: 'Ajouter',
+                        onPressed: () => _addTag(ref),
+                      ),
+                    )
+                  ],
+                )
+              }
             ],
           );
         },
