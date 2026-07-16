@@ -37,6 +37,7 @@ def populate(json_filepath: str):
                 type=item["type"],
                 language=item["language"],
                 focus=item["focus"],
+                language_skill=item.get("language_skill"),
                 level=item["level"],
                 target_audiences=item["target_audiences"],
                 tags=item["tags"],
