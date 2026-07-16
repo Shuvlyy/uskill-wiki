@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 
 class MainPageLayout extends StatelessWidget {
   final Widget body;
+  final bool defaultPadding;
 
-  MainPageLayout({required this.body, super.key});
+  MainPageLayout({
+    required this.body,
+    this.defaultPadding = true,
+    super.key
+  });
 
   final navbarItems = [
     NavbarItem(
@@ -51,10 +56,12 @@ class MainPageLayout extends StatelessWidget {
             ),
 
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: body,
-              ),
+              child: defaultPadding
+                ? Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: body,
+                  )
+                : body,
             ),
         
             SliverFillRemaining(
