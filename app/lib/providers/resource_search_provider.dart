@@ -14,6 +14,9 @@ class ResourceSearchState {
   // step 3
   final LearningFocus? selectedFocus;
 
+  // step 3b
+  final LanguageSkill? selectedLanguageSkill;
+
   // step 4
   final List<String> selectedTags;
 
@@ -25,6 +28,7 @@ class ResourceSearchState {
     this.selectedRole,
     this.selectedLanguage,
     this.selectedFocus,
+    this.selectedLanguageSkill,
     this.selectedTags = const [],
     this.showErrors = false,
   });
@@ -34,6 +38,7 @@ class ResourceSearchState {
     UserRole? selectedRole,
     String? selectedLanguage,
     LearningFocus? selectedFocus,
+    LanguageSkill? selectedLanguageSkill,
     List<String>? selectedTags,
     bool? showErrors,
   }) {
@@ -42,6 +47,7 @@ class ResourceSearchState {
       selectedRole: selectedRole ?? this.selectedRole,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
       selectedFocus: selectedFocus ?? this.selectedFocus,
+      selectedLanguageSkill: selectedLanguageSkill ?? this.selectedLanguageSkill,
       selectedTags: selectedTags ?? this.selectedTags,
       showErrors: showErrors ?? this.showErrors,
     );
@@ -61,7 +67,11 @@ class ResourceSearchFormNotifier extends Notifier<ResourceSearchState> {
   }
 
   void setFocus(LearningFocus focus) {
-    state = state.copyWith(selectedFocus: focus, selectedTags: [], showErrors: false);
+    state = state.copyWith(selectedFocus: focus, selectedTags: [], selectedLanguageSkill: null, showErrors: false);
+  }
+
+  void setLanguageSkill(LanguageSkill skill) {
+    state = state.copyWith(selectedLanguageSkill: skill, showErrors: false);
   }
 
   void toggleTag(String tag) {
@@ -112,6 +122,7 @@ final filteredResourcesProvider = FutureProvider.autoDispose<List<Resource>>((re
     role: searchState.selectedRole,
     language: searchState.selectedLanguage,
     focus: searchState.selectedFocus,
+    languageSkill: searchState.selectedLanguageSkill,
     tags: searchState.selectedTags,
   );
 });

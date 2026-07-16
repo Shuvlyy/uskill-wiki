@@ -24,12 +24,14 @@ class ApiRepository {
     UserRole? role,
     String? language,
     LearningFocus? focus,
+    LanguageSkill? languageSkill,
     List<String>? tags,
   }) async {
     final queryParams = <String, dynamic>{};
     if (role != null) queryParams['role'] = role.name;
     if (language != null) queryParams['language'] = language;
     if (focus != null) queryParams['focus'] = focus.name;
+    if (languageSkill != null) queryParams['language_skill'] = languageSkill.name;
     if (tags != null && tags.isNotEmpty) queryParams['tags'] = tags;
 
     try {

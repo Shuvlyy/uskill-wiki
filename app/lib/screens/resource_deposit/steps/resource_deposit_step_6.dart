@@ -26,10 +26,12 @@ class ResourceDepositStep6 extends ConsumerWidget {
     final tags = _getAvailableTags(state.focus!);
 
     final isValid = state.tags.isNotEmpty;
+    final isLanguage = state.focus == LearningFocus.language;
 
     return ResourceDepositFormStepLayout(
       title: 'Tags',
-      pageIndex: 5,
+      pageIndex: isLanguage ? 6 : 5,
+      stepperAmount: isLanguage ? 8 : 7,
       errorMessage: (state.showErrors && !isValid) ? 'Sélectionne au moins un tag.' : null,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,

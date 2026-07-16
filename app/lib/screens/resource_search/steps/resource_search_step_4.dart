@@ -20,6 +20,7 @@ class ResourceSearchStep4 extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchState = ref.watch(resourceSearchFormProvider);
     final notifier = ref.read(resourceSearchFormProvider.notifier);
+    final isLanguage = searchState.selectedFocus == LearningFocus.language;
     
     if (searchState.selectedFocus == null) return const SizedBox.shrink();
 
@@ -29,7 +30,8 @@ class ResourceSearchStep4 extends ConsumerWidget {
 
     return ResourceDepositFormStepLayout(
       title: 'Précise ta recherche',
-      pageIndex: 3,
+      pageIndex: isLanguage ? 4 : 3,
+      stepperAmount: isLanguage ? 5 : 4,
       errorMessage: (searchState.showErrors && !isValid) ? 'Sélectionne au moins un tag.' : null,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,

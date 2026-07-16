@@ -25,6 +25,15 @@ enum LanguageLevel { a1, a2, b1, b2, c1, c2 }
 @JsonEnum()
 enum LearningFocus { language, univLife }
 
+@JsonEnum()
+enum LanguageSkill {
+  writtenComprehension,
+  oralComprehension,
+  writtenExpression,
+  oralExpression,
+  phonetics,
+}
+
 @freezed
 abstract class Author with _$Author {
   const factory Author({
@@ -45,6 +54,7 @@ abstract class Resource with _$Resource {
     required ResourceType type,
     required String language,
     required LearningFocus focus,
+    @JsonKey(name: 'language_skill') LanguageSkill? languageSkill,
     @JsonKey(name: 'target_audiences') required Set<UserRole> targetAudiences,
     required LanguageLevel level,
     required List<String> tags,

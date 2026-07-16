@@ -11,6 +11,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
   final String title;
   final Widget body;
   final int pageIndex;
+  final int stepperAmount;
   final VoidCallback onNext;
   final VoidCallback? onBack;
   final bool showMandatoryFieldsWarning;
@@ -20,6 +21,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
     required this.title,
     required this.body,
     required this.pageIndex,
+    this.stepperAmount = 7,
     required this.onNext,
     this.onBack,
     this.showMandatoryFieldsWarning = false,
@@ -71,7 +73,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                       runSpacing: 10,
                       crossAxisAlignment: .center,
                       children: [
-                        DotStepper(amount: 7, index: pageIndex + 1), // fixme: 7 is magic number 😤😤
+                        DotStepper(amount: stepperAmount, index: pageIndex + 1),
                         if (showMandatoryFieldsWarning) ... {
                           Row(
                             mainAxisSize: .min,

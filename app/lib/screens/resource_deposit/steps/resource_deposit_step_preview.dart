@@ -13,6 +13,8 @@ class ResourceDepositStepPreview extends ConsumerWidget {
     final state = ref.watch(resourceDepositProvider);
     final notifier = ref.read(resourceDepositProvider.notifier);
 
+    final isLanguage = state.focus == LearningFocus.language;
+
     final previewResource = Resource(
       id: 'preview',
       title: state.name,
@@ -21,6 +23,7 @@ class ResourceDepositStepPreview extends ConsumerWidget {
       type: _getResourceType(state.resourceType),
       language: state.language,
       focus: state.focus ?? LearningFocus.language,
+      languageSkill: state.languageSkill,
       targetAudiences: state.targets.map(_getRoleFromString).toSet(),
       level: _getLevelFromIndex(state.languageLevel),
       tags: state.tags,
@@ -33,7 +36,8 @@ class ResourceDepositStepPreview extends ConsumerWidget {
 
     return ResourceDepositFormStepLayout(
       title: 'Prévisualisation',
-      pageIndex: 7,
+      pageIndex: isLanguage ? 8 : 7,
+      stepperAmount: isLanguage ? 8 : 7,
       onNext: notifier.submit,
       onBack: notifier.previousStep,
       body: Column(

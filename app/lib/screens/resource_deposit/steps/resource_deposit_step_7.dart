@@ -2,6 +2,7 @@ import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/labeled_text_form_field.dart';
+import 'package:app/models/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,11 +28,13 @@ class _ResourceDepositStep7State extends ConsumerState<ResourceDepositStep7> {
   Widget build(BuildContext context) {
     final state = ref.watch(resourceDepositProvider);
     final notifier = ref.read(resourceDepositProvider.notifier);
+    final isLanguage = state.focus == LearningFocus.language;
 
     return ResourceDepositFormStepLayout(
       title: 'Auteur',
       showMandatoryFieldsWarning: true,
-      pageIndex: 6,
+      pageIndex: isLanguage ? 7 : 6,
+      stepperAmount: isLanguage ? 8 : 7,
       body: Form(
         key: _formKey,
         child: Column(

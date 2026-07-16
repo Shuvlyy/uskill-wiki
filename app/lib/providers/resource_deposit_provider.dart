@@ -26,6 +26,9 @@ class ResourceDepositState {
   // step 5
   final LearningFocus? focus;
 
+  // step 5b
+  final LanguageSkill? languageSkill;
+
   // step 6
   final List<String> tags;
 
@@ -48,6 +51,7 @@ class ResourceDepositState {
     this.language = '',
     this.languageLevel = -1,
     this.focus,
+    this.languageSkill,
     this.tags = const [],
     this.authorName = '',
     this.authorEmail = '',
@@ -66,6 +70,7 @@ class ResourceDepositState {
     String? language,
     int? languageLevel,
     LearningFocus? focus,
+    LanguageSkill? languageSkill,
     List<String>? tags,
     String? authorName,
     String? authorEmail,
@@ -83,6 +88,7 @@ class ResourceDepositState {
       language: language ?? this.language,
       languageLevel: languageLevel ?? this.languageLevel,
       focus: focus ?? this.focus,
+      languageSkill: languageSkill ?? this.languageSkill,
       tags: tags ?? this.tags,
       authorName: authorName ?? this.authorName,
       authorEmail: authorEmail ?? this.authorEmail,
@@ -129,7 +135,11 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
   }
 
   void setFocus(LearningFocus focus) {
-    state = state.copyWith(focus: focus, tags: [], showErrors: false);
+    state = state.copyWith(focus: focus, tags: [], languageSkill: null, showErrors: false);
+  }
+
+  void setLanguageSkill(LanguageSkill skill) {
+    state = state.copyWith(languageSkill: skill, showErrors: false);
   }
 
   void toggleTag(String tag) {
@@ -181,6 +191,10 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
     try {
       final repository = ref.read(apiRepositoryProvider);
 
+      print("parsing resource");
+      print(state.targets);
+      print(state.targets.map((t) => UserRole.values.firstWhere((e) => e.name == t)).toSet());
+      print(ResourceType.values.firstWhere((e) => e.name == state.resourceType));
       final newResource = Resource(
         title: state.name,
         description: state.description,
@@ -189,16 +203,20 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
         language: state.language,
         level: LanguageLevel.values[state.languageLevel],
         focus: state.focus!,
+        languageSkill: state.languageSkill,
         targetAudiences: state.targets.map((t) => UserRole.values.firstWhere((e) => e.name == t)).toSet(),
         tags: state.tags,
         author: Author(name: state.authorName, email: state.authorEmail),
       );
 
+      print("just before submitting");
       await repository.submitResource(newResource);
 
       state = state.copyWith(submitStatus: SubmitStatus.success);
       nextStep(); // to finished step
-    } catch (e) {
+    } catch (e, stacktrace) {
+      print(e);
+      print(stacktrace);
       String errMsg = 'An unexpected error occurred.';
       if (e is DioException) {
         errMsg = 'Server error: ${e.response?.statusCode} - ${e.message}';
