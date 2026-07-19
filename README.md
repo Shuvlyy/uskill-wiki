@@ -13,6 +13,22 @@ To run this application, it is recommended to use Docker.
 - [Install Docker](https://docs.docker.com/get-docker/)
 - [Install Docker Compose](https://docs.docker.com/compose/install/)
 
+## Configuration
+
+Before running the application, you need to configure your environment variables.
+Copy the `.env.sample` file to a new file named `.env` and fill it up according to what's in `.env.sample` but with **YOUR data**!!
+
+```bash
+cp .env.sample .env
+```
+
+Here is what each variable serves for:
+- `USKILL_ADMIN_EMAIL`: Email address to access the admin panel in the app.
+- `USKILL_ADMIN_PASSWORD`: Password to access the admin panel in the app.
+- `API_PORT`: Host port exposed for the API backend (default `8000`).
+- `APP_PORT`: Host port exposed for the App frontend (default `8080`).
+- `API_URL`: The base URL used by the app to reach the API (e.g., `http://127.0.0.1:8000`).
+
 ## Running the Application
 
 The easiest way to start the complete application (both backend and frontend) is by using Docker Compose.
