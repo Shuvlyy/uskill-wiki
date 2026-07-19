@@ -1,4 +1,5 @@
 import 'package:app/screens/about_page.dart';
+import 'package:app/screens/constellation_view.dart';
 import 'package:app/screens/home_page.dart';
 import 'package:app/screens/resource_deposit/resource_deposit_page.dart';
 import 'package:app/screens/resource_search/resources_page.dart';
@@ -14,6 +15,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         pageBuilder: (context, state) => const NoTransitionPage(child: HomePage()),
+      ),
+      GoRoute(
+        path: '/constellation',
+        pageBuilder: (context, state) => const NoTransitionPage(child: ConstellationViewPage())
       ),
       GoRoute(
         path: '/resources',

@@ -6,10 +6,12 @@ import 'package:app/screens/resource_search/steps/resource_search_step_3.dart';
 import 'package:app/screens/resource_search/steps/resource_search_step_3b.dart';
 import 'package:app/screens/resource_search/steps/resource_search_step_4.dart';
 import 'package:app/screens/resource_search/resource_search_results.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app/models/resource.dart';
+import 'package:go_router/go_router.dart';
 
 class ResourcesPage extends ConsumerWidget {
   const ResourcesPage({super.key});
@@ -27,7 +29,11 @@ class ResourcesPage extends ConsumerWidget {
               title: 'Recherche de ressource',
               decorationAlignment: .center,
             ),
-            _buildStep(currentStep, ref.watch(resourceSearchFormProvider))
+            _buildStep(currentStep, ref.watch(resourceSearchFormProvider)),
+            Button.primary(
+              text: 'Je ne sais pas quoi chercher',
+              onPressed: () => context.go('/constellation')
+            )
           ],
         ),
       )
