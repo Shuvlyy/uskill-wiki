@@ -2,6 +2,7 @@ import 'package:app/api/api_repository.dart';
 import 'package:app/models/resource.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// todo: better management
 class ResourceSearchState {
   final int currentStepIndex;
 
@@ -10,12 +11,16 @@ class ResourceSearchState {
 
   // step 2
   final String? selectedLanguage;
+  final LanguageLevel? selectedLanguageLevel;
 
   // step 3
   final LearningFocus? selectedFocus;
 
   // step 3b
   final LanguageSkill? selectedLanguageSkill;
+
+  // step 3c
+  final List<String> selectedLinguisticObjectives;
 
   // step 4
   final List<String> selectedTags;
@@ -27,8 +32,10 @@ class ResourceSearchState {
     this.currentStepIndex = 0,
     this.selectedRole,
     this.selectedLanguage,
+    this.selectedLanguageLevel,
     this.selectedFocus,
     this.selectedLanguageSkill,
+    this.selectedLinguisticObjectives = const [],
     this.selectedTags = const [],
     this.showErrors = false,
   });
@@ -37,8 +44,10 @@ class ResourceSearchState {
     int? currentStepIndex,
     UserRole? selectedRole,
     String? selectedLanguage,
+    LanguageLevel? selectedLanguageLevel,
     LearningFocus? selectedFocus,
     LanguageSkill? selectedLanguageSkill,
+    List<String>? selectedLinguisticObjectives,
     List<String>? selectedTags,
     bool? showErrors,
   }) {
@@ -46,8 +55,10 @@ class ResourceSearchState {
       currentStepIndex: currentStepIndex ?? this.currentStepIndex,
       selectedRole: selectedRole ?? this.selectedRole,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+      selectedLanguageLevel: selectedLanguageLevel ?? this.selectedLanguageLevel,
       selectedFocus: selectedFocus ?? this.selectedFocus,
       selectedLanguageSkill: selectedLanguageSkill ?? this.selectedLanguageSkill,
+      selectedLinguisticObjectives: selectedLinguisticObjectives ?? this.selectedLinguisticObjectives,
       selectedTags: selectedTags ?? this.selectedTags,
       showErrors: showErrors ?? this.showErrors,
     );
@@ -66,12 +77,24 @@ class ResourceSearchFormNotifier extends Notifier<ResourceSearchState> {
     state = state.copyWith(selectedLanguage: language, showErrors: false);
   }
 
+  void setLanguageLevel(LanguageLevel level) {
+    state = state.copyWith(selectedLanguageLevel: level, showErrors: false);
+  }
+
   void setFocus(LearningFocus focus) {
-    state = state.copyWith(selectedFocus: focus, selectedTags: [], selectedLanguageSkill: null, showErrors: false);
+    state = state.copyWith(selectedFocus: focus, selectedTags: [], selectedLanguageSkill: null, selectedLinguisticObjectives: [], showErrors: false);
   }
 
   void setLanguageSkill(LanguageSkill skill) {
     state = state.copyWith(selectedLanguageSkill: skill, showErrors: false);
+  }
+
+  void toggleLinguisticObjective(String objective) {
+    if (state.selectedLinguisticObjectives.contains(objective)) {
+      state = state.copyWith(selectedLinguisticObjectives: [], showErrors: false);
+    } else {
+      state = state.copyWith(selectedLinguisticObjectives: [objective], showErrors: false);
+    }
   }
 
   void toggleTag(String tag) {
@@ -86,8 +109,15 @@ class ResourceSearchFormNotifier extends Notifier<ResourceSearchState> {
 
   void validateAndNext(bool isValid) {
     if (isValid) {
+      int nextStep = state.currentStepIndex + 1;
+
+      // in step 3B (currentStepIndex == 3, focus == language), if phonetics, skip point de langue (4) and tags (5) and go to results (6)
+      if (state.currentStepIndex == 3 && state.selectedFocus == LearningFocus.language && state.selectedLanguageSkill == LanguageSkill.phonetics) {
+        nextStep = 6;
+      }
+      
       state = state.copyWith(
-        currentStepIndex: state.currentStepIndex + 1,
+        currentStepIndex: nextStep,
         showErrors: false,
       );
     } else {
@@ -97,8 +127,15 @@ class ResourceSearchFormNotifier extends Notifier<ResourceSearchState> {
 
   void previousStep() {
     if (state.currentStepIndex > 0) {
+      int prevStep = state.currentStepIndex - 1;
+
+      // if we are at results (index 6) and phonetics is selected, go back to step 3b (index 3)
+      if (state.currentStepIndex == 6 && state.selectedFocus == LearningFocus.language && state.selectedLanguageSkill == LanguageSkill.phonetics) {
+        prevStep = 3;
+      }
+
       state = state.copyWith(
-        currentStepIndex: state.currentStepIndex - 1,
+        currentStepIndex: prevStep,
         showErrors: false,
       );
     }
@@ -126,8 +163,10 @@ final filteredResourcesProvider = FutureProvider.autoDispose<List<Resource>>((re
   return repository.getResources(
     role: searchState.selectedRole,
     language: searchState.selectedLanguage,
+    level: searchState.selectedLanguageLevel,
     focus: searchState.selectedFocus,
     languageSkill: searchState.selectedLanguageSkill,
     tags: searchState.selectedTags,
+    linguisticObjectives: searchState.selectedLinguisticObjectives,
   );
 });

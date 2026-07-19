@@ -25,7 +25,7 @@ enum ResourceType {
 enum LanguageLevel { a1, a2, b1, b2, c1, c2 }
 
 @JsonEnum()
-enum LearningFocus { language, univLife }
+enum LearningFocus { language, univLife, linguisticObjective }
 
 @JsonEnum()
 enum LanguageSkill {
@@ -60,6 +60,7 @@ abstract class Resource with _$Resource {
     @JsonKey(name: 'target_audiences') required Set<UserRole> targetAudiences,
     required LanguageLevel level,
     required List<String> tags,
+    @JsonKey(name: 'linguistic_objectives') List<String>? linguisticObjectives,
     required Author author,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     String? status,
@@ -91,6 +92,7 @@ extension LearningFocusX on LearningFocus {
     switch (this) {
       case .language: return 'Langue';
       case .univLife: return 'Vie universitaire';
+      case .linguisticObjective: return 'Objectifs linguistiques';
     }
   }
 
@@ -98,6 +100,7 @@ extension LearningFocusX on LearningFocus {
     switch (this) {
       case .language: return Icons.translate;
       case .univLife: return Icons.psychology;
+      case .linguisticObjective: return Icons.fact_check;
     }
   }
 }

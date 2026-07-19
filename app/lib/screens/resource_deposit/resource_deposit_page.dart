@@ -6,6 +6,7 @@ import 'package:app/screens/resource_deposit/steps/resource_deposit_step_3.dart'
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_4.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5b.dart';
+import 'package:app/screens/resource_deposit/steps/resource_deposit_step_5c.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_6.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_7.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_preview.dart';
@@ -30,6 +31,7 @@ class ResourceDepositPage extends ConsumerWidget {
       const ResourceDepositStep4(),
       const ResourceDepositStep5(),
       if (state.focus == LearningFocus.language) const ResourceDepositStep5b(),
+      if (state.focus == LearningFocus.linguisticObjective) const ResourceDepositStep5c(),
       const ResourceDepositStep6(),
       const ResourceDepositStep7(),
       const ResourceDepositStepPreview(),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum SubmitStatus { idle, loading, success, error }
 
+// todo: better management
 class ResourceDepositState {
   final int currentStepIndex;
 
@@ -29,6 +30,9 @@ class ResourceDepositState {
   // step 5b
   final LanguageSkill? languageSkill;
 
+  // step 5c
+  final List<String> linguisticObjectives;
+
   // step 6
   final List<String> tags;
 
@@ -52,6 +56,7 @@ class ResourceDepositState {
     this.languageLevel = -1,
     this.focus,
     this.languageSkill,
+    this.linguisticObjectives = const [],
     this.tags = const [],
     this.authorName = '',
     this.authorEmail = '',
@@ -71,6 +76,7 @@ class ResourceDepositState {
     int? languageLevel,
     LearningFocus? focus,
     LanguageSkill? languageSkill,
+    List<String>? linguisticObjectives,
     List<String>? tags,
     String? authorName,
     String? authorEmail,
@@ -89,6 +95,7 @@ class ResourceDepositState {
       languageLevel: languageLevel ?? this.languageLevel,
       focus: focus ?? this.focus,
       languageSkill: languageSkill ?? this.languageSkill,
+      linguisticObjectives: linguisticObjectives ?? this.linguisticObjectives,
       tags: tags ?? this.tags,
       authorName: authorName ?? this.authorName,
       authorEmail: authorEmail ?? this.authorEmail,
@@ -135,11 +142,19 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
   }
 
   void setFocus(LearningFocus focus) {
-    state = state.copyWith(focus: focus, tags: [], languageSkill: null, showErrors: false);
+    state = state.copyWith(focus: focus, tags: [], languageSkill: null, linguisticObjectives: [], showErrors: false);
   }
 
   void setLanguageSkill(LanguageSkill skill) {
     state = state.copyWith(languageSkill: skill, showErrors: false);
+  }
+
+  void toggleLinguisticObjective(String objective) {
+    if (state.linguisticObjectives.contains(objective)) {
+      state = state.copyWith(linguisticObjectives: [], showErrors: false);
+    } else {
+      state = state.copyWith(linguisticObjectives: [objective], showErrors: false);
+    }
   }
 
   void toggleTag(String tag) {
@@ -162,8 +177,24 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
 
   void validateAndNext(bool isValid) {
     if (isValid) {
+      int nextStep = state.currentStepIndex + 1;
+
+      // in deposit, for language focus:
+      // index 5 = step 5b (skill), index 6 = step 5c (point de langue), index 7 = step 6 (tags), index 8 = step 7 (author)
+      if (state.currentStepIndex == 5 && state.focus == LearningFocus.language && state.languageSkill == LanguageSkill.phonetics) {
+        // skip point de langue (6) and tags (7), go direectly to author (8)
+        nextStep = 8;
+      }
+
+      // for linguisticObjective focus:
+      // index 5 = step 5c (point de langue), index 6 = step 6 (Tags), index 7 = step 7 (author)
+      if (state.currentStepIndex == 5 && state.focus == LearningFocus.linguisticObjective) {
+        // skip tags (6), go directly to author (7)
+        nextStep = 7;
+      }
+
       state = state.copyWith(
-        currentStepIndex: state.currentStepIndex + 1,
+        currentStepIndex: nextStep,
         showErrors: false,
       );
     } else {
@@ -177,8 +208,20 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
 
   void previousStep() {
     if (state.currentStepIndex > 0) {
+      int prevStep = state.currentStepIndex - 1;
+
+      if (state.currentStepIndex == 8 && state.focus == LearningFocus.language && state.languageSkill == LanguageSkill.phonetics) {
+        // came from step 5b
+        prevStep = 5;
+      }
+
+      if (state.currentStepIndex == 7 && state.focus == LearningFocus.linguisticObjective) {
+        // Came from step 5c
+        prevStep = 5;
+      }
+
       state = state.copyWith(
-        currentStepIndex: state.currentStepIndex - 1,
+        currentStepIndex: prevStep,
         showErrors: false,
       );
     }
@@ -204,6 +247,7 @@ class ResourceDepositNotifier extends Notifier<ResourceDepositState> {
         level: LanguageLevel.values[state.languageLevel],
         focus: state.focus!,
         languageSkill: state.languageSkill,
+        linguisticObjectives: state.linguisticObjectives.isEmpty ? null : state.linguisticObjectives,
         targetAudiences: state.targets.map((t) => UserRole.values.firstWhere((e) => e.name == t)).toSet(),
         tags: state.tags,
         author: Author(name: state.authorName, email: state.authorEmail),

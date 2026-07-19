@@ -3,6 +3,7 @@ import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_search_provider.dart';
 import 'package:app/widgets/selectable_card.dart';
+import 'package:app/widgets/option_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,28 +24,37 @@ class ResourceSearchStep2 extends ConsumerWidget {
       );
     }).toList();
 
-    final isValid = searchState.selectedLanguage != null;
+    final isValid = searchState.selectedLanguage != null && searchState.selectedLanguageLevel != null;
 
     return ResourceDepositFormStepLayout(
       title: 'Quelle langue cherches-tu ?',
       pageIndex: 1,
-      errorMessage: (searchState.showErrors && !isValid) ? 'Veuillez sélectionner une langue.' : null,
+      errorMessage: (searchState.showErrors && !isValid) ? 'Veuillez sélectionner une langue et un niveau.' : null,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isMobile = constraints.maxWidth < Constants.mobileWidthThreshold;
 
-          if (isMobile) {
-            return Column(
-              spacing: 16,
-              children: cards,
-            );
-          }
+          Widget cardsWidget = isMobile
+            ? Column(spacing: 16, children: cards)
+            : Row(spacing: 16, children: cards.map((card) => Expanded(child: card)).toList());
 
-          return Row(
-            spacing: 16,
-            children: cards.map((card) => Expanded(child: card)).toList(),
+          return Column(
+            spacing: 20,
+            children: [
+              cardsWidget,
+              OptionSlider(
+                label: 'Niveau de langue',
+                steps: LanguageLevel.values.map((e) => e.label).toList(),
+                selectedIndex: searchState.selectedLanguageLevel != null 
+                  ? LanguageLevel.values.indexOf(searchState.selectedLanguageLevel!)
+                  : -1,
+                onChanged: (int newIndex) {
+                  notifier.setLanguageLevel(LanguageLevel.values[newIndex]);
+                },
+              ),
+            ],
           );
         },
       ),

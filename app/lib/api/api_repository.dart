@@ -23,16 +23,20 @@ class ApiRepository {
   Future<List<Resource>> getResources({
     UserRole? role,
     String? language,
+    LanguageLevel? level,
     LearningFocus? focus,
     LanguageSkill? languageSkill,
     List<String>? tags,
+    List<String>? linguisticObjectives,
   }) async {
     final queryParams = <String, dynamic>{};
     if (role != null) queryParams['role'] = role.name;
     if (language != null) queryParams['language'] = language;
+    if (level != null) queryParams['level'] = level.name;
     if (focus != null) queryParams['focus'] = focus.name;
     if (languageSkill != null) queryParams['language_skill'] = languageSkill.name;
     if (tags != null && tags.isNotEmpty) queryParams['tags'] = tags;
+    if (linguisticObjectives != null && linguisticObjectives.isNotEmpty) queryParams['linguistic_objectives'] = linguisticObjectives;
 
     try {
       final response = await _dio.get(

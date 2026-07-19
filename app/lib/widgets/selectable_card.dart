@@ -85,7 +85,7 @@ class _SelectableCardState extends State<SelectableCard> {
           padding: const EdgeInsets.all(20),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: .center,
               children: [
                 _buildIconCircle(),
                 const SizedBox(height: 12),
@@ -150,10 +150,11 @@ class _SelectableCardState extends State<SelectableCard> {
     return Text(
       widget.label,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Source Sans Pro',
-            color: widget.isSelected ? AppTheme.primaryColor : AppTheme.blackColor,
-          ),
+        fontWeight: FontWeight.w600,
+        fontFamily: 'Source Sans Pro',
+        color: widget.isSelected ? AppTheme.primaryColor : AppTheme.blackColor,
+      ),
+      textAlign: .center,
     );
   }
 
