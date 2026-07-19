@@ -114,6 +114,11 @@ final resourceSearchFormProvider =
   return ResourceSearchFormNotifier();
 });
 
+final tagsProvider = FutureProvider.autoDispose<List<String>>((ref) async {
+  final repository = ref.watch(apiRepositoryProvider);
+  return repository.getTags();
+});
+
 final filteredResourcesProvider = FutureProvider.autoDispose<List<Resource>>((ref) async {
   final searchState = ref.watch(resourceSearchFormProvider);
   final repository = ref.watch(apiRepositoryProvider);

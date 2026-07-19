@@ -63,6 +63,18 @@ class ApiRepository {
     }
   }
 
+  // todo: make that it follows current search filters
+  Future<List<String>> getTags() async {
+    try {
+      final response = await _dio.get('/resources/tags');
+      return List<String>.from(response.data);
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
   Future<List<Resource>> getPendingResources(String adminEmail, String adminPassword) async {
     try {
       final response = await _dio.get(
