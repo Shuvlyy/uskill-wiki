@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: uskill-api
     ports:
-      - "8000:8000"
+      - "${API_PORT}:8000"
     environment:
       - USKILL_ADMIN_EMAIL=${USKILL_ADMIN_EMAIL}
       - USKILL_ADMIN_PASSWORD=${USKILL_ADMIN_PASSWORD}
@@ -15,9 +15,11 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
+      args:
+        API_URL: ${API_URL}
     container_name: uskill-app
     ports:
-      - "8080:80"
+      - "${APP_PORT}:80"
     restart: unless-stopped
     depends_on:
       - api

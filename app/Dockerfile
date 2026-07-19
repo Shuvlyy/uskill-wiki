@@ -7,7 +7,8 @@ COPY pubspec.* ./
 RUN flutter pub get
 
 COPY . .
-RUN flutter build web
+ARG API_URL=http://127.0.0.1:8000
+RUN flutter build web --dart-define=API_URL=$API_URL
 
 # nginx stuff
 FROM nginx:alpine
