@@ -34,7 +34,12 @@ If you prefer to run the application locally without Docker:
    flutter pub get
    ```
 
-2. Run the application in Chrome:
+2. Generate necessary boilerplate files:
+   ```bash
+   dart run build_runner build
+   ```
+
+3. Run the application in Chrome:
    ```bash
    flutter run -d chrome
    ```
