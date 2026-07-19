@@ -51,8 +51,9 @@ class ResourcesPage extends ConsumerWidget {
     
     if (isLanguage) {
       if (stepIndex == 3) return const ResourceSearchStep3b();
-      if (stepIndex == 4) return const ResourceSearchStep4();
-      if (stepIndex == 5) return const ResourceSearchResults();
+      if (stepIndex == 4) return const ResourceSearchStep3c();
+      if (stepIndex == 5) return const ResourceSearchStep4();
+      if (stepIndex == 6) return const ResourceSearchResults();
     } else if (isLinguistic) {
       if (stepIndex == 3) return const ResourceSearchStep3c();
       if (stepIndex == 4) return const ResourceSearchResults();

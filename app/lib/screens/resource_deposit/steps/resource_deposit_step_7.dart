@@ -29,12 +29,25 @@ class _ResourceDepositStep7State extends ConsumerState<ResourceDepositStep7> {
     final state = ref.watch(resourceDepositProvider);
     final notifier = ref.read(resourceDepositProvider.notifier);
     final isLanguage = state.focus == LearningFocus.language;
+    final isLinguistic = state.focus == LearningFocus.linguisticObjective;
+    final isValid = state.authorName.isNotEmpty && state.authorEmail.isNotEmpty && Regexes.email.hasMatch(state.authorEmail);
+
+    int pageIndex = 6;
+    int stepperAmount = 7;
+    if (isLanguage) {
+      pageIndex = 8;
+      stepperAmount = 9;
+    } else if (isLinguistic) {
+      pageIndex = 7;
+      stepperAmount = 8;
+    }
 
     return ResourceDepositFormStepLayout(
       title: 'Auteur',
       showMandatoryFieldsWarning: true,
-      pageIndex: isLanguage ? 7 : 6,
-      stepperAmount: isLanguage ? 8 : 7,
+      pageIndex: pageIndex,
+      stepperAmount: stepperAmount,
+      errorMessage: (state.showErrors && !isValid) ? 'Veuillez remplir tous les champs avec une adresse e-mail valide.' : null,
       body: Form(
         key: _formKey,
         child: Column(

@@ -34,13 +34,14 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
     }
 
     return ResourceDepositFormStepLayout(
-      title: 'Précise ta recherche',
-      pageIndex: isLanguage ? 4 : 3,
-      stepperAmount: isLanguage ? 5 : 4,
-      errorMessage: searchState.showErrors && searchState.selectedTags.isEmpty ? 'Sélectionne au moins un tag.' : null,
+      title: 'Précise ta recherche par thème',
+      pageIndex: isLanguage ? 5 : 3,
+      stepperAmount: isLanguage ? 6 : 4,
+      errorMessage: searchState.showErrors && searchState.selectedTags.isEmpty && searchState.selectedLinguisticObjectives.isEmpty ? 'Sélectionne au moins un thème ou un point de langue précédent.' : null,
       onNext: () {
-        final currentTags = ref.read(resourceSearchFormProvider).selectedTags;
-        notifier.validateAndNext(currentTags.isNotEmpty);
+        final hasTags = ref.read(resourceSearchFormProvider).selectedTags.isNotEmpty;
+        final hasObj = ref.read(resourceSearchFormProvider).selectedLinguisticObjectives.isNotEmpty;
+        notifier.validateAndNext(hasTags || hasObj);
       },
       onBack: notifier.previousStep,
       body: tagsAsyncValue.when(

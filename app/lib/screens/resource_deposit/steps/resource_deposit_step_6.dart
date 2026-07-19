@@ -73,12 +73,24 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
     final customTags = state.tags.where((t) => !predefinedTags.contains(t)).toList();
 
     final isLanguage = state.focus == LearningFocus.language;
+    final isLinguistic = state.focus == LearningFocus.linguisticObjective;
+    final isValid = state.tags.isNotEmpty || state.linguisticObjectives.isNotEmpty;
+
+    int pageIndex = 5;
+    int stepperAmount = 7;
+    if (isLanguage) {
+      pageIndex = 7;
+      stepperAmount = 9;
+    } else if (isLinguistic) {
+      pageIndex = 6;
+      stepperAmount = 8;
+    }
 
     return ResourceDepositFormStepLayout(
-      title: 'Tags',
-      pageIndex: isLanguage ? 6 : 5,
-      stepperAmount: isLanguage ? 8 : 7,
-      errorMessage: (state.showErrors && state.tags.isEmpty) ? 'Sélectionne au moins un tag.' : null,
+      title: 'Tags et Thème',
+      pageIndex: pageIndex,
+      stepperAmount: stepperAmount,
+      errorMessage: (state.showErrors && !isValid) ? 'Sélectionne au moins un tag ou un point de langue précédent.' : null,
       onNext: () {
         _addTag(ref);
 
@@ -87,8 +99,9 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
         }
 
         final currentTags = ref.read(resourceDepositProvider).tags;
+        final hasObj = ref.read(resourceDepositProvider).linguisticObjectives.isNotEmpty;
 
-        notifier.validateAndNext(currentTags.isNotEmpty);
+        notifier.validateAndNext(currentTags.isNotEmpty || hasObj);
       },
       onBack: notifier.previousStep,
       body: LayoutBuilder(
