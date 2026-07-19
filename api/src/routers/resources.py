@@ -47,6 +47,12 @@ def get_resources(
     return results
 
 
+@router.get("/tags", response_model=List[str])
+def get_tags(db: Session = Depends(get_db)):
+    """Get all unique tags from all resources."""
+    return crud.get_all_tags(db)
+
+
 @router.get("/pending", response_model=List[ResourceResponse])
 def get_pending_resources(db: Session = Depends(get_db), _=Depends(verify_admin)):
     """Get all PENDING resources."""

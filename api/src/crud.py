@@ -86,3 +86,16 @@ def update_resource_status(db: Session, resource_id: str, status: ResourceStatus
     db.commit()
 
     return db.query(Resource).filter(Resource.id == resource_id).first()
+
+
+def get_all_tags(db: Session) -> List[str]:
+    """
+    Fetches all unique tags from all resources.
+    """
+    resources = db.query(Resource.tags).all()
+    all_tags = set()
+    for (tags,) in resources:
+        if tags:
+            for tag in tags:
+                all_tags.add(tag)
+    return list(all_tags)
