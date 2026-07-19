@@ -9,6 +9,9 @@ class LabeledDropdownMenu<T> extends StatelessWidget {
   final bool isRequired;
   final T? initialSelection;
   final void Function(T?) onSelected;
+  final bool enableSearch;
+  final bool enableFilter;
+  final TextEditingController? controller;
 
   const LabeledDropdownMenu({
     super.key,
@@ -17,7 +20,10 @@ class LabeledDropdownMenu<T> extends StatelessWidget {
     required this.dropdownMenuEntries,
     this.isRequired = true,
     this.initialSelection,
-    required this.onSelected
+    required this.onSelected,
+    this.enableSearch = false,
+    this.enableFilter = false,
+    this.controller,
   });
 
   @override
@@ -48,7 +54,10 @@ class LabeledDropdownMenu<T> extends StatelessWidget {
         DropdownMenu<T>(
           hintText: hintText,
           expandedInsets: EdgeInsets.zero,
-          requestFocusOnTap: false,
+          requestFocusOnTap: enableSearch || enableFilter,
+          enableSearch: enableSearch,
+          enableFilter: enableFilter,
+          controller: controller,
           dropdownMenuEntries: dropdownMenuEntries,
           initialSelection: initialSelection,
           onSelected: onSelected,
