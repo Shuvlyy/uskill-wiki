@@ -7,6 +7,7 @@ import src.crud as crud
 from src.dependencies import get_db, verify_admin
 from src.models.learning_focus import LearningFocus
 from src.models.language_skill import LanguageSkill
+from src.models.language_level import LanguageLevel
 from src.models.resource import ResourceStatus
 from src.models.user_role import UserRole
 from src.schemas.resource import ResourceCreate, ResourceResponse
@@ -30,13 +31,15 @@ def submit_resource(resource: ResourceCreate, db: Session = Depends(get_db)):
 def get_resources(
     role: Optional[UserRole] = Query(None),
     language: Optional[str] = Query(None),
+    level: Optional[LanguageLevel] = Query(None),
     focus: Optional[LearningFocus] = Query(None),
     language_skill: Optional[LanguageSkill] = Query(None),
     tags: Optional[List[str]] = Query(None),
+    linguistic_objectives: Optional[List[str]] = Query(None),
     db: Session = Depends(get_db),
 ):
     """Get all APPROVED resources, filtering them based on query parameters."""
-    db_resources = crud.get_approved_resources(db, role, language, focus, language_skill, tags)
+    db_resources = crud.get_approved_resources(db, role, language, level, focus, language_skill, linguistic_objectives, tags)
 
     results = []
     for r in db_resources:

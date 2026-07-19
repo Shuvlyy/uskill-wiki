@@ -44,6 +44,7 @@ class Resource(Base):
 
     target_audiences = Column(JSON, nullable=False)
     tags = Column(JSON, nullable=False)
+    linguistic_objectives = Column(JSON, nullable=True)
 
     author_name = Column(String, nullable=False)
     author_email = Column(String, nullable=False)

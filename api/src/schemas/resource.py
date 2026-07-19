@@ -23,6 +23,7 @@ class ResourceBase(BaseModel):
 
     target_audiences: Set[UserRole]
     tags: List[str]
+    linguistic_objectives: Optional[List[str]] = None
 
     author: Author
 

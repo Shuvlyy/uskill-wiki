@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.models.learning_focus import LearningFocus
 from src.models.language_skill import LanguageSkill
+from src.models.language_level import LanguageLevel
 from src.models.resource import Resource, ResourceStatus
 from src.models.user_role import UserRole
 from src.schemas.resource import ResourceCreate
@@ -26,6 +27,7 @@ def create_pending_resource(db: Session, resource: ResourceCreate):
         level=resource.level.value,
         target_audiences=[role.value for role in resource.target_audiences],
         tags=resource.tags,
+        linguistic_objectives=resource.linguistic_objectives,
         author_name=resource.author.name,
         author_email=resource.author.email,
         status=ResourceStatus.pending,
@@ -41,8 +43,10 @@ def get_approved_resources(
     db: Session,
     role: Optional[UserRole] = None,
     language: Optional[str] = None,
+    level: Optional[LanguageLevel] = None,
     focus: Optional[LearningFocus] = None,
     language_skill: Optional[LanguageSkill] = None,
+    linguistic_objectives: Optional[List[str]] = None,
     tags: Optional[List[str]] = None,
 ):
     """
@@ -59,12 +63,19 @@ def get_approved_resources(
     if language_skill:
         query = query.filter(Resource.language_skill == language_skill.value)
 
+    if level:
+        query = query.filter(Resource.level == level.value)
+
     if role:
         query = query.filter(Resource.target_audiences.like(f'%"{role.value}"%'))
 
     if tags:
         tag_conditions = [Resource.tags.like(f'%"{tag}"%') for tag in tags]
         query = query.filter(or_(*tag_conditions))
+
+    if linguistic_objectives:
+        obj_conditions = [Resource.linguistic_objectives.like(f'%"{obj}"%') for obj in linguistic_objectives]
+        query = query.filter(or_(*obj_conditions))
 
     return query.all()
 
