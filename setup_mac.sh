@@ -33,7 +33,7 @@ fi
 
 # orbstack startup #
 echo "Starting Orbstack..."
-open -a OrbStack
+open /Applications/OrbStack.app/
 echo "Waiting for Docker service to spool up..."
 sleep 10 # todo: maybe better way??
 
