@@ -23,6 +23,9 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
    bash setup_mac.sh
    ```
    > [!IMPORTANT]
+   > Lorsqu'OrbStack se lancera automatiquement, vous devrez suivre le programme d'installation et bien choisir Docker lorsque ce sera demandé. Une fois OrbStack prêt, vous pourrez appuyer sur n'importe quelle touche sur le script d'installation de U-Skill Wiki.
+
+   > [!IMPORTANT]
    > Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.
 
 4. Laissez l'ordinateur travailler! Il va peut-être vous demander votre mot de passe pour installer certains outils. Une fois terminé, il affichera un message de succès.
@@ -63,6 +66,12 @@ brew install --cask orbstack
 ```
 
 Une fois installé, ouvrez l'application **OrbStack** (<kbd>Cmd</kbd> + <kbd>Space</kbd>, tapez "OrbStack", <kbd>Return</kbd>).
+Si vous préférez, vous pouvez l'ouvrir depuis le Terminal:
+```bash
+open /Applications/OrbStack.app/
+```
+
+Suivez le programme de configuration, et sélectionnez bien Docker quand il vous sera demandé de choisir.
 
 ### Étape 5 : Préparer la configuration
 

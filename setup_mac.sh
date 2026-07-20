@@ -34,7 +34,7 @@ fi
 # orbstack startup #
 echo "Starting Orbstack..."
 open /Applications/OrbStack.app/
-echo "Waiting for Docker service to spool up..."
+read -n 1 -s -r -p "When OrbStack is done loading, press any key to continue setup."
 sleep 10 # todo: maybe better way??
 
 # .env setup lol #
