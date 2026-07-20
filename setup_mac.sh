@@ -1,6 +1,13 @@
 #!/bin/bash
 echo "U-Skill Wiki installation"
 
+# setup homebrew env if installed but not in PATH #
+if [ -x "/opt/homebrew/bin/brew" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x "/usr/local/bin/brew" ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # install homebrew #
 if ! command -v brew &> /dev/null
 then
@@ -35,7 +42,6 @@ fi
 echo "Starting Orbstack..."
 open /Applications/OrbStack.app/
 read -n 1 -s -r -p "When OrbStack is done loading, press any key to continue setup."
-sleep 10 # todo: maybe better way??
 
 # .env setup lol #
 if [ ! -f .env ]; then
