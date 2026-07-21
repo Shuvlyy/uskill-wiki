@@ -22,7 +22,12 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
 
 1. Ouvrez l'application **Powershell** sur votre ordinateur (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
 
-2. Téléchargez le projet en tapant cette commande:
+2. Naviguez jusqu'à votre Bureau en exécutant cette commande:
+   ```powershell
+   cd "$env:USERPROFILE\Desktop"
+   ```
+
+3. Téléchargez le projet en tapant cette commande:
    ```powershell
    git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki
    ```
@@ -33,14 +38,14 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
    > winget install --id Git.Git -e --source winget
    > ```
 
-3. Lancez le script d'installation en tapant cette commande:
+4. Lancez le script d'installation en tapant cette commande:
    ```powershell
    start setup_windows.bat
    ```
    > [!IMPORTANT]
    > Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.
 
-4. Laissez l'ordinateur travailler! Il va peut-être vous demander votre autorisation pour installer certains outils. Une fois terminé, il affichera un message de succès.
+5. Laissez l'ordinateur travailler! Il va peut-être vous demander votre autorisation pour installer certains outils. Une fois terminé, il affichera un message de succès.
 
 L'application sera alors accessible sur votre navigateur internet via cette adresse : **http://localhost:8080**.
 
