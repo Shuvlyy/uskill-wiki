@@ -56,7 +56,7 @@ L'application sera alors accessible sur votre navigateur internet via cette adre
 Si vous préférez comprendre chaque étape ou si le script ne marche pas, voici comment faire manuellement :
 
 ### Étape 1 : Télécharger le projet
-Ouvrez l'**Powershell** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>) et copiez-collez cette ligne, puis appuyez sur <kbd>Return</kbd> :
+Ouvrez le **Powershell** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>) et copiez-collez cette ligne, puis appuyez sur <kbd>Return</kbd> :
 ```powershell
 git clone https://github.com/Shuvlyy/uskill-wiki.git ; cd uskill-wiki
 ```
@@ -106,7 +106,7 @@ docker compose down
 
 Avant de lancer le projet, il doit être correctement configuré. Pour ça, suivez ces étapes:
 
-Vous devriez normalement être dans le Powershell, dans le dossier du projet. En exécutant la commande `dir /a`, vous verrez un fichier nommé `.env.sample`.
+Vous devriez normalement être dans le Powershell, dans le dossier du projet. En exécutant la commande `dir -Force`, vous verrez un fichier nommé `.env.sample`.
 
 > [!NOTE]
 > Pour vérifier que vous êtes bien dans le dossier du projet, assurez-vous simplement qu'il est écrit à gauche de la ligne (il devrait y avoir écrit `uskill-wiki`).
