@@ -8,6 +8,7 @@ RUN flutter pub get
 
 COPY . .
 ARG API_URL=http://127.0.0.1:8000
+RUN dart run build_runner build
 RUN flutter build web --dart-define=API_URL=$API_URL
 
 # nginx stuff
