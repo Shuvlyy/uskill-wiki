@@ -20,15 +20,6 @@ else
     echo "Homebrew is already installed ($(brew --version))."
 fi
 
-# install python #
-if ! command -v python3 &> /dev/null
-then
-    echo "Installing Python..."
-    brew install python
-else
-    echo "Python is already installed ($(python3 --version))."
-fi
-
 # install orbstack #
 if ! command -v docker &> /dev/null
 then

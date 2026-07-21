@@ -53,13 +53,8 @@ Toujours dans le Terminal, tapez :
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### Étape 3 : Installer Python
-Ensuite, tapez :
-```bash
-brew install python
-```
 
-### Étape 4 : Installer OrbStack (Docker)
+### Étape 3 : Installer OrbStack (Docker)
 Ensuite, tapez :
 ```bash
 brew install --cask orbstack
@@ -73,11 +68,11 @@ open /Applications/OrbStack.app/
 
 Suivez le programme de configuration, et sélectionnez bien Docker quand il vous sera demandé de choisir.
 
-### Étape 5 : Préparer la configuration
+### Étape 4 : Préparer la configuration
 
 Avant de passer à l'étape suivante, assurez-vous de suivre les instructions de [configuration du projet](#configuration-du-projet).
 
-### Étape 6 : Lancer le projet
+### Étape 5 : Lancer le projet
 
 Pour lancer le projet, dans le Terminal, toujours dans le dossier du projet, tapez :
 ```bash

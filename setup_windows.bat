@@ -35,10 +35,6 @@ if defined NEED_REBOOT (
     exit /b 0
 )
 
-:: install python ::
-echo Installing Python...
-winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
-
 :: install docker desktop ::
 echo Installing Docker Desktop (docker)...
 winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept-source-agreements

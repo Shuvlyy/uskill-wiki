@@ -95,13 +95,8 @@ wsl --install -d Ubuntu
 > [!CAUTION]
 > **Redémarrage obligatoire :** Après avoir tapé ces commandes, vous **devez** redémarrer votre ordinateur pour que les changements soient pris en compte. Une fois redémarré, rouvrez l'application Powershell, retournez dans le dossier du projet (`cd "$env:USERPROFILE\Desktop\uskill-wiki"`) et passez à l'étape suivante.
 
-### Étape 3 : Installer Python
-Ensuite, tapez :
-```powershell
-winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
-```
 
-### Étape 4 : Installer Docker Desktop
+### Étape 3 : Installer Docker Desktop
 Ensuite, tapez :
 ```powershell
 winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept-source-agreements
@@ -117,11 +112,11 @@ cd "$env:USERPROFILE\Desktop"
 
 Puis passez à l'étape suivante.
 
-### Étape 5 : Préparer la configuration
+### Étape 4 : Préparer la configuration
 
 Avant de passer à l'étape suivante, assurez-vous de suivre les instructions de [configuration du projet](#configuration-du-projet).
 
-### Étape 6 : Lancer le projet
+### Étape 5 : Lancer le projet
 
 Pour lancer le projet, dans le Powershell, toujours dans le dossier du projet, tapez :
 ```powershell
