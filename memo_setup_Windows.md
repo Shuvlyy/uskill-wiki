@@ -29,7 +29,7 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
 
 3. Téléchargez le projet en tapant cette commande:
    ```powershell
-   git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki
+   git clone https://github.com/Shuvlyy/uskill-wiki.git ; cd uskill-wiki
    ```
 
    > [!NOTE]
@@ -58,7 +58,7 @@ Si vous préférez comprendre chaque étape ou si le script ne marche pas, voici
 ### Étape 1 : Télécharger le projet
 Ouvrez l'**Powershell** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>) et copiez-collez cette ligne, puis appuyez sur <kbd>Return</kbd> :
 ```powershell
-git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki
+git clone https://github.com/Shuvlyy/uskill-wiki.git ; cd uskill-wiki
 ```
 
 > [!NOTE]
