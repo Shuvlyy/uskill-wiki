@@ -13,8 +13,14 @@ winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept
 echo Starting Docker Desktop...
 start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe"
 echo Waiting for Docker service to spool up...
-:: todo: better way?? ::
-timeout /t 30 /nobreak >nul
+
+:wait_for_docker
+docker ps >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Docker is still starting, waiting...
+    timeout /t 5 /nobreak >nul
+    goto wait_for_docker
+)
 
 :: .env setup lol ::
 if not exist .env (
