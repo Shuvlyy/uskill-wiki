@@ -34,6 +34,7 @@ if %errorlevel% neq 0 (
 :: .env setup lol ::
 if not exist .env (
     echo Please fill up the .env file ^(admin email + password^).
+    pause
     exit /b 0
 ) else (
     echo Environment variables are already set.
