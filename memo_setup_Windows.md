@@ -45,10 +45,7 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
    > [!NOTE]
    > **Redémarrage possible :** Le script vérifie si votre PC possède les fonctionnalités de virtualisation (WSL, nécessaires pour Docker). S'il doit les installer, il vous demandera de **redémarrer votre ordinateur**. Dans ce cas, après le redémarrage :
    > 1. Rouvrez l'application Powershell (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
-   > 2. Retournez dans le dossier du projet
-    ```powershell
-    cd "$env:USERPROFILE\Desktop\uskill-wiki"
-    ```
+   > 2. Retournez dans le dossier du projet: `cd "$env:USERPROFILE\Desktop\uskill-wiki"`
    > 3. Relancez le script (`start setup_windows.bat`) pour qu'il reprenne l'installation là où il s'était arrêté.
 
    > [!IMPORTANT]
