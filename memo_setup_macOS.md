@@ -108,7 +108,7 @@ Vous devriez normalement être dans le Terminal, dans le dossier du projet. En e
    cp .env.sample .env
    ```
 
-2. Ouvrez ce fichier `.env` avec le logiciel `TextEdit` (un logiciel d'édition de texte) dans le Terminal:
+2. Ouvrez ce fichier `.env` avec le logiciel TextEdit (un logiciel d'édition de texte) dans le Terminal:
    ```bash
    open -a TextEdit .env
    ```

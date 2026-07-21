@@ -56,6 +56,9 @@ start setup_windows.bat
 > [!IMPORTANT]
 > Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.
 
+> [!NOTE]
+> Si il s'agit de la première fois que vous lancez Docker Desktop, vous pouvez ignorer la création de compte.
+
 Une fois lancé, laissez l'ordinateur travailler! Il prendra sûrement du temps pour tout mettre en place. Suivez bien les instructions affichées ! Il va peut-être vous demander votre autorisation pour installer certains outils. Une fois terminé, il affichera un message de succès.
 
 L'application sera alors accessible sur votre navigateur internet via cette adresse : **http://localhost:8080**.
@@ -67,8 +70,9 @@ L'application sera alors accessible sur votre navigateur internet via cette adre
 Si vous préférez comprendre chaque étape ou si le script ne marche pas, voici comment faire manuellement :
 
 ### Étape 1 : Télécharger le projet
-Ouvrez le **Powershell** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>) et copiez-collez cette ligne, puis appuyez sur <kbd>Return</kbd> :
+Ouvrez le **Powershell** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>). Copiez-collez ces deux lignes une par une, puis appuyez sur <kbd>Return</kbd> pour chacune :
 ```powershell
+cd "$env:USERPROFILE\Desktop"
 git clone https://github.com/Shuvlyy/uskill-wiki.git ; cd uskill-wiki
 ```
 
@@ -78,25 +82,38 @@ git clone https://github.com/Shuvlyy/uskill-wiki.git ; cd uskill-wiki
 > winget install --id Git.Git -e --source winget
 > ```
 
-### Étape 2 : Installer Python
+### Étape 2 : Activer la virtualisation (WSL)
+
+Docker a besoin de la virtualisation pour fonctionner sur Windows. Dans le Powershell (ouvert en tant qu'administrateur), tapez ces commandes une par une :
+```powershell
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
+bcdedit /set hypervisorlaunchtype auto
+wsl --install -d Ubuntu
+```
+
+> [!CAUTION]
+> **Redémarrage obligatoire :** Après avoir tapé ces commandes, vous **devez** redémarrer votre ordinateur pour que les changements soient pris en compte. Une fois redémarré, rouvrez l'application Powershell, retournez dans le dossier du projet (`cd "$env:USERPROFILE\Desktop\uskill-wiki"`) et passez à l'étape suivante.
+
+### Étape 3 : Installer Python
 Ensuite, tapez :
 ```powershell
 winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
 ```
 
-### Étape 3 : Installer Docker Desktop
+### Étape 4 : Installer Docker Desktop
 Ensuite, tapez :
 ```powershell
 winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept-source-agreements
 ```
 
-Une fois installé, ouvrez l'application **Docker Desktop** depuis le menu Démarrer de Windows.
+Une fois installé, ouvrez l'application **Docker Desktop** depuis le menu Démarrer de Windows, puis ignorez la création de compte.
 
-### Étape 4 : Préparer la configuration
+### Étape 5 : Préparer la configuration
 
 Avant de passer à l'étape suivante, assurez-vous de suivre les instructions de [configuration du projet](#configuration-du-projet).
 
-### Étape 5 : Lancer le projet
+### Étape 6 : Lancer le projet
 
 Pour lancer le projet, dans le Powershell, toujours dans le dossier du projet, tapez :
 ```powershell
@@ -127,7 +144,7 @@ Vous devriez normalement être dans le Powershell, dans le dossier du projet. En
    copy .env.sample .env
    ```
 
-2. Ouvrez ce fichier `.env` avec le logiciel `Bloc-notes` (un logiciel d'édition de texte) dans le Powershell:
+2. Ouvrez ce fichier `.env` avec le logiciel Bloc-notes (un logiciel d'édition de texte) dans le Powershell:
    ```powershell
    notepad .env
    ```
