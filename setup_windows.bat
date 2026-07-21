@@ -21,7 +21,7 @@ if %VMP_ENABLED% neq 0 set NEED_REBOOT=1
 if %WSL_ENABLED% neq 0 set NEED_REBOOT=1
 
 if defined NEED_REBOOT (
-    echo Enabling virtualization features (this might take a minute)...
+    echo Enabling virtualization features, this might take a minute...
     dism.exe /online /Enable-Feature /All /FeatureName:VirtualMachinePlatform /NoRestart
     dism.exe /online /Enable-Feature /All /FeatureName:Microsoft-Windows-Subsystem-Linux /NoRestart
     bcdedit /set hypervisorlaunchtype auto
