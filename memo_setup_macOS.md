@@ -23,7 +23,7 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
    bash setup_mac.sh
    ```
    > [!IMPORTANT]
-   > Lorsqu'OrbStack se lancera automatiquement, vous devrez suivre le programme d'installation et bien choisir Docker lorsque ce sera demandé. Une fois OrbStack prêt, vous pourrez appuyer sur n'importe quelle touche sur le script d'installation de U-Skill Wiki.
+   > Lorsqu'OrbStack se lancera automatiquement, vous devrez suivre le programme d'installation et bien choisir Docker lorsque ce sera demandé.
 
    > [!IMPORTANT]
    > Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.

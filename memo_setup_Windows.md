@@ -42,10 +42,19 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
    ```powershell
    start setup_windows.bat
    ```
+   > [!NOTE]
+   > **Redémarrage possible :** Le script vérifie si votre PC possède les fonctionnalités de virtualisation (WSL, nécessaires pour Docker). S'il doit les installer, il vous demandera de **redémarrer votre ordinateur**. Dans ce cas, après le redémarrage :
+   > 1. Rouvrez l'application Powershell (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
+   > 2. Retournez dans le dossier du projet
+    ```powershell
+    cd "$env:USERPROFILE\Desktop\uskill-wiki"
+    ```
+   > 3. Relancez le script (`start setup_windows.bat`) pour qu'il reprenne l'installation là où il s'était arrêté.
+
    > [!IMPORTANT]
    > Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.
 
-5. Laissez l'ordinateur travailler! Il va peut-être vous demander votre autorisation pour installer certains outils. Une fois terminé, il affichera un message de succès.
+5. Laissez l'ordinateur travailler! Il prendra sûrement du temps pour tout mettre en place. Suivez bien les instructions affichées ! Il va peut-être vous demander votre autorisation pour installer certains outils. Une fois terminé, il affichera un message de succès.
 
 L'application sera alors accessible sur votre navigateur internet via cette adresse : **http://localhost:8080**.
 
