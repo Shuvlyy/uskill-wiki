@@ -8,18 +8,19 @@ Ce document vous explique comment lancer le projet U-Skill Wiki sur votre ordina
 
 Les deux méthodes d'installation requierent le logiciel WinGet (une sorte de magasin d'applications pour développeurs). Pour vérifier si vous l'avez déjà, suivez ces étapes:
 
-1. Ouvrez l'application **Invite de commandes** sur votre ordinateur (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
+1. Ouvrez l'application **Powershell** sur votre ordinateur **en tant qu'administrateur**.
 
 2. Tapez "winget" puis appuyez sur <kbd>Return</kbd>. Si vous voyez un message rouge, cela indique que WinGet n'est pas installé. Pour installer WinGet, copiez-collez cette commande et appuyez sur <kbd>Return</kbd>:
    ```powershell
    Install-PackageProvider -Name NuGet -Force; Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery; Repair-WinGetPackageManager -AllUsers
    ```
+   Une fois fini, vous pouvez vérifier que WinGet s'est bien installé en exécutant la commande "winget".
 
 ## Méthode 1 : L'installation automatique (Recommandée)
 
 La manière la plus simple de lancer le projet est d'utiliser le script mis à votre disposition. Il s'occupera d'installer tous les outils nécessaires ainsi que de lancer le projet.
 
-1. Ouvrez l'application **Invite de commandes** sur votre ordinateur (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
+1. Ouvrez l'application **Powershell** sur votre ordinateur (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
 
 2. Téléchargez le projet en tapant cette commande:
    ```powershell
@@ -50,7 +51,7 @@ L'application sera alors accessible sur votre navigateur internet via cette adre
 Si vous préférez comprendre chaque étape ou si le script ne marche pas, voici comment faire manuellement :
 
 ### Étape 1 : Télécharger le projet
-Ouvrez l'**Invite de commandes** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>) et copiez-collez cette ligne, puis appuyez sur <kbd>Return</kbd> :
+Ouvrez l'**Powershell** (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>) et copiez-collez cette ligne, puis appuyez sur <kbd>Return</kbd> :
 ```powershell
 git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki
 ```
@@ -81,7 +82,7 @@ Avant de passer à l'étape suivante, assurez-vous de suivre les instructions de
 
 ### Étape 5 : Lancer le projet
 
-Pour lancer le projet, dans l'Invite de commandes, toujours dans le dossier du projet, tapez :
+Pour lancer le projet, dans le Powershell, toujours dans le dossier du projet, tapez :
 ```powershell
 docker compose up --build -d
 ```
@@ -91,7 +92,7 @@ Cette commande s'occupera de démarrer tout ce qu'il faut. Quand c'est fini, le 
 - Et pour les plus curieux, l'API sera accessible ici : **http://localhost:8000**
 
 ## Comment arrêter le projet ?
-Quand vous avez fini de tester l'application, pour tout arrêter proprement, tapez dans l'Invite de commandes (toujours dans le dossier du projet) :
+Quand vous avez fini de tester l'application, pour tout arrêter proprement, tapez dans le Powershell (toujours dans le dossier du projet) :
 ```cmd
 docker compose down
 ```
@@ -100,17 +101,17 @@ docker compose down
 
 Avant de lancer le projet, il doit être correctement configuré. Pour ça, suivez ces étapes:
 
-Vous devriez normalement être dans l'Invite de commandes, dans le dossier du projet. En exécutant la commande `dir /a`, vous verrez un fichier nommé `.env.sample`.
+Vous devriez normalement être dans le Powershell, dans le dossier du projet. En exécutant la commande `dir /a`, vous verrez un fichier nommé `.env.sample`.
 
 > [!NOTE]
 > Pour vérifier que vous êtes bien dans le dossier du projet, assurez-vous simplement qu'il est écrit à gauche de la ligne (il devrait y avoir écrit `uskill-wiki`).
 
-1. Faites une copie de ce fichier et nommez la copie `.env` (avec un point au début, c'est important). Vous ne verrez peut-être pas ces fichiers dans votre explorateur de fichiers (à moins que vous ayez changé les paramètres de Windows), pas d'inquiétudes c'est normal. Vous devez donc faire ça depuis l'Invite de commandes. Toujours dans le dossier du projet, tapez cette commande:
+1. Faites une copie de ce fichier et nommez la copie `.env` (avec un point au début, c'est important). Vous ne verrez peut-être pas ces fichiers dans votre explorateur de fichiers (à moins que vous ayez changé les paramètres de Windows), pas d'inquiétudes c'est normal. Vous devez donc faire ça depuis le Powershell. Toujours dans le dossier du projet, tapez cette commande:
    ```powershell
    copy .env.sample .env
    ```
 
-2. Ouvrez ce fichier `.env` avec le logiciel `Bloc-notes` (un logiciel d'édition de texte) dans l'Invite de commandes:
+2. Ouvrez ce fichier `.env` avec le logiciel `Bloc-notes` (un logiciel d'édition de texte) dans le Powershell:
    ```powershell
    notepad .env
    ```
