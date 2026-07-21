@@ -8,27 +8,27 @@ Ce document vous explique comment lancer le projet U-Skill Wiki sur votre Mac. A
 
 La manière la plus simple de lancer le projet est d'utiliser le script mis à votre disposition. Il s'occupera d'installer tous les outils nécessaires ainsi que de lancer le projet.
 
-1. Ouvrez l'application **Terminal** sur votre Mac (<kbd>Cmd</kbd> + <kbd>Space</kbd>, tapez "Terminal", <kbd>Return</kbd>).
+### Étape 1 : Télécharger le projet
+Ouvrez l'application **Terminal** sur votre Mac (<kbd>Cmd</kbd> + <kbd>Space</kbd>, tapez "Terminal", <kbd>Return</kbd>), puis téléchargez le projet en tapant cette commande:
+```bash
+git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki/
+```
 
-2. Téléchargez le projet en tapant cette commande:
-   ```bash
-   git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki/
-   ```
+> [!NOTE]
+> Si il s'agit de la première fois que vous utilisez la commande `git`, macOS vous demandera votre mot de passe pour installer le logiciel.
 
-   > [!NOTE]
-   > Si il s'agit de la première fois que vous utilisez la commande `git`, macOS vous demandera votre mot de passe pour installer le logiciel.
+### Étape 2 : Lancer le projet
+Lancez le script d'installation en tapant cette commande puis en appuyant sur <kbd>Return</kbd>:
+```bash
+bash setup_mac.sh
+```
+> [!IMPORTANT]
+> Lorsqu'OrbStack se lancera automatiquement, vous devrez suivre le programme d'installation et bien choisir Docker lorsque ce sera demandé.
 
-3. Lancez le script d'installation en tapant cette commande puis en appuyant sur <kbd>Return</kbd>:
-   ```bash
-   bash setup_mac.sh
-   ```
-   > [!IMPORTANT]
-   > Lorsqu'OrbStack se lancera automatiquement, vous devrez suivre le programme d'installation et bien choisir Docker lorsque ce sera demandé.
+> [!IMPORTANT]
+> Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.
 
-   > [!IMPORTANT]
-   > Si le script vous indique *"Please fill up the .env file (admin email + password)."*, vous devez [configurer le projet](#configuration-du-projet) puis relancer le script avec la même commande.
-
-4. Laissez l'ordinateur travailler! Il va peut-être vous demander votre mot de passe pour installer certains outils. Une fois terminé, il affichera un message de succès.
+Une fois fait, laissez l'ordinateur travailler! Il va peut-être vous demander votre mot de passe pour installer certains outils. Une fois terminé, il affichera un message de succès.
 
 L'application sera alors accessible sur votre navigateur internet via cette adresse : **http://localhost:8080**.
 
