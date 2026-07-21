@@ -6,6 +6,15 @@ This repository is divided into two main components:
 - `api`: The backend service built with Python and FastAPI.
 - `app`: The frontend user interface built with Flutter.
 
+## Getting Started (Quick Setup)
+
+If you are not familiar with development tools or want an automated installation process, please refer to the dedicated setup guides depending on your operating system:
+
+- **[macOS Setup Guide](memo_setup_macOS.md)**
+- **[Windows Setup Guide](memo_setup_Windows.md)**
+
+These guides will help you install and run the project from scratch without any prior technical knowledge!
+
 ## Prerequisites
 
 To run this application, it is recommended to use Docker.
