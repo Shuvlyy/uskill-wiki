@@ -10,6 +10,31 @@ cd /d "%~dp0"
 
 echo U-Skill Wiki installation
 
+:: check virtualization features ::
+echo Checking virtualization features (WSL)...
+powershell -Command "if ((Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform).State -eq 'Enabled') { exit 0 } else { exit 1 }"
+set VMP_ENABLED=%errorlevel%
+powershell -Command "if ((Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State -eq 'Enabled') { exit 0 } else { exit 1 }"
+set WSL_ENABLED=%errorlevel%
+
+if %VMP_ENABLED% neq 0 set NEED_REBOOT=1
+if %WSL_ENABLED% neq 0 set NEED_REBOOT=1
+
+if defined NEED_REBOOT (
+    echo Enabling virtualization features (this might take a minute)...
+    dism.exe /online /Enable-Feature /All /FeatureName:VirtualMachinePlatform /NoRestart
+    dism.exe /online /Enable-Feature /All /FeatureName:Microsoft-Windows-Subsystem-Linux /NoRestart
+    bcdedit /set hypervisorlaunchtype auto
+    wsl --install -d Ubuntu
+    echo ==================================================
+    echo Virtualization features have been enabled!
+    echo A system restart is REQUIRED to continue the installation.
+    echo Please restart your computer, then run this script again.
+    echo ==================================================
+    pause
+    exit /b 0
+)
+
 :: install python ::
 echo Installing Python...
 winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
@@ -50,4 +75,5 @@ echo App can be accessed on: http://localhost:8080
 echo And, if you are curious, API can be accessed on: http://localhost:8000
 echo ==================================================
 echo If you want to stop the project, simply type "docker compose down" in the console.
+echo You can now close this window by pressing any key...
 pause >nul
