@@ -109,6 +109,14 @@ winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept
 
 Une fois installé, ouvrez l'application **Docker Desktop** depuis le menu Démarrer de Windows, puis ignorez la création de compte.
 
+Puis fermez la fenêtre Powershell et relancez-en une nouvelle (pour prendre en compte l'installation de Docker Desktop).\
+Ensuite, retournez dans le dossier du projet en tapant cette commande :
+```powershell
+cd "$env:USERPROFILE\Desktop"
+```
+
+Puis passez à l'étape suivante.
+
 ### Étape 5 : Préparer la configuration
 
 Avant de passer à l'étape suivante, assurez-vous de suivre les instructions de [configuration du projet](#configuration-du-projet).
