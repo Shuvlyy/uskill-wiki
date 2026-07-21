@@ -4,6 +4,17 @@ Ce document vous explique comment lancer le projet U-Skill Wiki sur votre ordina
 
 ---
 
+## WinGet
+
+Les deux méthodes d'installation requierent le logiciel WinGet (une sorte de magasin d'applications pour développeurs). Pour vérifier si vous l'avez déjà, suivez ces étapes:
+
+1. Ouvrez l'application **Invite de commandes** sur votre ordinateur (<kbd>Win</kbd> + <kbd>R</kbd>, tapez "powershell", <kbd>Return</kbd>).
+
+2. Tapez "winget" puis appuyez sur <kbd>Return</kbd>. Si vous voyez un message rouge, cela indique que WinGet n'est pas installé. Pour installer WinGet, copiez-collez cette commande et appuyez sur <kbd>Return</kbd>:
+   ```powershell
+   Install-PackageProvider -Name NuGet -Force; Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery; Repair-WinGetPackageManager -AllUsers
+   ```
+
 ## Méthode 1 : L'installation automatique (Recommandée)
 
 La manière la plus simple de lancer le projet est d'utiliser le script mis à votre disposition. Il s'occupera d'installer tous les outils nécessaires ainsi que de lancer le projet.
