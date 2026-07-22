@@ -41,6 +41,7 @@ def populate(json_filepath: str):
                 level=item["level"],
                 target_audiences=item["target_audiences"],
                 tags=item["tags"],
+                linguistic_objectives=item.get("linguistic_objectives"),
                 author_name=item["author_name"],
                 author_email=item["author_email"],
                 status=item["status"],
