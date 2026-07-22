@@ -155,42 +155,68 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildTeamEmails(TextTheme textTheme) {
-    final team = [
+    final mainTeam = [
       { 'name': 'Barbara Chicotot', 'email': 'barbara.chicotot@univ-nantes.fr' },
       { 'name': 'Dolly Ramella', 'email': 'dolly.ramella@univ-nantes.fr' },
       { 'name': 'Leslie de Bond', 'email': 'leslie.debond@univ-nantes.fr' },
       { 'name': 'Isabelle Richard', 'email': 'isabelle.richard@univ-nantes.fr' },
     ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: team.map((member) => Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => launchUrl(Uri.parse('mailto:${member['email']}')),
-            child: RichText(
-              text: TextSpan(
-                style: textTheme.bodyLarge?.copyWith(fontSize: 18),
-                children: [
-                  TextSpan(
-                    text: '• ${member['name']} - ',
-                    style: const TextStyle(color: AppTheme.blackColor)
-                  ),
-                  TextSpan(
-                    text: member['email'], 
-                    style: const TextStyle(
-                      color: AppTheme.primaryColor,
-                      decoration: TextDecoration.underline
-                    ),
-                  ),
-                ],
+    final devTeam = [
+      { 'name': 'Lysandre Boursette', 'email': 'lysandre.boursette@epitech.eu' },
+    ];
+
+    Widget buildCategory(String title, List<Map<String, String>> team) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+            child: Text(
+              title,
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppTheme.blackColor,
               ),
             ),
           ),
-        ),
-      )).toList(),
+          ...team.map((member) => Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () => launchUrl(Uri.parse('mailto:${member['email']}')),
+                child: RichText(
+                  text: TextSpan(
+                    style: textTheme.bodyLarge?.copyWith(fontSize: 18),
+                    children: [
+                      TextSpan(
+                        text: '• ${member['name']} - ',
+                        style: const TextStyle(color: AppTheme.blackColor)
+                      ),
+                      TextSpan(
+                        text: member['email'],
+                        style: const TextStyle(
+                          color: AppTheme.primaryColor,
+                          decoration: TextDecoration.underline
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )),
+        ],
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: .start,
+      children: [
+        buildCategory('Équipe principale', mainTeam),
+        buildCategory('Développement du wiki & photos', devTeam),
+      ],
     );
   }
 
