@@ -154,7 +154,7 @@ class _SelectableCardState extends State<SelectableCard> {
         fontFamily: 'Source Sans Pro',
         color: widget.isSelected ? AppTheme.primaryColor : AppTheme.blackColor,
       ),
-      textAlign: .center,
+      textAlign: .left,
     );
   }
 
