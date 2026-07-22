@@ -191,22 +191,16 @@ class NavbarDrawer extends StatelessWidget {
               color: AppTheme.blackColor,
               padding: const EdgeInsets.symmetric(vertical: 24),
               width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  4,
-                  (index) => Container(
-                    width: 32,
-                    height: 32,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: AppTheme.whiteColor.withValues(alpha: 0.1),
-                      border: Border.all(
-                        color: AppTheme.whiteColor.withValues(alpha: 0.2),
-                      ),
-                    ),
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 20,
+                children: [
+                  Logo.univWhite(width: 150),
+                  Text(
+                    '© 2026 U-Skill Wiki',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                ),
+                ],
               ),
             ),
           ],
