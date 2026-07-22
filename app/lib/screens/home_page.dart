@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 80),
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1000),
+                constraints: const BoxConstraints(maxWidth: 1200),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     final textPart = Column(
@@ -75,8 +75,8 @@ class HomePage extends StatelessWidget {
                         color: AppTheme.avatarBgColor,
                         border: Border.all(color: AppTheme.fieldOutlineColor),
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/Header-banner.jpg'),
-                          fit: .cover,
+                          image: AssetImage('assets/images/main.jpg'),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     );
@@ -86,8 +86,8 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: .center,
                         spacing: 60,
                         children: [
-                          Expanded(flex: 1, child: textPart),
-                          Expanded(flex: 1, child: imagePart),
+                          Expanded(flex: 5, child: textPart),
+                          Expanded(flex: 7, child: imagePart),
                         ],
                       );
                     } else {
@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
                       title: 'Deux dispositifs, un seul point d\'entrée',
                       subtitle: 'UnivBuddy et E-tandem',
                       content: 'Portés par le SUL, ces deux programmes de tandem visent à développer les compétences linguistiques et interculturelles, faciliter l\'accueil des étudiant·es internationaux et préparer à la mobilité internationale.',
-                      icon: Icons.abc,
+                      imagePath: 'assets/images/univbuddy_etandem.jpg',
                       imageLeft: true,
                     ),
 
@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
                       title: 'Le wiki U-Skill',
                       subtitle: 'Une constellation de ressources',
                       content: 'Chaque ressource pédagogique du wiki se rattache à un rôle, une thématique et un niveau — à l\'image d\'une carte du ciel où chaque étoile trouve sa place dans une branche : langue, vie universitaire ou objectifs linguistiques.',
-                      icon: Icons.abc,
+                      imagePath: 'assets/images/constellation_view.png',
                       imageLeft: false,
                     ),
 
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                       subtitle: 'L\'équipe derrière le wiki',
                       content: 'U-Skill et son wiki de ressources REL sont pensés et alimentés par l\'équipe du Service Universitaire des Langues de Nantes Université.',
                       extraContent: _buildTeamEmails(textTheme),
-                      icon: Icons.abc,
+                      imagePath: 'assets/images/team.jpg',
                       imageLeft: true,
                     ),
                   ],
@@ -201,7 +201,7 @@ class HomePage extends StatelessWidget {
       required String subtitle,
       required String content,
       Widget? extraContent,
-      required IconData icon,
+      required String imagePath,
       required bool imageLeft
     }
   ) {
@@ -245,12 +245,9 @@ class HomePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppTheme.avatarBgColor,
         border: Border.all(color: AppTheme.fieldOutlineColor),
-      ),
-      child: Center(
-        child: Icon(
-          icon,
-          size: 64,
-          color: AppTheme.inactiveTextColor.withOpacity(0.5),
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
         ),
       ),
     );
