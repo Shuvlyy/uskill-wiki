@@ -18,6 +18,7 @@ class _ConstellationViewPageState extends ConsumerState<ConstellationViewPage> {
 
     return MainPageLayout(
       defaultPadding: false,
+      fillRemaining: true,
       body: resourcesAsync.when(
         data: (resources) => ConstellationView(resources: resources),
         loading: () => const Center(child: CircularProgressIndicator()),

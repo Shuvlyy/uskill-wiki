@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class MainPageLayout extends StatelessWidget {
   final Widget body;
   final bool defaultPadding;
+  final bool fillRemaining;
 
   MainPageLayout({
     required this.body,
     this.defaultPadding = true,
+    this.fillRemaining = false,
     super.key
   });
 
@@ -26,10 +28,6 @@ class MainPageLayout extends StatelessWidget {
       label: 'À propos',
       route: '/about'
     ),
-    // NavbarItem(
-    //   label: '((WIDGET TEST))',
-    //   route: '/widget-test'
-    // ),
   ];
 
   @override
@@ -55,14 +53,25 @@ class MainPageLayout extends StatelessWidget {
               ),
             ),
 
-            SliverToBoxAdapter(
-              child: defaultPadding
-                ? Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: body,
-                  )
-                : body,
-            ),
+            if (fillRemaining) ... {
+              SliverFillRemaining(
+                child: defaultPadding
+                  ? Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: body,
+                    )
+                  : body,
+              )
+            } else ... {
+              SliverToBoxAdapter(
+                child: defaultPadding
+                  ? Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: body,
+                    )
+                  : body,
+              ),
+            },
         
             SliverFillRemaining(
               hasScrollBody: false,

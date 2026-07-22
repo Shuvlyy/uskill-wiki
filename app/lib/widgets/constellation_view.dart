@@ -46,7 +46,7 @@ class _ConstellationViewState extends State<ConstellationView> {
     if (renderObject == null) return;
     
     final viewportWidth = renderObject.size.width;
-    final viewportHeight = renderObject.size.height; // Should be 600
+    final viewportHeight = renderObject.size.height;
 
     final offsetX = -_minX + 500;
     final offsetY = -_minY + 400;
@@ -227,7 +227,6 @@ class _ConstellationViewState extends State<ConstellationView> {
     final graphHeight = (_maxY - _minY).abs() + 800;
 
     return SizedBox(
-      height: 600,
       width: double.infinity,
       child: InteractiveViewer(
         transformationController: _transformationController,
