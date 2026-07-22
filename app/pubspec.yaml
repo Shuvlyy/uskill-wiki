@@ -48,6 +48,11 @@ flutter:
 
     - assets/images/Header-banner.jpg
 
+    - assets/images/constellation_view.png
+    - assets/images/main.jpg
+    - assets/images/team.jpg
+    - assets/images/univbuddy_etandem.jpg
+
     - assets/pictos/star-of-life.svg
 
   fonts:
