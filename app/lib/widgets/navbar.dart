@@ -1,3 +1,7 @@
+import 'package:app/widgets/button.dart';
+import 'package:app/providers/locale_provider.dart';
+import 'package:app/core/utils.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/widgets/logo.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +86,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                   .toList(),
             ),
           ),
+          const NavbarActions(),
         ],
       ),
     );
@@ -187,6 +192,10 @@ class NavbarDrawer extends StatelessWidget {
                 },
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: NavbarActions(isMobile: true),
+            ),
             Container(
               color: AppTheme.blackColor,
               padding: const EdgeInsets.symmetric(vertical: 24),
@@ -227,7 +236,7 @@ class _NavbarItemWidgetState extends State<_NavbarItemWidget> {
     final currentRoute = GoRouterState.of(context).uri.path;
 
     final isSelected = currentRoute == widget.item.route ||
-        (widget.item.route != '/' && currentRoute.startsWith(widget.item.route));
+      (widget.item.route != '/' && currentRoute.startsWith(widget.item.route));
 
     final Color textColor;
     final Color underlineColor;
@@ -286,6 +295,61 @@ class _NavbarItemWidgetState extends State<_NavbarItemWidget> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class NavbarActions extends ConsumerWidget {
+  final bool isMobile;
+  const NavbarActions({super.key, this.isMobile = false});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider)?.languageCode ?? 'fr';
+
+    final widgets = [
+      DropdownMenu<String>(
+        initialSelection: locale,
+        onSelected: (String? value) {
+          if (value != null) {
+            ref.read(localeProvider.notifier).setLocale(Locale(value));
+          }
+        },
+        dropdownMenuEntries: const [
+          DropdownMenuEntry(value: 'fr', label: 'FR'),
+          DropdownMenuEntry(value: 'en', label: 'EN'),
+        ],
+        width: 90,
+        textStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Button.outlined(
+        text: context.l10n.adminPanel,
+        onPressed: () {
+          if (isMobile) {
+            Navigator.pop(context);
+          }
+          context.go('/admin');
+        },
+      ),
+    ];
+
+    if (isMobile) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 12,
+        children: widgets,
+      );
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 12,
+      children: widgets,
     );
   }
 }
