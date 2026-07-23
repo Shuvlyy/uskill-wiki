@@ -24,10 +24,10 @@ class MainPageLayout extends StatelessWidget {
       label: 'Dépôt de ressource',
       route: '/resource-deposit'
     ),
-    NavbarItem(
-      label: 'À propos',
-      route: '/about'
-    ),
+    // NavbarItem(
+    //   label: 'À propos',
+    //   route: '/about'
+    // ),
   ];
 
   @override
