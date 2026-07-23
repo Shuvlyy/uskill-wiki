@@ -129,6 +129,13 @@ Cette commande s'occupera de démarrer tout ce qu'il faut. Quand c'est fini, le 
 - La page administrateur sera accessible ici : **http://localhost:8080/#/admin**
 - Et pour les plus curieux, l'API sera accessible ici : **http://localhost:8000**
 
+### Étape 6 : Populer la base de données
+
+Si vous voulez ajouter les ressources déjà fournies, exécutez cette commande :
+```powershell
+docker compose exec api python -m seeder.seeder seeder/data.json
+```
+
 ## Comment arrêter le projet ?
 Quand vous avez fini de tester l'application, pour tout arrêter proprement, tapez dans le Powershell (toujours dans le dossier du projet) :
 ```cmd
