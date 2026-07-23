@@ -20,13 +20,43 @@ else
     echo "Homebrew is already installed ($(brew --version))."
 fi
 
-# install orbstack #
+# install docker #
 if ! command -v docker &> /dev/null
 then
-    echo "Installing Orbstack (docker)..."
+    echo "Installing Docker..."
+    brew install docker
+else
+    echo "Docker is already installed ($(docker -v))."
+fi
+
+# install docker-compose #
+if ! command -v docker-compose &> /dev/null
+then
+    echo "Installing Docker Compose..."
+    brew install docker-compose
+else
+    echo "Docker Compose is already installed ($(docker-compose -v))."
+fi
+
+# install orbstack #
+if [ ! -d "/Applications/OrbStack.app" ]
+then
+    echo "Installing Orbstack (docker agent)..."
     brew install --cask orbstack
 else
-    echo "Orbstack is already installed ($(docker -v))."
+    echo "Orbstack is already installed."
+fi
+
+# update PATH so we can directly execute docker, docker-compose commands
+export PATH="$HOME/.orbstack/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+if ! grep -q "$HOME/.orbstack/bin" "$HOME/.zprofile" 2>/dev/null; then
+    echo '\n# Add Orbstack binaries to PATH' >> "$HOME/.zprofile"
+    echo 'export PATH="$HOME/.orbstack/bin:$PATH"' >> "$HOME/.zprofile"
+fi
+if [ -f "$HOME/.zshrc" ] && ! grep -q "$HOME/.orbstack/bin" "$HOME/.zshrc" 2>/dev/null; then
+    echo '\n# Add Orbstack binaries to PATH' >> "$HOME/.zshrc"
+    echo 'export PATH="$HOME/.orbstack/bin:$PATH"' >> "$HOME/.zshrc"
 fi
 
 # orbstack startup #
@@ -53,6 +83,7 @@ docker compose up --build -d
 echo "=================================================="
 echo "Project has been started."
 echo "App can be accessed on: http://localhost:8080"
+echo "Admin pannel can be accessed on: http://localhost:8080/#/admin"
 echo "And, if you are curious, API can be accessed on: http://localhost:8000"
 echo "=================================================="
 echo "If you want to stop the project, simply type \"docker compose down\" in the console."
