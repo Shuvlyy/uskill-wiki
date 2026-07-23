@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
@@ -26,14 +27,14 @@ class ResourceDepositStepLoading extends StatelessWidget {
           ),
           const Gap(40),
 
-          const Title(
-            title: 'Envoi en cours...',
+          Title(
+            title: context.l10n.sending,
             decorationAlignment: TitleDecorationAlignment.center,
           ),
-          const Gap(20),
+          Gap(20),
 
           Text(
-            'Veuillez patienter pendant que nous soumettons votre ressource.',
+            context.l10n.pleaseWaitSending,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: AppTheme.inactiveTextColor,

@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
@@ -16,7 +17,7 @@ class ResourceDepositStep5b extends ConsumerWidget {
 
     final cards = LanguageSkill.values.map((skill) {
       return SelectableCard.horizontal(
-        label: skill.label,
+        label: skill.label(context),
         icon: skill.icon,
         isSelected: state.languageSkill == skill,
         onTap: () => notifier.setLanguageSkill(skill),
@@ -26,10 +27,10 @@ class ResourceDepositStep5b extends ConsumerWidget {
     final isValid = state.languageSkill != null;
 
     return ResourceDepositFormStepLayout(
-      title: 'Compétence langagière',
+      title: context.l10n.languageSkill,
       pageIndex: 5,
       stepperAmount: 8,
-      errorMessage: (state.showErrors && !isValid) ? 'Veuillez sélectionner une compétence.' : null,
+      errorMessage: (state.showErrors && !isValid) ? context.l10n.pleaseSelectSkill : null,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
       body: LayoutBuilder(

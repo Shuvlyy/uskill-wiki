@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/providers/resource_search_provider.dart';
 import 'package:app/widgets/button.dart';
@@ -26,20 +27,20 @@ class ResourceSearchResults extends ConsumerWidget {
             children: [
               TextIconButton(
                 icon: Icons.arrow_back_ios,
-                text: 'Retour aux filtres',
+                text: context.l10n.backToFilters,
                 color: Colors.grey.shade500,
                 onTap: notifier.previousStep,
               ),
               const Gap(20),
               Text(
-                'Ressources trouvées',
+                context.l10n.resourcesFound,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Gap(5),
               Text(
-                '${res.length} résultat(s) correspondant à votre recherche',
+                context.l10n.resultsCount(res.length),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppTheme.inactiveTextColor,
                 ),
@@ -50,7 +51,7 @@ class ResourceSearchResults extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40),
                     child: Text(
-                      'Aucune ressource ne correspond à vos critères.',
+                      context.l10n.noResourceMatches,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
@@ -62,17 +63,17 @@ class ResourceSearchResults extends ConsumerWidget {
                 ),
               const Gap(40),
               Center(
-                  child: Button.primary(
-                      text: 'Recommencer la recherche',
-                      onPressed: () => notifier.reset()
-                  )
+                child: Button.primary(
+                  text: context.l10n.restartSearch,
+                  onPressed: () => notifier.reset()
+                )
               ),
             ],
           ),
         );
       },
       error: (err, stack) {
-        return Center(child: Text('Error: $err'));
+        return Center(child: Text('${context.l10n.error}: $err'));
       },
       loading: () {
         return CircularProgressIndicator();

@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_search_provider.dart';
@@ -15,7 +16,7 @@ class ResourceSearchStep3b extends ConsumerWidget {
 
     final cards = LanguageSkill.values.map((skill) {
       return SelectableCard.horizontal(
-        label: skill.label,
+        label: skill.label(context),
         icon: skill.icon,
         isSelected: state.selectedLanguageSkill == skill,
         onTap: () => notifier.setLanguageSkill(skill),
@@ -23,7 +24,7 @@ class ResourceSearchStep3b extends ConsumerWidget {
     }).toList();
 
     return ResourceDepositFormStepLayout(
-      title: 'Quelle compétence langagière souhaitez-vous travailler ?',
+      title: context.l10n.whichLanguageSkill,
       pageIndex: 3,
       stepperAmount: 5,
       onNext: () => notifier.validateAndNext(true), // optional, so just continue

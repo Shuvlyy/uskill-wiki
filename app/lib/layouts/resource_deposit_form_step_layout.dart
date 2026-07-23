@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dot_stepper.dart';
@@ -77,7 +78,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        'Ces champs sont obligatoires.',
+                        context.l10n.thoseFieldsAreMandatory,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                     )
@@ -92,7 +93,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                   if (onBack != null) ... {
                     TextIconButton(
                       icon: Icons.arrow_back_ios,
-                      text: 'Back',
+                      text: context.l10n.back,
                       color: Colors.grey.shade500,
                       onTap: onBack
                     ),
@@ -112,7 +113,7 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
               Column(
                 children: [
                   Button.primary(
-                    text: 'Je ne sais pas quoi chercher',
+                    text: context.l10n.dontKnowWhatToSearch,
                     onPressed: () => context.go('/constellation')
                   )
                 ],

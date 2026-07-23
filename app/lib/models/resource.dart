@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:app/core/utils.dart';
 
 part 'resource.freezed.dart';
 part 'resource.g.dart';
@@ -70,11 +71,11 @@ abstract class Resource with _$Resource {
 }
 
 extension UserRoleX on UserRole {
-  String get label {
+  String label(BuildContext context) {
     switch (this) {
-      case .staff: return 'Staff';
-      case .student: return 'Étudiant';
-      case .teacher: return 'Enseignant';
+      case UserRole.staff: return context.l10n.roleStaff;
+      case UserRole.student: return context.l10n.roleStudent;
+      case UserRole.teacher: return context.l10n.roleTeacher;
     }
   }
 
@@ -88,11 +89,11 @@ extension UserRoleX on UserRole {
 }
 
 extension LearningFocusX on LearningFocus {
-  String get label {
+  String label(BuildContext context) {
     switch (this) {
-      case .language: return 'Langue';
-      case .univLife: return 'Vie universitaire';
-      case .linguisticObjective: return 'Objectifs linguistiques';
+      case LearningFocus.language: return context.l10n.focusLanguage;
+      case LearningFocus.univLife: return context.l10n.focusUnivLife;
+      case LearningFocus.linguisticObjective: return context.l10n.focusLinguisticObjective;
     }
   }
 
@@ -106,63 +107,63 @@ extension LearningFocusX on LearningFocus {
 }
 
 extension LanguageSkillX on LanguageSkill {
-  String get label {
+  String label(BuildContext context) {
     switch (this) {
-      case .writtenComprehension: return 'Compréhension Écrite';
-      case .oralComprehension: return 'Compréhension Orale';
-      case .writtenExpression: return 'Expression Écrite';
-      case .oralExpression: return 'Expression Orale';
-      case .phonetics: return 'Phonétique';
+      case LanguageSkill.writtenComprehension: return context.l10n.skillWrittenComp;
+      case LanguageSkill.oralComprehension: return context.l10n.skillOralComp;
+      case LanguageSkill.writtenExpression: return context.l10n.skillWrittenExp;
+      case LanguageSkill.oralExpression: return context.l10n.skillOralExp;
+      case LanguageSkill.phonetics: return context.l10n.skillPhonetics;
     }
   }
 
   IconData get icon {
     switch (this) {
-      case .writtenComprehension: return Icons.menu_book;
-      case .oralComprehension: return Icons.headphones;
-      case .writtenExpression: return Icons.edit;
-      case .oralExpression: return Icons.mic;
-      case .phonetics: return Icons.record_voice_over;
+      case LanguageSkill.writtenComprehension: return Icons.menu_book;
+      case LanguageSkill.oralComprehension: return Icons.headphones;
+      case LanguageSkill.writtenExpression: return Icons.edit;
+      case LanguageSkill.oralExpression: return Icons.mic;
+      case LanguageSkill.phonetics: return Icons.record_voice_over;
     }
   }
 }
 
 extension ResourceTypeX on ResourceType {
-  String get label {
+  String label(BuildContext context) {
     switch (this) {
-      case .exercise: return 'Exercice';
-      case .activity: return 'Activité';
-      case .game: return 'Jeu';
-      case .video: return 'Vidéo';
-      case .audio: return 'Audio';
-      case .article: return 'Article';
-      case .pdf: return 'PDF';
-      case .text: return 'Texte';
-      case .image: return 'Image';
+      case ResourceType.exercise: return context.l10n.typeExercise;
+      case ResourceType.activity: return context.l10n.typeActivity;
+      case ResourceType.game: return context.l10n.typeGame;
+      case ResourceType.video: return context.l10n.typeVideo;
+      case ResourceType.audio: return context.l10n.typeAudio;
+      case ResourceType.article: return context.l10n.typeArticle;
+      case ResourceType.pdf: return context.l10n.typePdf;
+      case ResourceType.text: return context.l10n.typeText;
+      case ResourceType.image: return context.l10n.typeImage;
     }
   }
 
   IconData get icon {
     switch (this) {
-      case .exercise: return Icons.edit_note;
-      case .activity: return Icons.local_activity_outlined;
-      case .game: return Icons.videogame_asset_outlined;
-      case .video: return Icons.play_circle_outline;
-      case .audio: return Icons.audiotrack_outlined;
-      case .article: return Icons.description_outlined;
-      case .pdf: return Icons.picture_as_pdf_outlined;
-      case .text: return Icons.text_snippet_outlined;
-      case .image: return Icons.image_outlined;
+      case ResourceType.exercise: return Icons.edit_note;
+      case ResourceType.activity: return Icons.local_activity_outlined;
+      case ResourceType.game: return Icons.videogame_asset_outlined;
+      case ResourceType.video: return Icons.play_circle_outline;
+      case ResourceType.audio: return Icons.audiotrack_outlined;
+      case ResourceType.article: return Icons.description_outlined;
+      case ResourceType.pdf: return Icons.picture_as_pdf_outlined;
+      case ResourceType.text: return Icons.text_snippet_outlined;
+      case ResourceType.image: return Icons.image_outlined;
     }
   }
 }
 
 extension LanguageStringX on String {
-  String get languageLabel {
+  String languageLabel(BuildContext context) {
     switch (toLowerCase()) {
-      case 'fr': return 'Français';
-      case 'en': return 'Anglais';
-      case 'es': return 'Espagnol';
+      case 'fr': return context.l10n.langFr;
+      case 'en': return context.l10n.langEn;
+      case 'es': return context.l10n.langEs;
       default: return toUpperCase();
     }
   }

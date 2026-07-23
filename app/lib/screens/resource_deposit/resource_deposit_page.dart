@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/screens/resource_deposit/steps/resource_deposit_step_1.dart';
@@ -45,7 +46,7 @@ class ResourceDepositPage extends ConsumerWidget {
           spacing: 40,
           children: [
             Title(
-              title: 'Dépôt de ressource',
+              title: context.l10n.resourceDeposit,
               decorationAlignment: .center,
             ),
             steps[state.currentStepIndex]

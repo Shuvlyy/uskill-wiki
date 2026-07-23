@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
@@ -18,7 +19,7 @@ class ResourceDepositStep2 extends ConsumerWidget {
 
     final cards = UserRole.values.map((e) {
       return SelectableCard.vertical(
-        label: e.label,
+        label: e.label(context),
         isSelected: state.targets.contains(e.name),
         onTap: () => notifier.toggleTarget(e.name),
         icon: e.icon
@@ -26,11 +27,11 @@ class ResourceDepositStep2 extends ConsumerWidget {
     }).toList();
 
     return ResourceDepositFormStepLayout(
-      title: 'Cible',
+      title: context.l10n.target,
       pageIndex: 1,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
-      errorMessage: (state.showErrors && !isValid) ? 'Veuillez sélectionner au moins une cible.' : null,
+      errorMessage: (state.showErrors && !isValid) ? context.l10n.pleaseSelectTarget : null,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final bool isMobile = constraints.maxWidth < Constants.mobileWidthThreshold;

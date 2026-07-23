@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:app/providers/resource_search_provider.dart';
 import 'package:app/screens/resource_search/steps/resource_search_step_1.dart';
@@ -25,7 +26,7 @@ class ResourcesPage extends ConsumerWidget {
           spacing: 40,
           children: [
             Title(
-              title: 'Recherche de ressource',
+              title: context.l10n.resourceSearch,
               decorationAlignment: .center,
             ),
             _buildStep(currentStep, ref.watch(resourceSearchFormProvider)),

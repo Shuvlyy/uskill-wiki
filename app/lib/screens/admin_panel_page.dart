@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:app/providers/admin_provider.dart';
@@ -40,7 +41,7 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Admin Panel',
+                  context.l10n.adminPanel,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -63,21 +64,21 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LabeledTextFormField(
-          label: 'Admin Email',
+          label: context.l10n.adminEmail,
           controller: _emailController,
-          hintText: 'Enter your admin email',
+          hintText: context.l10n.enterAdminEmail,
           obscureText: false,
         ),
         const Gap(20),
         LabeledTextFormField(
-          label: 'Admin Password',
+          label: context.l10n.adminPassword,
           controller: _passwordController,
-          hintText: 'Enter your admin password',
+          hintText: context.l10n.enterAdminPassword,
           obscureText: true,
         ),
         const Gap(20),
         Button.primary(
-          text: 'Login',
+          text: context.l10n.login,
           onPressed: () {
             ref.read(adminCredentialsProvider.notifier).setCredentials(
               _emailController.text,
@@ -95,10 +96,10 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
     return pendingResources.when(
       data: (resources) {
         if (resources.isEmpty) {
-          return const Center(
+          return Center(
             child: Padding(
               padding: EdgeInsets.all(40),
-              child: Text('No pending resources found.'),
+              child: Text(context.l10n.noPendingResources),
             ),
           );
         }
@@ -126,13 +127,13 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
                         spacing: 15,
                         children: [
                           Button.secondary(
-                            text: 'Reject',
+                            text: context.l10n.reject,
                             onPressed: () {
                               ref.read(adminActionProvider).rejectResource(resource.id!);
                             },
                           ),
                           Button.primary(
-                            text: 'Approve',
+                            text: context.l10n.approve,
                             onPressed: () {
                               ref.read(adminActionProvider).approveResource(resource.id!);
                             },
@@ -172,7 +173,7 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
           ),
           const Gap(40),
           Text(
-            'Erreur',
+            context.l10n.error,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -187,7 +188,7 @@ class _AdminPanelPageState extends ConsumerState<AdminPanelPage> {
           ),
           const Gap(40),
           Button.secondary(
-            text: 'Retour à la connexion',
+            text: context.l10n.backToLogin,
             onPressed: () {
               ref.read(adminCredentialsProvider.notifier).setCredentials('', '');
             },

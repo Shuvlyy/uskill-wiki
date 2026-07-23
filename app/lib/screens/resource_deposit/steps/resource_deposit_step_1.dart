@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
@@ -29,7 +30,7 @@ class _ResourceDepositStep1State extends ConsumerState<ResourceDepositStep1> {
     final notifier = ref.read(resourceDepositProvider.notifier);
 
     return ResourceDepositFormStepLayout(
-      title: 'Ressource',
+      title: context.l10n.resourceStep,
       showMandatoryFieldsWarning: true,
       pageIndex: 0,
       body: Form(
@@ -38,26 +39,26 @@ class _ResourceDepositStep1State extends ConsumerState<ResourceDepositStep1> {
           spacing: 20,
           children: [
             LabeledTextFormField(
-              label: 'Nom de la ressource',
-              hintText: 'Exercice sur les panthères roses',
+              label: context.l10n.resourceName,
+              hintText: context.l10n.exerciseExample,
               initialValue: state.name,
               onSaved: (value) => notifier.updateStep1(name: value!),
             ),
             LabeledTextFormField(
-              label: 'Description',
-              hintText: 'Lorem ipsum dolor sit amet',
+              label: context.l10n.description,
+              hintText: context.l10n.loremIpsum,
               initialValue: state.description,
               maxLines: 6,
               isRequired: false,
               onSaved: (value) => notifier.updateStep1(description: value!),
             ),
             LabeledTextFormField(
-              label: 'Lien',
-              hintText: 'https://...',
+              label: context.l10n.link,
+              hintText: context.l10n.linkExample,
               initialValue: state.link,
               validator: (String? val) {
                 if (!Regexes.url.hasMatch(val!)) {
-                  return "Veuillez entrer une URL valide.";
+                  return context.l10n.pleaseEnterValidUrl;
                 }
                 return null;
               },

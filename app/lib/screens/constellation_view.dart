@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,7 +23,7 @@ class _ConstellationViewPageState extends ConsumerState<ConstellationViewPage> {
       body: resourcesAsync.when(
         data: (resources) => ConstellationView(resources: resources),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(child: Text('Error: $error')),
+        error: (error, _) => Center(child: Text('${context.l10n.error}: $error')),
       ),
     );
   }

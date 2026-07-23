@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
@@ -26,7 +27,7 @@ class ResourceDepositStepPreview extends ConsumerWidget {
     final previewResource = Resource(
       id: 'preview',
       title: state.name,
-      description: state.description.isEmpty ? 'Aucune description fournie.' : state.description,
+      description: state.description.isEmpty ? context.l10n.noDescriptionProvided : state.description,
       contentUrl: state.link,
       type: _getResourceType(state.resourceType),
       language: state.language,
@@ -44,7 +45,7 @@ class ResourceDepositStepPreview extends ConsumerWidget {
     );
 
     return ResourceDepositFormStepLayout(
-      title: 'Prévisualisation',
+      title: context.l10n.preview,
       pageIndex: pageIndex,
       stepperAmount: pageIndex,
       onNext: notifier.submit,
@@ -52,8 +53,8 @@ class ResourceDepositStepPreview extends ConsumerWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Voici un aperçu de la ressource telle qu\'elle sera affichée dans le wiki. Vérifiez bien les informations avant de valider.',
+          Text(
+            context.l10n.previewDescription,
             style: TextStyle(fontSize: 14, color: Colors.grey),
           ),
           const SizedBox(height: 24),

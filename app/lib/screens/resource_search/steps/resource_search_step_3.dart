@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
@@ -16,7 +17,7 @@ class ResourceSearchStep3 extends ConsumerWidget {
 
     final cards = LearningFocus.values.map((e) {
       return SelectableCard.vertical(
-        label: e.label,
+        label: e.label(context),
         isSelected: searchState.selectedFocus == e,
         onTap: () => notifier.setFocus(e),
         icon: e.icon
@@ -26,9 +27,9 @@ class ResourceSearchStep3 extends ConsumerWidget {
     final isValid = searchState.selectedFocus != null;
 
     return ResourceDepositFormStepLayout(
-      title: 'Sur quoi veux-tu travailler ?',
+      title: context.l10n.whatToWorkOn,
       pageIndex: 2,
-      errorMessage: (searchState.showErrors && !isValid) ? 'Veuillez sélectionner un axe de travail.' : null,
+      errorMessage: (searchState.showErrors && !isValid) ? context.l10n.pleaseSelectFocus : null,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
       body: LayoutBuilder(

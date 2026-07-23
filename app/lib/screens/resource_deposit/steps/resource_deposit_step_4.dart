@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
@@ -17,23 +18,23 @@ class ResourceDepositStep4 extends ConsumerWidget {
     final isValid = state.language.isNotEmpty && state.languageLevel != -1;
 
     return ResourceDepositFormStepLayout(
-      title: 'Langue',
+      title: context.l10n.language,
       pageIndex: 3,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
       showMandatoryFieldsWarning: true,
-      errorMessage: (state.showErrors && !isValid) ? 'Veuillez sélectionner une langue et un niveau.' : null,
+      errorMessage: (state.showErrors && !isValid) ? context.l10n.selectLanguageAndLevel : null,
       body: Column(
         spacing: 20,
         children: [
           LabeledDropdownMenu(
-            label: 'Langue',
-            hintText: 'Langue',
+            label: context.l10n.language,
+            hintText: context.l10n.language,
             initialSelection: state.language,
             dropdownMenuEntries: ['fr', 'en', 'es']
               .map((s) => DropdownMenuEntry(
                 value: s,
-                label: s.languageLabel)
+                label: s.languageLabel(context))
               ).toList(),
             onSelected: (value) {
               if (value == null) return;
@@ -41,7 +42,7 @@ class ResourceDepositStep4 extends ConsumerWidget {
             },
           ),
           OptionSlider(
-            label: 'Niveau de langue',
+            label: context.l10n.languageLevel,
             steps: LanguageLevel.values.map((e) => e.label).toList(),
             selectedIndex: state.languageLevel,
             onChanged: (int newIndex) {

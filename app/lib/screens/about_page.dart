@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainPageLayout(
       body: Center(
-        child: Text('ABOUT'),
+        child: Text(context.l10n.about),
       )
     );
   }

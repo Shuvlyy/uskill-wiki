@@ -10,41 +10,7 @@ class ResourceCard extends StatelessWidget {
 
   const ResourceCard({required this.resource, super.key});
 
-  String _getLanguageLabel(String code) {
-    switch (code.toLowerCase()) {
-      case 'fr':
-        return 'Français';
-      case 'en':
-        return 'Anglais';
-      case 'es':
-        return 'Espagnol';
-      default:
-        return code;
-    }
-  }
-
-  String _getResourceTypeLabel(ResourceType type) {
-    switch (type) {
-      case ResourceType.exercise:
-        return 'Exercice';
-      case ResourceType.activity:
-        return 'Activité';
-      case ResourceType.game:
-        return 'Jeu';
-      case ResourceType.video:
-        return 'Vidéo';
-      case ResourceType.audio:
-        return 'Audio';
-      case ResourceType.article:
-        return 'Article';
-      case ResourceType.pdf:
-        return 'PDF';
-      case ResourceType.text:
-        return 'Texte';
-      case ResourceType.image:
-        return 'Image';
-    }
-  }
+  // _getLanguageLabel and _getResourceTypeLabel removed because they are in models/resource.dart as extensions
 
   IconData _getResourceTypeIcon(ResourceType type) {
     switch (type) {
@@ -106,12 +72,10 @@ class ResourceCard extends StatelessWidget {
                 if (resource.targetAudiences.isNotEmpty)
                   _buildInfoBadge(
                     _getRoleIcon(resource.targetAudiences.first),
-                    resource.targetAudiences
-                      .map((e) => e.name[0].toUpperCase() + e.name.substring(1))
-                      .join(', '),
+                    resource.targetAudiences.map((e) => e.label(context)).join(', '),
                   ),
-                _buildInfoBadge(_getResourceTypeIcon(resource.type), _getResourceTypeLabel(resource.type)),
-                _buildInfoBadge(Icons.language, _getLanguageLabel(resource.language)),
+                _buildInfoBadge(_getResourceTypeIcon(resource.type), resource.type.label(context)),
+                _buildInfoBadge(Icons.language, resource.language.languageLabel(context)),
                 _buildLevelBadge(resource.level),
               ],
             ),
@@ -165,7 +129,7 @@ class ResourceCard extends StatelessWidget {
                 );
 
                 final button = Button.primary(
-                  text: "Consulter la ressource",
+                  text: context.l10n.viewResource,
                   onPressed: () {
                     Utils.launch(resource.contentUrl);
                   },

@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/main_page_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -28,11 +29,11 @@ class HomePage extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     final textPart = Column(
-                      crossAxisAlignment: .start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: .center,
                       children: [
                         Text(
-                          'Un point commun entre campus,\nquelque part sur la carte.',
+                          context.l10n.homePageBannerTitle,
                           style: textTheme.displayMedium?.copyWith(
                             fontWeight: .bold,
                             height: 1.1,
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
                         Text(
-                          'U-SkiLL relie les étudiant·es de Nantes Université à des partenaires linguistiques en France et à l\'étranger, en présentiel ou à distance — et rassemble dans un wiki les ressources pédagogiques créées pour les accompagner',
+                          context.l10n.homePageBannerSubtitle,
                           style: textTheme.bodyLarge?.copyWith(
                             fontSize: 18,
                             height: 1.6,
@@ -53,7 +54,7 @@ class HomePage extends StatelessWidget {
                           runSpacing: 16,
                           children: [
                             Button.primary(
-                              text: 'EXPLORER LE WIKI',
+                              text: context.l10n.exploreWiki,
                               onPressed: () {
                                 context.go('/resources');
                               },
@@ -92,7 +93,7 @@ class HomePage extends StatelessWidget {
                       );
                     } else {
                       return Column(
-                        crossAxisAlignment: .start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         spacing: 40,
                         children: [
                           textPart,
@@ -119,28 +120,28 @@ class HomePage extends StatelessWidget {
                   children: [
                     _buildSection(
                       textTheme,
-                      title: 'Deux dispositifs, un seul point d\'entrée',
-                      subtitle: 'UnivBuddy et E-tandem',
-                      content: 'Portés par le SUL, ces deux programmes de tandem visent à développer les compétences linguistiques et interculturelles, faciliter l\'accueil des étudiant·es internationaux et préparer à la mobilité internationale.',
+                      title: context.l10n.twoDevicesOneEntry,
+                      subtitle: context.l10n.univbuddyAndEtandem,
+                      content: context.l10n.twoDevicesContent,
                       imagePath: 'assets/images/univbuddy_etandem.jpg',
                       imageLeft: true,
                     ),
 
                     _buildSection(
                       textTheme,
-                      title: 'Le wiki U-Skill',
-                      subtitle: 'Une constellation de ressources',
-                      content: 'Chaque ressource pédagogique du wiki se rattache à un rôle, une thématique et un niveau — à l\'image d\'une carte du ciel où chaque étoile trouve sa place dans une branche : langue, vie universitaire ou objectifs linguistiques.',
+                      title: context.l10n.uSkillWiki,
+                      subtitle: context.l10n.constellationOfResources,
+                      content: context.l10n.wikiContent,
                       imagePath: 'assets/images/constellation_view.png',
                       imageLeft: false,
                     ),
 
                     _buildSection(
                       textTheme,
-                      title: 'Conçu par le SUL',
-                      subtitle: 'L\'équipe derrière le wiki',
-                      content: 'U-Skill et son wiki de ressources REL sont pensés et alimentés par l\'équipe du Service Universitaire des Langues de Nantes Université.',
-                      extraContent: _buildTeamEmails(textTheme),
+                      title: context.l10n.designedBySul,
+                      subtitle: context.l10n.teamBehindWiki,
+                      content: context.l10n.teamContent,
+                      extraContent: _buildTeamEmails(textTheme, context),
                       imagePath: 'assets/images/team.jpg',
                       imageLeft: true,
                     ),
@@ -154,7 +155,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildTeamEmails(TextTheme textTheme) {
+  Widget _buildTeamEmails(TextTheme textTheme, BuildContext context) {
     final mainTeam = [
       { 'name': 'Barbara Chicotot', 'email': 'barbara.chicotot@univ-nantes.fr' },
       { 'name': 'Dolly Ramella', 'email': 'dolly.ramella@univ-nantes.fr' },
@@ -212,10 +213,10 @@ class HomePage extends StatelessWidget {
     }
 
     return Column(
-      crossAxisAlignment: .start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildCategory('Équipe principale', mainTeam),
-        buildCategory('Développement du wiki & photos', devTeam),
+        buildCategory(context.l10n.mainTeam, mainTeam),
+        buildCategory(context.l10n.devTeam, devTeam),
       ],
     );
   }
@@ -292,7 +293,7 @@ class HomePage extends StatelessWidget {
           );
         } else {
           return Column(
-            crossAxisAlignment: .start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 30,
             children: [
               imageContent,

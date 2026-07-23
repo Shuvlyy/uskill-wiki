@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:app/models/resource.dart';
@@ -75,7 +76,7 @@ class _ConstellationViewState extends State<ConstellationView> {
 
     final root = ConstellationNode(
       id: 'root',
-      label: 'U-Skill Wiki',
+      label: context.l10n.uSkillWiki,
       type: NodeType.root,
     );
     _nodes.add(root);
@@ -90,7 +91,7 @@ class _ConstellationViewState extends State<ConstellationView> {
       if (!languageNodes.containsKey(langKey)) {
         final node = ConstellationNode(
           id: 'lang_$langKey',
-          label: langKey.languageLabel,
+          label: langKey.languageLabel(context),
           type: NodeType.language,
         );
         languageNodes[langKey] = node;
@@ -105,7 +106,7 @@ class _ConstellationViewState extends State<ConstellationView> {
       if (!focusNodes.containsKey(focusKey)) {
         final node = ConstellationNode(
           id: 'focus_$focusKey',
-          label: resource.focus.label,
+          label: resource.focus.label(context),
           type: NodeType.focus,
         );
         focusNodes[focusKey] = node;
@@ -122,7 +123,7 @@ class _ConstellationViewState extends State<ConstellationView> {
         if (!skillNodes.containsKey(skillKey)) {
           final node = ConstellationNode(
             id: 'skill_$skillKey',
-            label: resource.languageSkill!.label,
+            label: resource.languageSkill!.label(context),
             type: NodeType.skill,
           );
           skillNodes[skillKey] = node;
@@ -216,8 +217,8 @@ class _ConstellationViewState extends State<ConstellationView> {
   @override
   Widget build(BuildContext context) {
     if (_nodes.isEmpty) {
-      return const Center(
-        child: Text('Il n\'y a pas de ressources disponible actuellement.')
+      return Center(
+        child: Text(context.l10n.noResourcesAvailable)
       );
     }
 

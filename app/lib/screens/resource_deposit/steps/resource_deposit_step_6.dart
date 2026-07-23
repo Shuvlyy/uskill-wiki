@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/constants.dart';
 import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
@@ -42,7 +43,7 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
 
     if (!Regexes.tag.hasMatch(text)) {
       setState(() {
-        _customTagError = 'Caractères invalides.';
+        _customTagError = context.l10n.invalidCharacters;
       });
       return;
     }
@@ -87,10 +88,10 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
     }
 
     return ResourceDepositFormStepLayout(
-      title: 'Tags et Thème',
+      title: context.l10n.tagsAndTheme,
       pageIndex: pageIndex,
       stepperAmount: stepperAmount,
-      errorMessage: (state.showErrors && !isValid) ? 'Sélectionne au moins un tag ou un point de langue précédent.' : null,
+      errorMessage: (state.showErrors && !isValid) ? context.l10n.pleaseSelectAtLeastOneTagOrLanguagePoint : null,
       onNext: () {
         _addTag(ref);
 
@@ -140,14 +141,14 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
                   children: [
                     LabeledTextFormField(
                       controller: _customTagController,
-                      label: 'Chercher un tag',
-                      hintText: 'Ex: mathématiques',
+                      label: context.l10n.searchTag,
+                      hintText: context.l10n.exMaths,
                       isRequired: false,
                       errorText: _customTagError,
                       onFieldSubmitted: (_) => _addTag(ref),
                     ),
                     Button.secondary(
-                      text: 'Ajouter',
+                      text: context.l10n.add,
                       onPressed: () => _addTag(ref),
                     )
                   ],
@@ -160,8 +161,8 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
                     Expanded(
                       child: LabeledTextFormField(
                         controller: _customTagController,
-                        label: 'Chercher un tag',
-                        hintText: 'Ex: mathématiques',
+                        label: context.l10n.searchTag,
+                        hintText: context.l10n.exMaths,
                         isRequired: false,
                         errorText: _customTagError,
                         onFieldSubmitted: (_) => _addTag(ref),
@@ -170,7 +171,7 @@ class _ResourceDepositStep6State extends ConsumerState<ResourceDepositStep6> {
                     Padding(
                       padding: const EdgeInsets.only(top: 25),
                       child: Button.secondary(
-                        text: 'Ajouter',
+                        text: context.l10n.add,
                         onPressed: () => _addTag(ref),
                       ),
                     )

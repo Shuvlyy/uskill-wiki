@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
@@ -16,7 +17,7 @@ class ResourceSearchStep1 extends ConsumerWidget {
 
     final cards = UserRole.values.map((e) {
       return SelectableCard.vertical(
-        label: e.label,
+        label: e.label(context),
         isSelected: searchState.selectedRole == e,
         onTap: () => notifier.setRole(e),
         icon: e.icon
@@ -26,9 +27,9 @@ class ResourceSearchStep1 extends ConsumerWidget {
     final isValid = searchState.selectedRole != null;
 
     return ResourceDepositFormStepLayout(
-      title: 'Qui es-tu ?',
+      title: context.l10n.whoAreYou,
       pageIndex: 0,
-      errorMessage: (searchState.showErrors && !isValid) ? 'Veuillez sélectionner votre rôle.' : null,
+      errorMessage: (searchState.showErrors && !isValid) ? context.l10n.pleaseSelectRole : null,
       onNext: () => notifier.validateAndNext(isValid),
       body: LayoutBuilder(
         builder: (context, constraints) {

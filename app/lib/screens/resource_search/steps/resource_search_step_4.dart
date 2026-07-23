@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_search_provider.dart';
@@ -34,10 +35,10 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
     }
 
     return ResourceDepositFormStepLayout(
-      title: 'Précise ta recherche par thème',
+      title: context.l10n.refineSearchByTheme,
       pageIndex: isLanguage ? 5 : 3,
       stepperAmount: isLanguage ? 6 : 4,
-      errorMessage: searchState.showErrors && searchState.selectedTags.isEmpty && searchState.selectedLinguisticObjectives.isEmpty ? 'Sélectionne au moins un thème ou un point de langue précédent.' : null,
+      errorMessage: searchState.showErrors && searchState.selectedTags.isEmpty && searchState.selectedLinguisticObjectives.isEmpty ? context.l10n.selectAtLeastOneTheme : null,
       onNext: () {
         final hasTags = ref.read(resourceSearchFormProvider).selectedTags.isNotEmpty;
         final hasObj = ref.read(resourceSearchFormProvider).selectedLinguisticObjectives.isNotEmpty;
@@ -53,8 +54,8 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
             spacing: 20,
             children: [
               LabeledDropdownMenu<String>(
-                label: 'Chercher un tag',
-                hintText: 'Ex: mathématiques',
+                label: context.l10n.searchTag,
+                hintText: context.l10n.exMaths,
                 isRequired: false,
                 enableSearch: true,
                 enableFilter: true,
@@ -87,7 +88,7 @@ class _ResourceSearchStep4State extends ConsumerState<ResourceSearchStep4> {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Erreur lors du chargement des tags: $err')),
+        error: (err, stack) => Center(child: Text('${context.l10n.errorLoadingTags}: $err')),
       ),
     );
   }

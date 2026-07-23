@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
@@ -15,7 +16,7 @@ class ResourceDepositStep3 extends ConsumerWidget {
 
     final cards = ResourceType.values.map((e) {
       return SelectableCard.horizontal(
-        label: e.label,
+        label: e.label(context),
         isSelected: state.resourceType == e.name,
         onTap: () => notifier.setResourceType(e.name),
         icon: e.icon
@@ -25,11 +26,11 @@ class ResourceDepositStep3 extends ConsumerWidget {
     final isValid = state.resourceType.isNotEmpty;
 
     return ResourceDepositFormStepLayout(
-      title: 'Type de ressource',
+      title: context.l10n.resourceType,
       pageIndex: 2,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
-      errorMessage: (state.showErrors && !isValid) ? 'Veuillez sélectionner un type de ressource.' : null,
+      errorMessage: (state.showErrors && !isValid) ? context.l10n.pleaseSelectResourceType : null,
       body: Column(
         spacing: 20,
         children: cards,

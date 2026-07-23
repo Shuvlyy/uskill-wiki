@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/regexes.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
@@ -43,29 +44,29 @@ class _ResourceDepositStep7State extends ConsumerState<ResourceDepositStep7> {
     }
 
     return ResourceDepositFormStepLayout(
-      title: 'Auteur',
+      title: context.l10n.author,
       showMandatoryFieldsWarning: true,
       pageIndex: pageIndex,
       stepperAmount: stepperAmount,
-      errorMessage: (state.showErrors && !isValid) ? 'Veuillez remplir tous les champs avec une adresse e-mail valide.' : null,
+      errorMessage: (state.showErrors && !isValid) ? context.l10n.pleaseFillAllFieldsWithValidEmail : null,
       body: Form(
         key: _formKey,
         child: Column(
           spacing: 20,
           children: [
             LabeledTextFormField(
-              label: 'Nom prénom',
-              hintText: 'John Doe',
+              label: context.l10n.fullName,
+              hintText: context.l10n.johnDoe,
               initialValue: state.authorName,
               onSaved: (value) => notifier.updateStepAuthor(authorName: value!),
             ),
             LabeledTextFormField(
-              label: 'E-mail',
-              hintText: 'john.doe@univ-nantes.fr',
+              label: context.l10n.email,
+              hintText: context.l10n.emailExample,
               initialValue: state.authorEmail,
               validator: (String? val) {
                 if (!Regexes.email.hasMatch(val!)) {
-                  return "Veuillez entrer une adresse e-mail valide.";
+                  return context.l10n.pleaseEnterValidEmail;
                 }
                 return null;
               },

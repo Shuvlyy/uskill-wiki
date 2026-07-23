@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/widgets/logo.dart';
 import 'package:app/widgets/navbar.dart';
@@ -15,13 +16,13 @@ class MainPageLayout extends StatelessWidget {
     super.key
   });
 
-  final navbarItems = [
+  List<NavbarItem> getNavbarItems(BuildContext context) => [
     NavbarItem(
-      label: 'Ressources',
+      label: context.l10n.resources,
       route: '/resources'
     ),
     NavbarItem(
-      label: 'Dépôt de ressource',
+      label: context.l10n.resourceDeposit,
       route: '/resource-deposit'
     ),
     // NavbarItem(
@@ -33,8 +34,8 @@ class MainPageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Navbar(items: navbarItems),
-      drawer: NavbarDrawer(items: navbarItems),
+      appBar: Navbar(items: getNavbarItems(context)),
+      drawer: NavbarDrawer(items: getNavbarItems(context)),
       body: SelectionArea(
         child: CustomScrollView(
           slivers: [

@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/theme.dart';
 import 'package:app/providers/resource_deposit_provider.dart';
 import 'package:app/widgets/button.dart';
@@ -35,15 +36,15 @@ class ResourceDepositStepFinished extends ConsumerWidget {
           const Gap(40),
 
           Title(
-            title: isError ? 'Erreur' : 'Ressource déposée !',
+            title: isError ? context.l10n.error : context.l10n.resourceDeposited,
             decorationAlignment: TitleDecorationAlignment.center,
           ),
           const Gap(20),
 
           Text(
             isError
-                ? (depositState.errorMessage ?? 'Une erreur inattendue est survenue lors de la communication avec le serveur.')
-                : 'Merci pour votre contribution. Votre ressource a été soumise et sera disponible après validation.',
+                ? (depositState.errorMessage ?? context.l10n.unexpectedError)
+                : context.l10n.thankYouContribution,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: AppTheme.inactiveTextColor,
@@ -53,7 +54,7 @@ class ResourceDepositStepFinished extends ConsumerWidget {
 
           if (isError) ...[
             Button.secondary(
-              text: 'Réessayer',
+              text: context.l10n.retry,
               onPressed: () {
                 final prov = ref.read(resourceDepositProvider.notifier);
                 prov.previousStep();
@@ -65,7 +66,7 @@ class ResourceDepositStepFinished extends ConsumerWidget {
             ),
           ] else ...[
             Button.primary(
-              text: "Retour à l'accueil",
+              text: context.l10n.backToHome,
               onPressed: () => context.go('/'),
               icon: Icons.arrow_forward,
               verticalPadding: 20,

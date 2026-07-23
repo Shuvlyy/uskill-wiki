@@ -1,3 +1,4 @@
+import 'package:app/core/utils.dart';
 import 'package:app/core/constants.dart';
 import 'package:app/layouts/resource_deposit_form_step_layout.dart';
 import 'package:app/models/resource.dart';
@@ -17,7 +18,7 @@ class ResourceSearchStep2 extends ConsumerWidget {
 
     final cards = ['fr', 'en', 'es'].map((s) {
       return SelectableCard.vertical(
-        label: s.languageLabel,
+        label: s.languageLabel(context),
         icon: Icons.language,
         isSelected: searchState.selectedLanguage == s,
         onTap: () => notifier.setLanguage(s),
@@ -27,9 +28,9 @@ class ResourceSearchStep2 extends ConsumerWidget {
     final isValid = searchState.selectedLanguage != null && searchState.selectedLanguageLevel != null;
 
     return ResourceDepositFormStepLayout(
-      title: 'Quelle langue cherches-tu ?',
+      title: context.l10n.whichLanguage,
       pageIndex: 1,
-      errorMessage: (searchState.showErrors && !isValid) ? 'Veuillez sélectionner une langue et un niveau.' : null,
+      errorMessage: (searchState.showErrors && !isValid) ? context.l10n.selectLanguageAndLevel : null,
       onNext: () => notifier.validateAndNext(isValid),
       onBack: notifier.previousStep,
       body: LayoutBuilder(
@@ -45,8 +46,8 @@ class ResourceSearchStep2 extends ConsumerWidget {
             children: [
               cardsWidget,
               OptionSlider(
-                label: 'Niveau de langue',
-                steps: LanguageLevel.values.map((e) => e.label).toList(),
+                label: context.l10n.languageLevel,
+                steps: LanguageLevel.values.map((e) => e.label).cast<String>().toList(),
                 selectedIndex: searchState.selectedLanguageLevel != null 
                   ? LanguageLevel.values.indexOf(searchState.selectedLanguageLevel!)
                   : -1,
