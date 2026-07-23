@@ -58,11 +58,11 @@ fi
 export PATH="$HOME/.orbstack/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 if ! grep -q "$HOME/.orbstack/bin" "$HOME/.zprofile" 2>/dev/null; then
-    echo '\n# Add Orbstack binaries to PATH' >> "$HOME/.zprofile"
+    echo '# Add Orbstack binaries to PATH' >> "$HOME/.zprofile"
     echo 'export PATH="$HOME/.orbstack/bin:$PATH"' >> "$HOME/.zprofile"
 fi
 if [ -f "$HOME/.zshrc" ] && ! grep -q "$HOME/.orbstack/bin" "$HOME/.zshrc" 2>/dev/null; then
-    echo '\n# Add Orbstack binaries to PATH' >> "$HOME/.zshrc"
+    echo '# Add Orbstack binaries to PATH' >> "$HOME/.zshrc"
     echo 'export PATH="$HOME/.orbstack/bin:$PATH"' >> "$HOME/.zshrc"
 fi
 
