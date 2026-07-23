@@ -9,6 +9,8 @@ services:
     environment:
       - USKILL_ADMIN_EMAIL=${USKILL_ADMIN_EMAIL}
       - USKILL_ADMIN_PASSWORD=${USKILL_ADMIN_PASSWORD}
+    volumes:
+      - uskill_db_data:/app/data
     restart: unless-stopped
 
   app:
@@ -23,3 +25,6 @@ services:
     restart: unless-stopped
     depends_on:
       - api
+
+volumes:
+  uskill_db_data:
