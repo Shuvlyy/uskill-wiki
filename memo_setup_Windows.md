@@ -45,6 +45,7 @@ La manière la plus simple de lancer le projet est d'utiliser le script mis à v
 Lancez le script d'installation en tapant cette commande:
 ```powershell
 start setup_windows.bat
+start setup_windows.bat --filldata # Prenez cette commande si vous voulez ajouter les ressources de base.
 ```
 
 > [!CAUTION]

@@ -21,7 +21,9 @@ git clone https://github.com/Shuvlyy/uskill-wiki.git && cd uskill-wiki/
 Lancez le script d'installation en tapant cette commande puis en appuyant sur <kbd>Return</kbd>:
 ```bash
 bash setup_mac.sh
+bash setup_mac.sh --filldata # Prenez cette commande si vous voulez ajouter les ressources de base.
 ```
+
 > [!IMPORTANT]
 > Lorsqu'OrbStack se lancera automatiquement, vous devrez suivre le programme d'installation et bien choisir Docker lorsque ce sera demandé.
 
