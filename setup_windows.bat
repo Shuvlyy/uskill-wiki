@@ -2,13 +2,18 @@
 :: admin privileges ::
 net session >nul 2>&1
 if %errorLevel% neq 0 (
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    powershell -Command "Start-Process '%~f0' -ArgumentList '%*' -Verb RunAs"
     exit /b
 )
 
 cd /d "%~dp0"
 
 echo U-Skill Wiki installation
+
+set FILLDATA=false
+for %%a in (%*) do (
+    if "%%a"=="--filldata" set FILLDATA=true
+)
 
 :: check virtualization features ::
 echo Checking virtualization features (WSL)...
@@ -66,6 +71,11 @@ if not exist .env (
 :: project startup!! ::
 echo Starting up U-Skill Wiki...
 docker compose up --build -d
+
+if "%FILLDATA%"=="true" (
+    echo Executing seeder...
+    docker compose exec api python -m seeder.seeder seeder/data.json
+)
 
 echo ==================================================
 echo Project has been started.
