@@ -1,6 +1,13 @@
 #!/bin/bash
 echo "U-Skill Wiki installation"
 
+FILLDATA=false
+for arg in "$@"; do
+    if [ "$arg" == "--filldata" ]; then
+        FILLDATA=true
+    fi
+done
+
 # setup homebrew env if installed but not in PATH #
 if [ -x "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -78,7 +85,13 @@ fi
 
 # project startup!! #
 echo "Starting up U-Skill Wiki..."
+
 docker compose up --build -d
+
+if [ "$FILLDATA" = true ]; then
+    echo "Executing seeder..."
+    docker compose exec api python -m seeder.seeder seeder/data.json
+fi
 
 echo "=================================================="
 echo "Project has been started."
