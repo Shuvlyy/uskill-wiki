@@ -108,8 +108,9 @@ Vous devriez normalement être dans le Terminal, dans le dossier du projet. En e
    open -a TextEdit .env
    ```
 
-3. Une fois dans TextEdit, rendez-vous à la fin de la première ligne (avec écrit `USKILL_ADMIN_EMAIL=`) et renseignez l'email administrateur.\
-Faites la même chose avec `USKILL_ADMIN_PASSWORD=` avec le mot de passe administrateur.\
+3. Une fois dans TextEdit, rendez-vous à la fin de la première ligne (avec écrit `USKILL_ADMIN_EMAIL=`) et renseignez l'email qui aura accès à la page administrateur de l'application.\
+Faites la même chose avec `USKILL_ADMIN_PASSWORD=` avec le mot de passe qui permettra d'accéder à la page administrateur.\
+Vous pouvez mettre l'email et le mot de passe que vous souhaitez.\
 Vous n'avez pas besoin de mettre de guillemets (`"`).\
 Laissez les autres champs par défaut, à moins que vous ne sachiez ce que vous faites.
 

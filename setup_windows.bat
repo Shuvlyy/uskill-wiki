@@ -70,6 +70,7 @@ docker compose up --build -d
 echo ==================================================
 echo Project has been started.
 echo App can be accessed on: http://localhost:8080
+echo Admin panel can be accessed on: http://localhost:8080/#/admin
 echo And, if you are curious, API can be accessed on: http://localhost:8000
 echo ==================================================
 echo If you want to stop the project, simply type "docker compose down" in the console.
