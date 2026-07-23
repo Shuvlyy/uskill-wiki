@@ -1,4 +1,5 @@
 import 'package:app/core/theme.dart';
+import 'package:app/widgets/button.dart';
 import 'package:app/widgets/dot_stepper.dart';
 import 'package:app/widgets/icon_button.dart';
 import 'package:app/widgets/text_icon_button.dart';
@@ -6,6 +7,7 @@ import 'package:app/widgets/title.dart';
 import 'package:flutter/material.dart' hide Title;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class ResourceDepositFormStepLayout extends StatelessWidget {
   final String title;
@@ -62,43 +64,56 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
                   ),
                 ),
               ],
+              if (showMandatoryFieldsWarning) ... {
+                const Gap(20),
+                Row(
+                  mainAxisSize: .min,
+                  spacing: 5,
+                  children: [
+                    SvgPicture.asset(
+                      'pictos/star-of-life.svg',
+                      height: 12,
+                      color: AppTheme.secondaryRedColor,
+                    ),
+                    Flexible(
+                      child: Text(
+                        'Ces champs sont obligatoires.',
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    )
+                  ],
+                )
+              },
               Gap(errorMessage != null ? 20 : 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 spacing: 20,
                 children: [
-                  Expanded(
-                    child: Wrap(
-                      spacing: 20,
-                      runSpacing: 10,
-                      crossAxisAlignment: .center,
-                      children: [
-                        DotStepper(amount: stepperAmount, index: pageIndex + 1),
-                        if (showMandatoryFieldsWarning) ... {
-                          Row(
-                            mainAxisSize: .min,
-                            spacing: 5,
-                            children: [
-                              SvgPicture.asset(
-                                'pictos/star-of-life.svg',
-                                height: 12,
-                                color: AppTheme.secondaryRedColor,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  'Ces champs sont obligatoires.',
-                                  style: Theme.of(context).textTheme.labelLarge,
-                                ),
-                              )
-                            ],
-                          )
-                        }
-                      ],
+                  if (onBack != null) ... {
+                    TextIconButton(
+                      icon: Icons.arrow_back_ios,
+                      text: 'Back',
+                      color: Colors.grey.shade500,
+                      onTap: onBack
                     ),
-                  ),
+                    Expanded(
+                      child: DotStepper(amount: stepperAmount, index: pageIndex + 1),
+                    )
+                  } else ... {
+                    DotStepper(amount: stepperAmount, index: pageIndex + 1)
+                  },
                   PrimaryIconButton(
                     icon: Icons.arrow_forward_ios,
                     onPressed: onNext
+                  )
+                ],
+              ),
+              const Gap(20),
+              Column(
+                children: [
+                  Button.primary(
+                    text: 'Je ne sais pas quoi chercher',
+                    onPressed: () => context.go('/constellation')
                   )
                 ],
               )
@@ -107,12 +122,6 @@ class ResourceDepositFormStepLayout extends StatelessWidget {
         ),
         if (onBack != null) ... [
           const Gap(10),
-          TextIconButton(
-            icon: Icons.arrow_back_ios,
-            text: 'Back',
-            color: Colors.grey.shade500,
-            onTap: onBack
-          ),
         ]
       ],
     );
